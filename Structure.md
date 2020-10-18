@@ -1,27 +1,10 @@
 #CLASSES
 
-### Player
+## Player
 
+### Variables
 - type
     + IA ou humain
-
-- draw( _DrawCardChancellor_ )
-    + prend pas d'argument sauf quand chancelier elle prend le nombre de cartes piochées
-    + Si hand[0] est joué, faire `hand[0] = hand[1] `et dégager hand[1] : A la fin du tour, il ne faut que hand[0] dans les mains des gens.
-    + Lors d'une pioche, on ajoute la carte piochée à la fin de la main du joueur (la liste hand)
-
-- playCard()
-    + fais jouer la carte
-
-- power(target , _guessGuard_ )
-
-    + prend en argument la cible du pouvoir de la carte jouée.
-    + prend en argument _optionnel_ la carte que le joueur demande à la cible en jouant le garde.  
-
-- discard( )
-    + add `hand[0]` to playedCards[]
-    + remove `hand[0]` from hand[]
-    + draw( )
     
 - deadpool
     + if True alors no die for next turn only
@@ -49,6 +32,26 @@
     + Booleen initialisé à 0
     + if player1.isAlive == 0
         player2.hasWon = 1
+
+### Methods
+
+- draw( _DrawCardChancellor_ )
+    + prend pas d'argument sauf quand chancelier elle prend le nombre de cartes piochées
+    + Si hand[0] est joué, faire `hand[0] = hand[1] `et dégager hand[1] : A la fin du tour, il ne faut que hand[0] dans les mains des gens.
+    + Lors d'une pioche, on ajoute la carte piochée à la fin de la main du joueur (la liste hand)
+
+- playCard()
+    + fais jouer la carte
+
+- power(target , _guessGuard_ )
+
+    + prend en argument la cible du pouvoir de la carte jouée.
+    + prend en argument _optionnel_ la carte que le joueur demande à la cible en jouant le garde.  
+
+- discard( )
+    + add `hand[0]` to playedCards[]
+    + remove `hand[0]` from hand[]
+    + draw( )
         
 - endRound ()
     + Appelé lorsque deck est vide et dans les cartes princess, baron et guard.
@@ -56,7 +59,9 @@
     + restartRound = 1
     + reload
     
-### Card
+## Card
+
+### Variables
 
 - title
     + nom en français de la carte
@@ -70,6 +75,9 @@
     + Décrit le(s) effet(s) de la carte.
 - assets
     + image et son liés au GUI
+    
+### Methods
+
 - power(target, _guessGuard_)
     + Active la carte.
 
@@ -79,7 +87,7 @@
 - compare(other_card)
     +  compare les valeurs de self et other_card et renvoie un int à 3 valeurs
 
-### Children de Card
+## Children de Card
 
 - spy 
     + power(target) : player1.extraPoint = 1
@@ -148,6 +156,6 @@
 
 
 
-## ATTENTION :
+# ATTENTION :
 - carte cachée considérée comme "en jeu" alors que IRL not true
-- code pensé de façon modulable pour fontionner avec minor tweak à plusieurs joueurs
+- code pensé de façon modulable pour fonctionner avec des tweak mineurs à plusieurs joueurs
