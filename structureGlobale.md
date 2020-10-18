@@ -1,6 +1,6 @@
 #CLASSES
 
-###Joueur
+### Joueur
 
 - pioche
 - joue
@@ -8,7 +8,7 @@
 - nb_points
 - still_alive
 
-###Carte
+### Carte
 
 - valeur
 - nb exemplaire total
@@ -30,5 +30,5 @@
 
 
 
-#ATTENTION :
+## ATTENTION :
 - carte cachée considérée comme "en jeu" alors que IRL not true
