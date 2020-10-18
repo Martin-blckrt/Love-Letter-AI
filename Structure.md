@@ -22,8 +22,6 @@
     + Liste avec les cartes restantes dans la pioche
     + if deck[] == empty
         vérifier si player1 a gagné, player2 a gagné ou égalité
-        
-    endRound()
     
 - extraPoint
     + Booleen relatif à l'espionne.
@@ -42,6 +40,8 @@
 
 - playCard()
     + fais jouer la carte
+    
+-endRound()
 
 - power(target , _guessGuard_ )
 
