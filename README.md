@@ -14,3 +14,5 @@ Ressources:
 
 
 [Description du jeu](https://www.philibertnet.com/fr/zman-games/79556-love-letter-8435407627413.html) 
+
+##License
