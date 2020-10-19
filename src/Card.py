@@ -14,8 +14,6 @@ class Spy(Card):
 
 Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")  # on devrait utiliser les constructeurs dans un fichier init, pas dans le fichier Card
 
-# TODO. Creer un fichier initialisation qui contient une fonction appelant tous les constructeurs pour "creer" et
-#  remplir le deck... etc
 
 
 class Guard(Card):
