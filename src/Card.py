@@ -8,10 +8,12 @@ class Card:
         # self.assets = assets 
 
     # TODO. Ecrire les methodes de la class Card
-
+    def power(self, target, **guess)
+        self.power
 
 class Spy(Card):
-
+    def power(self, target)
+        target=self
 
 class Guard(Card):
 
