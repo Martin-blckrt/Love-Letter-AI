@@ -1,5 +1,5 @@
 from src.Player import Player
-from src.Card import Card
+from src.Card import *
 
 deck = None  # à remplir
 
