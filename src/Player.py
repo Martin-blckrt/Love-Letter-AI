@@ -13,6 +13,7 @@ class Player:
 
     def endRound(self):
         self.points += self.hasWon + (self.isAlive and self.extraPoint)
+#TODO. mettre endRound() dans Game
 
     def discard(self):
         cardDiscarded = self.hand.pop(0)
