@@ -19,7 +19,8 @@ class Player:
         del self.hand[0]
 
     def draw(self, **drawTwice):
-        self.deck[0].insert(1, self.hand)
+        cardDrawn = self.deck.pop(0)
+        cardDrawn.insert(1, self.hand)
 
     def compare(self, otherCard):
         if self.hand[0].value < otherCard.hand[0].value:
