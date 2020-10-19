@@ -11,15 +11,9 @@ class Card:
 
 
 class Spy(Card):
-    def __init__(self):
-        self.title = "Spy"
-        self.value = 0
-        self.totalNumber = 2
-        self.description = "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne."
 
 
 Spy_Card = Spy()  # on devrait utiliser les constructeurs dans un fichier init, pas dans le fichier Card
-
 
 # TODO. Creer un fichier initialisation qui contient une fonction appelant tous les constructeurs pour "creer" et
 #  remplir le deck... etc
