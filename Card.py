@@ -1,11 +1,14 @@
 class Card:
-    def __init__(self):
-        self.title
-        self.value
-        self.totalNumber
-        self.leftNumber
-        self.descirption
-        self.assets
+    def __init__(self, title, value, totalNumber, leftNumber, description, assets):
+        self.title = title
+        self.value = value
+        self.totalNumber = totalNumber
+        self.leftNumber = leftNumber
+        self.description = description
+        self.assets = assets
+
+    # TODO. Ecrire les methodes de la class Card
+
 
 class Spy(Card):
     def __init__(self):
@@ -15,7 +18,11 @@ class Spy(Card):
         self.description = "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne."
 
 
-Spy_Card = Spy()
+Spy_Card = Spy()  # on devrait utiliser les constructeurs dans un fichier init, pas dans le fichier Card
+
+
+# TODO. Creer un fichier initialisation qui contient une fonction appelant tous les constructeurs pour "creer" et
+#  remplir le deck... etc
 
 
 class Guard(Card):
