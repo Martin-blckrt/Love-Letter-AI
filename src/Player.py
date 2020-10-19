@@ -1,6 +1,3 @@
-import Card
-
-
 class Player:
     def __init__(self, type, deadpool, isAlive, hand, deck, extraPoint, hasWon, points):
 
