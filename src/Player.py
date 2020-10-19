@@ -15,8 +15,14 @@ class Player:
         self.points += self.hasWon + (self.isAlive and self.extraPoint)
 
     def discard(self):
-        self.hand[0].insert(0, self.playedCards)
-        del self.hand[0]
+        cardDiscarded = self.hand.pop(0)
+        cardDiscarded.insert(0, self.playedCards)
+        self.draw()
+
+    def playCard(self)
+        cardPlayed = self.hand.pop(0)
+        cardPlayed.insert(0, self.playedCards)
+        cardPlayed.power(target, **guess)
 
     def draw(self, **drawTwice):
         cardDrawn = self.deck.pop(0)
