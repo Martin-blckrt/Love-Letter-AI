@@ -1,15 +1,14 @@
 class Player:
-    def __init__(self, gender, deadpool, isAlive, hand, extraPoint, hasWon, points):
+    def __init__(self, gender, hasWon, points):
 
         self.type = gender
-        self.deadpool = deadpool  # utilisé quand une personne est protégée par la servante
-        self.isAlive = isAlive
-        self.playedCards = None
-        self.hand = hand
-        # self.hand[3] = hand[3]  # le maximum est 3 avec le chancellier
-        self.extraPoint = extraPoint
+        self.deadpool = False           # utilisé quand une personne est protégée par la servante
+        self.isAlive = 1                # toujours vrai au début de round
+        self.playedCards = []           # liste vide au depart
+        self.hand = []                  # liste vide au depart
+        self.extraPoint = 0             # Points gagné grâce à l'espionne
         self.hasWon = hasWon
-        self.points = points
+        self.points = points            # Nombre de pts du joueur
 
     def endRound(self):
         self.points += self.hasWon + (self.isAlive and self.extraPoint)
@@ -20,13 +19,13 @@ class Player:
         cardDiscarded.insert(0, self.playedCards)
         self.draw()
 
-    def playCard(self)
+    def playCard(self):
         cardPlayed = self.hand.pop(0)
         cardPlayed.insert(0, self.playedCards)
-        cardPlayed.power(target, **guess)
+        # cardPlayed.power(target) qui est la target la?
 
-    def draw(self, **drawTwice):
-        cardDrawn = self.deck.pop(0)
+    def draw(self, deck, **drawTwice):  # doit prendre en parametre la liste deck pour manipuler les cartes du deck
+        cardDrawn = deck.pop(0)
         cardDrawn.insert(1, self.hand)
 
     def compare(self, otherCard):

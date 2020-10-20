@@ -1,10 +1,15 @@
 from src.Player import Player
 from src.Card import *
 
-deck = None  # à remplir
+deck = []  # à remplir
 
-player1 = Player("Human", False, True, [], False, False, 0)
-player2 = Player("IA", False, True, [], False, False, 0)
+# --------------- Player init. ---------------
+
+player1 = Player("Human", 0, 0)
+player2 = Player("IA", 0, 0)
+
+
+# --------------- Card init ---------------
 
 Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
 Guard_Card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.")

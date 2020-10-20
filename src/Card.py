@@ -1,4 +1,7 @@
-class Card:
+from abc import ABC, abstractmethod
+
+
+class Card(ABC):
     def __init__(self, title, value, totalNumber, description):
         self.title = title
         self.value = value
@@ -7,37 +10,53 @@ class Card:
         self.description = description
         # self.assets = assets 
 
-    # TODO. Ecrire les methodes de la class Card (a voir si la methode power on l'ecrit dans Card pour qu'elle soit
-    # commune a toutes les cartes ou pas.
+    # abstract method
+    def power(self, *targetAndGuess):  # *targetAndGuess is used to give a variable number of parameters to
+        #  the function, when called, the function will receive a tuple of arguments
+        pass
 
-    def power(self, target, **guess):
-        self.power
 
 class Spy(Card):
     def power(self, target):
+        target[0].extraPoint += 1
+
 
 class Guard(Card):
+    # TODO. Write guess() & decide() functions
+
+    pass
 
 
 class Priest(Card):
 
+    pass
+
 
 class Baron(Card):
+    pass
 
 
 class Handmaid(Card):
+    pass
 
 
 class Prince(Card):
+    pass
 
 
 class Chancellor(Card):
+    pass
 
 
 class King(Card):
+    pass
 
 
 class Countess(Card):
-
+     # pas de pouvoir, donc pas de pwer function mais faut checker à chaque tirage si la carte
+     # tirée est la comtesse ou pas
 
 class Princess(Card):
+    def power(self, target):
+        target.isAlive = 0
+
