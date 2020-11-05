@@ -1,37 +1,45 @@
 class Player:
-    def __init__(self, gender, hasWon, points):
+    def __init__(self, gender):
 
         self.type = gender
         self.deadpool = False           # utilisé quand une personne est protégée par la servante
-        self.isAlive = 1                # toujours vrai au début de round
+        self.isAlive = True             # toujours vrai au début de round
         self.playedCards = []           # liste vide au depart
         self.hand = []                  # liste vide au depart
         self.extraPoint = 0             # Points gagné grâce à l'espionne
-        self.hasWon = hasWon
-        self.points = points            # Nombre de pts du joueur
+        self.hasWon = 0
+        self.points = 0           # Nombre de pts du joueur
 
-    def endRound(self):
-        self.points += self.hasWon + (self.isAlive and self.extraPoint)
-#TODO. mettre endRound() dans Game
+
 
     def discard(self):
         cardDiscarded = self.hand.pop(0)
         cardDiscarded.insert(0, self.playedCards)
+        if cardDiscarded.value == 9:
+            self.isAlive = False
         self.draw()
 
-    def playCard(self):
-        cardPlayed = self.hand.pop(0)
+    def playCard(self, index, *target):
+        cardPlayed = self.hand.pop(index)
+        cardPlayed.power(*target)
         cardPlayed.insert(0, self.playedCards)
-        # cardPlayed.power(target) qui est la target la?
 
-    def draw(self, deck, **drawTwice):  # doit prendre en parametre la liste deck pour manipuler les cartes du deck
+    def draw(self, deck):  # doit prendre en parametre la liste deck pour manipuler les cartes du deck
         cardDrawn = deck.pop(0)
-        cardDrawn.insert(1, self.hand)
+        cardDrawn.append(self.hand)
 
-    def compare(self, otherCard):
-        if self.hand[0].value < otherCard.hand[0].value:
+    def compare(self, otherPlayer):
+        if self.hand[0].value < otherPlayer.hand[0].value:
             return 0
-        elif self.hand[0].value > otherCard.hand[0].value:
+        elif self.hand[0].value > otherPlayer.hand[0].value:
             return 1
         else:
-            result = self.hand[0].value == otherCard.hand[0].value
+            return 2
+
+    def guess(self):
+        cardGuessed = input("What card do you want to guess ? (0-9)")
+        return cardGuessed
+
+    def decide(self):
+        #IA magic shit
+        pass
