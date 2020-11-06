@@ -2,15 +2,13 @@ class Player:
     def __init__(self, gender):
 
         self.type = gender
-        self.deadpool = False           # utilisé quand une personne est protégée par la servante
-        self.isAlive = True             # toujours vrai au début de round
-        self.playedCards = []           # liste vide au depart
-        self.hand = []                  # liste vide au depart
-        self.extraPoint = 0             # Points gagné grâce à l'espionne
+        self.deadpool = False  # utilisé quand une personne est protégée par la servante
+        self.isAlive = True  # toujours vrai au début de round
+        self.playedCards = []  # liste vide au depart
+        self.hand = []  # liste vide au depart
+        self.extraPoint = 0  # Points gagné grâce à l'espionne
         self.hasWon = 0
-        self.points = 0           # Nombre de pts du joueur
-
-
+        self.points = 0  # Nombre de pts du joueur
 
     def discard(self):
         cardDiscarded = self.hand.pop(0)
@@ -41,5 +39,5 @@ class Player:
         return cardGuessed
 
     def decide(self):
-        #IA magic shit
+        # IA magic shit
         pass

@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 
 class Card(ABC):
@@ -15,20 +15,19 @@ class Card(ABC):
         #  the function, when called, the function will receive a tuple of arguments
         pass
 
-
     def reveal(self):
         print(self.title)
 
 
 class Spy(Card):
     def power(self, target):
-        target.extraPoint += 1
+        target[0].extraPoint += 1
 
 
 class Guard(Card):
     def power(self, *target):
         if target[1].gender == "Human":
-            cardGuessed = target[1].guess()     #target[1] is the player currently playing, not the actual target
+            cardGuessed = target[1].guess()  # target[1] is the player currently playing, not the actual target
         else:
             cardGuessed = target[1].decide()  # target[1] is the player currently playing, not the actual target
         if cardGuessed == target[0].hand[0]:
@@ -38,7 +37,7 @@ class Guard(Card):
 
 class Priest(Card):
     def power(self, target):
-        target.hand[0].reveal()
+        target[0].hand[0].reveal()
 
 
 class Baron(Card):
@@ -54,20 +53,20 @@ class Baron(Card):
 class Handmaid(Card):
     def power(self, target):
         target.deadpool = True
-        #TODO. Deadpool ne doit durer qu'un seul tour
+        # TODO. Deadpool ne doit durer qu'un seul tour
 
 
 class Prince(Card):
     def power(self, target):
-        target.discard()
-        target.draw()
+        target[0].discard()
+        target[0].draw()
 
 
 class Chancellor(Card):
     def power(self, target, deck):
-        target.draw(deck)
-        target.draw(deck)
-        target.draw(deck)
+        target[0].draw(deck)
+        target[0].draw(deck)
+        target[0].draw(deck)
 
 
 class King(Card):
@@ -78,11 +77,10 @@ class King(Card):
 
 
 class Countess(Card):
-     # pas de pouvoir, donc pas de pwer function mais faut checker à chaque tirage si la carte
-     # tirée est la comtesse ou pas
+    # pas de pouvoir, donc pas de pwer function mais faut checker à chaque tirage si la carte
+    # tirée est la comtesse ou pas
     pass
 
 
 class Princess(Card):
     pass
-

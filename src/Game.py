@@ -2,6 +2,7 @@ from src.Player import Player
 from src.Card import *
 import random
 
+
 class Game:
     def __init__(self):
         Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
@@ -32,9 +33,9 @@ class Game:
 
     def initRound(self, deck, isolatedCard, player1, player2):
         random.shuffle(deck)
-        for i in range (3):
+        for i in range(3):
             card = deck.pop(0)
-            pack = [card, 0]    #0 is visible, 1 is invisible
+            pack = [card, 0]  # 0 is visible, 1 is invisible
             isolatedCard.append(pack)
         card = deck.pop(0)
         pack = [card, 1]  # 0 is visible, 1 is invisible
