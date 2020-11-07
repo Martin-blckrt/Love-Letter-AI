@@ -1,11 +1,3 @@
-import src.gui as gui
+from src.gui import *
 
-
-def gameloop():
-    """
-    Main game loop: sépare le while pour restart et celui qui gère le jeu,
-    améliore la lecture si bien ficellé
-    """
-
-
-gui.initializeWindow()
+initializeWindow()

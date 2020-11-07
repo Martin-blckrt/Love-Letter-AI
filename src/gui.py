@@ -31,12 +31,13 @@ def initializeWindow():
     # Create the Window
     window = sg.Window('Love Letter', layout, size=(500, 500),  finalize=True, resizable=True)
 
-
     # Event Loop to process "events" and get the "values" of the inputs
     while True:
         event, values = window.read()
 
         if sg.WIN_CLOSED or 'Quitter' in event:  # if user closes window or clicks cancel
             break
+        #TODO: check pq ça explose
 
     window.close()
+    return 0
