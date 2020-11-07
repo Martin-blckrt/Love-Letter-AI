@@ -5,7 +5,7 @@ import random
 
 def initGame(name1, name2):
     game = Game(name1, "Human", name2, "IA")
-
+    return game
 
 def computeEarnedPoints(player):
     player.points += player.hasWon + (player.isAlive and player.extraPoint)

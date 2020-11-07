@@ -155,7 +155,17 @@
         endRound()
 
 
+#IA 
 
+- NextState(game) : Prend en paramètre l'instance d'objet de la classe Game et que ca retoune l'updated game.
+
+- Terminate(s) : Vérifie que l'état donné en paramètre est un état "final".
+
+- eval(s) : Calcule/estime l'issu du round à chaque position p retourne
+
+- Min(bestscore, eval(s))
+
+- Max()
 # ATTENTION :
 - carte cachée considérée comme "en jeu" alors que IRL not true
 - code pensé de façon modulable pour fonctionner avec des tweak mineurs à plusieurs joueurs
