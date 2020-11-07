@@ -1,5 +1,5 @@
 class Player:
-    def __init__(self, gender):
+    def __init__(self, name, gender):
 
         self.type = gender
         self.deadpool = False  # utilisé quand une personne est protégée par la servante
@@ -9,13 +9,14 @@ class Player:
         self.extraPoint = 0  # Points gagné grâce à l'espionne
         self.hasWon = 0
         self.points = 0  # Nombre de pts du joueur
+        self.name = name  # Nom du jour
 
     def discard(self):
         cardDiscarded = self.hand.pop(0)
         cardDiscarded.insert(0, self.playedCards)
         if cardDiscarded.value == 9:
             self.isAlive = False
-        self.draw()
+        self.draw(deck)
 
     def playCard(self, index, *target):
         cardPlayed = self.hand.pop(index)
@@ -33,6 +34,7 @@ class Player:
             return 1
         else:
             return 2
+
 
     def guess(self):
         cardGuessed = input("What card do you want to guess ? (0-9)")

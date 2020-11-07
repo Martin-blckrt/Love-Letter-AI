@@ -3,8 +3,16 @@ from src.Card import *
 import random
 
 
+def initGame(name1, name2):
+    game = Game(name1, "Human", name2, "IA")
+
+
+def computeEarnedPoints(player):
+    player.points += player.hasWon + (player.isAlive and player.extraPoint)
+
+
 class Game:
-    def __init__(self):
+    def __init__(self,  player1name,  player1Gender, player2name, player2Gender):
         Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
         Guard_Card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.")
         Priest_Card = Priest("Priest", 2, 2, "Regardez la main d'un autre jouer.")
@@ -30,23 +38,18 @@ class Game:
                      Princess_Card]
 
         self.isolatedCard = []
+        self.player1 = Player(player1name, player1Gender)
+        self.player2 = Player(player2name, player2Gender)
 
-    def initRound(self, deck, isolatedCard, player1, player2):
-        random.shuffle(deck)
+    def initRound(self):
+        random.shuffle(self.deck)
         for i in range(3):
-            card = deck.pop(0)
+            card = self.deck.pop(0)
             pack = [card, 0]  # 0 is visible, 1 is invisible
-            isolatedCard.append(pack)
-        card = deck.pop(0)
+            self.isolatedCard.append(pack)
+        card = self.deck.pop(0)
         pack = [card, 1]  # 0 is visible, 1 is invisible
-        isolatedCard.append(pack)
+        self.isolatedCard.append(pack)
 
-        player1.draw(deck)
-        player2.draw(deck)
-
-    def initGame(self):
-        player1 = Player("Human")
-        player2 = Player("IA")
-
-    def computeEarnedPoints(self, player):
-        player.points += player.hasWon + (player.isAlive and player.extraPoint)
+        self.player1.draw(self.deck)
+        self.player2.draw(self.deck)
