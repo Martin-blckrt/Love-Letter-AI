@@ -5,6 +5,7 @@ import random
 
 def initGame(name1, name2):
     game = Game(name1, "Human", name2, "IA")
+    return game
 
 
 def computePoints(player):
@@ -12,7 +13,7 @@ def computePoints(player):
 
 
 class Game:
-    def __init__(self,  player1name,  player1Gender, player2name, player2Gender):
+    def __init__(self, player1name, player1Gender, player2name, player2Gender):
         Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
         Guard_Card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.")
         Priest_Card = Priest("Priest", 2, 2, "Regardez la main d'un autre jouer.")
