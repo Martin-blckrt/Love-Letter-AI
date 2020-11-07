@@ -7,7 +7,7 @@ def initGame(name1, name2):
     game = Game(name1, "Human", name2, "IA")
 
 
-def computeEarnedPoints(player):
+def computePoints(player):
     player.points += player.hasWon + (player.isAlive and player.extraPoint)
 
 
@@ -53,3 +53,13 @@ class Game:
 
         self.player1.draw(self.deck)
         self.player2.draw(self.deck)
+
+    def endRound(self):
+        if not self.player1.isAlive:
+            self.player2.points += 1 + self.player2.extraPoint
+            return False
+        elif not self.player2.isAlive:
+            self.player1.points += 1 + self.player1.extraPoint
+            return False
+        else:
+            return True

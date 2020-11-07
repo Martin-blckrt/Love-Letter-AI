@@ -32,7 +32,6 @@ class Guard(Card):
             cardGuessed = target[1].decide()  # target[1] is the player currently playing, not the actual target
         if cardGuessed == target[0].hand[0]:
             target[0].isAlive = False
-            target[1].hasWon = True
 
 
 class Priest(Card):
@@ -44,10 +43,8 @@ class Baron(Card):
     def power(self, *target):
         if target[0].compare(target[1]) == 0:
             target[0].isAlive = False
-            target[1].hasWon = True
         elif target[0].compare(target[1]) == 1:
             target[1].isAlive = False
-            target[0].hasWon = True
 
 
 class Handmaid(Card):

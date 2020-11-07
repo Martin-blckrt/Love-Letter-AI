@@ -16,7 +16,12 @@ class Player:
         cardDiscarded.insert(0, self.playedCards)
         if cardDiscarded.value == 9:
             self.isAlive = False
-        self.draw(deck)
+        self.draw(self.deck)
+
+    def playTurn(self):
+        self.deadpool = False
+        self.draw(self.deck)
+        self.playCard(self.index, *self.target)
 
     def playCard(self, index, *target):
         cardPlayed = self.hand.pop(index)
