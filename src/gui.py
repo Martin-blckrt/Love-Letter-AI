@@ -25,12 +25,12 @@ def initializeWindow():
 
     # All the stuff inside your window.
     layout = [[sg.Text('Love Letter', font='Arial 42')],
-              [sg.Image(r'C:\Users\thoma\Documents\Coding\PyCharm\LoveLetter\src\assets\title_image.png')],
+              [sg.Image('src/assets/title_image.png')],
               [createButton('Ok'), createButton('Quitter')]]
 
     # Create the Window
-    window = sg.Window('Love Letter', layout, size=(840, 500), keep_on_top=True, finalize=True)
-    window.Maximize()
+    window = sg.Window('Love Letter', layout, size=(500, 500),  finalize=True, resizable=True)
+
 
     # Event Loop to process "events" and get the "values" of the inputs
     while True:

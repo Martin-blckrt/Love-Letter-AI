@@ -1,7 +1,3 @@
-"""
-Script principal avec la boucle de jeu & re-jeu
-"""
-
 import src.gui as gui
 
 
@@ -12,16 +8,4 @@ def gameloop():
     """
 
 
-if __name__ == '__main__':
-    over = False
-
-    while not over:
-        gui.initializeWindow()
-
-        user_input = input('Rejouer ?[yes/no]\n')
-        user_input.casefold()
-
-        if user_input == 'no':
-            over = True
-
-    print('Fini !')
+gui.initializeWindow()
