@@ -163,9 +163,11 @@
 
 - eval(s) : Calcule/estime l'issu du round à chaque position p retourne
 
+
 - Min(bestscore, eval(s))
 
-- Max()
+- Max(bestscore, eval(s))
+
 # ATTENTION :
 - carte cachée considérée comme "en jeu" alors que IRL not true
 - code pensé de façon modulable pour fonctionner avec des tweak mineurs à plusieurs joueurs
