@@ -39,8 +39,8 @@ class Game:
                      Princess_Card]
 
         self.isolatedCard = []
-        self.player1 = Player(player1name, player1Gender)
-        self.player2 = Player(player2name, player2Gender)
+        self.player1 = Player(player1name, player1Gender, 0)
+        self.player2 = Player(player2name, player2Gender, 1)
 
     def initRound(self):
         random.shuffle(self.deck)
@@ -48,6 +48,8 @@ class Game:
             card = self.deck.pop(0)
             pack = [card, 0]  # 0 is visible, 1 is invisible
             self.isolatedCard.append(pack)
+            print(card.title, "[", card.value, "]\n")
+
         card = self.deck.pop(0)
         pack = [card, 1]  # 0 is visible, 1 is invisible
         self.isolatedCard.append(pack)

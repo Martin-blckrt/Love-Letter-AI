@@ -1,7 +1,5 @@
-from abc import ABC
 
-
-class Card(ABC):
+class Card:
     def __init__(self, title, value, totalNumber, description):
         self.title = title
         self.value = value
@@ -10,22 +8,18 @@ class Card(ABC):
         self.description = description
         # self.assets = assets 
 
-    # abstract method
-    def power(self, *target):  # *targetAndGuess is used to give a variable number of parameters to
-        #  the function, when called, the function will receive a tuple of arguments
-        pass
 
     def reveal(self):
         print(self.title)
 
 
 class Spy(Card):
-    def power(self, target):
-        target[0].extraPoint += 1
+    def power(self):
+        target.extraPoint += 1
 
 
 class Guard(Card):
-    def power(self, *target):
+    def power(self, target):
         if target[1].gender == "Human":
             cardGuessed = target[1].guess()  # target[1] is the player currently playing, not the actual target
         else:
@@ -36,34 +30,32 @@ class Guard(Card):
 
 class Priest(Card):
     def power(self, target):
-        target[0].hand[0].reveal()
+        target.hand[0].reveal()
 
 
 class Baron(Card):
-    def power(self, *target):
-        if target[0].compare(target[1]) == 0:
-            target[0].isAlive = False
-        elif target[0].compare(target[1]) == 1:
-            target[1].isAlive = False
+    def power(self, player1, player2):
+        if player1.compare(player2) == 0:
+            player1.isAlive = False
+        elif player1.compare(player2) == 1:
+            player2.isAlive = False
 
 
 class Handmaid(Card):
     def power(self, target):
         target.deadpool = True
-        # TODO. Deadpool ne doit durer qu'un seul tour
-
 
 class Prince(Card):
     def power(self, target):
-        target[0].discard()
-        target[0].draw()
+        target.discard()
+        target.draw()
 
 
 class Chancellor(Card):
     def power(self, target, deck):
-        target[0].draw(deck)
-        target[0].draw(deck)
-        target[0].draw(deck)
+        target.draw(deck)
+        target.draw(deck)
+        target.draw(deck)
 
 
 class King(Card):
