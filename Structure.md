@@ -161,8 +161,7 @@
 
 - Terminate(s) : Vérifie que l'état donné en paramètre est un état "final".
 
-- eval(s) : Calcule/estime l'issu du round à chaque position p retourne
-
+- eval(s) : Calcule/estime l'issu du round à chaque position p retourne. 
 
 - Min(bestscore, eval(s))
 
