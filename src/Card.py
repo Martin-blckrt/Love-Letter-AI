@@ -45,6 +45,7 @@ class Handmaid(Card):
     def power(self, target):
         target.deadpool = True
 
+
 class Prince(Card):
     def power(self, target):
         target.discard()

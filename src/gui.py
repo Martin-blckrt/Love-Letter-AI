@@ -41,3 +41,4 @@ def initializeWindow():
 
     window.close()
     return 0
+
