@@ -14,18 +14,25 @@ def computePoints(player):
 
 class Game:
     def __init__(self, player1name, player1Gender, player2name, player2Gender):
-        Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
-        Guard_Card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.")
-        Priest_Card = Priest("Priest", 2, 2, "Regardez la main d'un autre jouer.")
-        Baron_Card = Baron("Baron", 3, 2, "Comparez votre main avec celle d'un autre joueur.")
+
+        self.player1 = Player(player1name, player1Gender)
+        self.player2 = Player(player2name, player2Gender)
+
+        self.player1.oppositePlayer(self.player2)
+        self.player2.oppositePlayer(self.player1)
+
+        Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.", self.player1, self.player2)
+        Guard_Card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.", self.player1, self.player2)
+        Priest_Card = Priest("Priest", 2, 2, "Regardez la main d'un autre jouer.", self.player1, self.player2)
+        Baron_Card = Baron("Baron", 3, 2, "Comparez votre main avec celle d'un autre joueur.", self.player1, self.player2)
         Handmaid_Card = Handmaid("Handmaid", 4, 2,
-                                 "Les autres cartes n'ont pas d'effet sur vous jusqu'au prochain tour.")
-        Prince_Card = Prince("Prince", 5, 2, "Défaussez votre main et piochez à nouveau.")
-        Chancellor_Card = Chancellor("Chancellor", 6, 2, "Piochez et remettez deux cartes sous le paquet.")
-        King_Card = King("King", 7, 1, "Échangez votre main contre celle d'un autre joueur.")
+                                 "Les autres cartes n'ont pas d'effet sur vous jusqu'au prochain tour.", self.player1, self.player2)
+        Prince_Card = Prince("Prince", 5, 2, "Défaussez votre main et piochez à nouveau.", self.player1, self.player2)
+        Chancellor_Card = Chancellor("Chancellor", 6, 2, "Piochez et remettez deux cartes sous le paquet.", self.player1, self.player2)
+        King_Card = King("King", 7, 1, "Échangez votre main contre celle d'un autre joueur.", self.player1, self.player2)
         Countess_Card = Countess("Countess", 8, 1,
-                                 "Vous devez impérativement la jouer si vous avez le Roi ou un Prince.")
-        Princess_Card = Princess("Princess", 9, 1, "Quittez la manche si vous devez la jouer.")
+                                 "Vous devez impérativement la jouer si vous avez le Roi ou un Prince.", self.player1, self.player2)
+        Princess_Card = Princess("Princess", 9, 1, "Quittez la manche si vous devez la jouer.", self.player1, self.player2)
 
         self.deck = [Spy_Card, Spy_Card,
                      Guard_Card, Guard_Card, Guard_Card, Guard_Card, Guard_Card, Guard_Card,
@@ -39,11 +46,10 @@ class Game:
                      Princess_Card]
 
         self.isolatedCard = []
-        self.player1 = Player(player1name, player1Gender, 0)
-        self.player2 = Player(player2name, player2Gender, 1)
 
     def initRound(self):
         random.shuffle(self.deck)
+        print("Know isolated cards are :\n")
         for i in range(3):
             card = self.deck.pop(0)
             pack = [card, 0]  # 0 is visible, 1 is invisible

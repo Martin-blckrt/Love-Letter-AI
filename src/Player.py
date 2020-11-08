@@ -1,5 +1,5 @@
 class Player:
-    def __init__(self, name, gender, id):
+    def __init__(self, name, gender):
 
         self.type = gender
         self.deadpool = False  # utilisé quand une personne est protégée par la servante
@@ -10,10 +10,10 @@ class Player:
         self.hasWon = 0
         self.points = 0  # Nombre de pts du joueur
         self.name = name  # Nom du jour
-        self.id = id
+        self.opponent = None
 
-    def oppositePlayer(self):
-        return not self.id
+    def oppositePlayer(self, opponent):
+        self.opponent = opponent
 
     def discard(self):
         cardDiscarded = self.hand.pop(0)
@@ -21,24 +21,34 @@ class Player:
         if cardDiscarded.value == 9:
             self.isAlive = False
 
-    def playTurn(self, deck, opponent):
+    def playTurn(self, deck):
         self.deadpool = False
         self.draw(deck)
+
         for i in range(len(self.hand)):
             print(self.hand[i].title, "[", self.hand[i].value, "]\n")
 
-        index = int(input("what card do you want to play ? O/1\n"))
-        temp = int(input("who do you want to target ? 1/2\n"))
+        cardValues = []
 
-        if temp == 1:
-            target = self
+        for j in range(len(self.hand)):
+            cardValues.append(self.hand[j].value)
+
+        index = 0
+        if 8 in cardValues:
+            for i in range(len(self.hand)):
+                if cardValues[i] == 8:
+                    index = i
         else:
-            target = opponent
-        self.playCard(index, target)
+            index = int(input("what card do you want to play ? O/1\n"))
 
-    def playCard(self, index, target):
+        self.playCard(index)
+
+    def playCard(self, index):
         cardPlayed = self.hand.pop(index)
-        cardPlayed.power(target)
+
+        #TODO: Fix card power arguments, see card class for more info
+        cardPlayed.power(self)
+
         self.playedCards.insert(0, cardPlayed)
 
     def draw(self, deck):  # doit prendre en parametre la liste deck pour manipuler les cartes du deck

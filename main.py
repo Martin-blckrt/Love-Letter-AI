@@ -1,6 +1,7 @@
 from src.Game import *
 
 
+
 def main():
     play_again = True
 
@@ -13,11 +14,11 @@ def main():
             Game.initRound()
 
             while Game.endRound():
-                Game.player1.playTurn(Game.deck, Game.player2)
+                Game.player1.playTurn(Game.deck)
 
                 if Game.player2.isAlive:
 
-                    Game.player2.playTurn(Game.deck, Game.player1)
+                    Game.player2.playTurn(Game.deck)
 
             if not Game.deck:
                 if Game.player1.compare(Game.player2) == 0:
