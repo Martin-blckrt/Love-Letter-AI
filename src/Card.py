@@ -59,6 +59,7 @@ class Handmaid(Card):
         activePlayer.deadpool = True
 
 
+
 class Prince(Card):
     def power(self, activePlayer):
 

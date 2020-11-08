@@ -24,12 +24,13 @@ def initializeWindow():
     sg.theme('DarkAmber')   # Add a touch of color
 
     # All the stuff inside your window.
-    layout = [[sg.Text('Love Letter', font='Arial 42')],
-              [sg.Image('src/assets/title_image.png')],
-              [createButton('Ok'), createButton('Quitter')]]
+    background_image = sg.Image('assets/Background.png')
+
+    layout = [[background_image]]
 
     # Create the Window
-    window = sg.Window('Love Letter', layout, size=(500, 500),  finalize=True, resizable=True)
+    window = sg.Window("", layout, size=(1000, 500),  finalize=True, resizable=True)
+    window.Maximize()
 
     # Event Loop to process "events" and get the "values" of the inputs
     while True:
@@ -41,3 +42,7 @@ def initializeWindow():
 
     window.close()
     return 0
+
+
+initializeWindow()
+
