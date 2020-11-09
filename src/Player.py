@@ -18,6 +18,7 @@ class Player:
     def discard(self):
         cardDiscarded = self.hand.pop(0)
         self.playedCards.insert(0, cardDiscarded)
+
         if cardDiscarded.value == 9:
             self.isAlive = False
 
@@ -25,7 +26,7 @@ class Player:
         self.deadpool = False
         self.draw(deck)
 
-        print("\n\nPlayer's hand is :")
+        print(f"{self.name}'s hand is :")
 
         for i in range(len(self.hand)):
             print(f"{i}. {self.hand[i].title} [{self.hand[i].value}]")
@@ -43,12 +44,12 @@ class Player:
         else:
             index = int(input("\nWhat card do you want to play ? 0/1\n"))
 
-        self.playCard(index)
+        self.playCard(index, deck)
 
-    def playCard(self, index):
+    def playCard(self, index, deck):
 
         cardPlayed = self.hand.pop(index)
-        cardPlayed.power(self)
+        cardPlayed.power(self, deck)
 
         self.playedCards.insert(0, cardPlayed)
 
@@ -65,7 +66,7 @@ class Player:
             return 2
 
     def guess(self):
-        cardGuessed = input("What card do you want to guess ? (0-9)")
+        cardGuessed = input("What card do you want to guess ? (0-9)\n")
         return cardGuessed
 
     def decide(self):

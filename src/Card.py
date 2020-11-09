@@ -1,29 +1,25 @@
 
 class Card:
-    def __init__(self, title, value, totalNumber, description, player1, player2):
+    def __init__(self, title, value, totalNumber, description):
         self.title = title
         self.value = value
         self.totalNumber = totalNumber
         self.leftNumber = totalNumber
         self.description = description
-        self.player1 = player1
-        self.player2 = player2
         # self.assets = assets 
 
     def reveal(self):
-        print(self.title)
+        print(f"Opponent's card is {self.title}\n")
 
-
-#TODO: Find a way to act on players in order to activate powers. Error "Player is not an object" with Guard
 
 class Spy(Card):
-    def power(self, activePLayer):
+    def power(self, activePLayer, deck_arg):
 
-        activePLayer.extraPoints += 1
+        activePLayer.extraPoint += 1
 
 
 class Guard(Card):
-    def power(self, activePlayer):
+    def power(self, activePlayer, deck_arg):
 
         opponent = activePlayer.opponent
 
@@ -32,36 +28,35 @@ class Guard(Card):
         else:
             cardGuessed = activePlayer.decide()
 
-        if cardGuessed == opponent.hand[0]:
+        if cardGuessed == opponent.hand[0].value:
             opponent.isAlive = False
 
 
 class Priest(Card):
-    def power(self, activePlayer):
+    def power(self, activePlayer, deck_arg):
 
         activePlayer.opponent.hand[0].reveal()
 
 
 class Baron(Card):
-    def power(self, activePlayer):
+    def power(self, activePlayer, deck_arg):
 
         opponent = activePlayer.opponent
 
         if activePlayer.compare(opponent) == 0:
             activePlayer.isAlive = False
         elif activePlayer.compare(opponent) == 1:
-           opponent.isAlive = False
+            opponent.isAlive = False
 
 
 class Handmaid(Card):
-    def power(self, activePlayer):
+    def power(self, activePlayer, deck_arg):
 
         activePlayer.deadpool = True
 
 
-
 class Prince(Card):
-    def power(self, activePlayer):
+    def power(self, activePlayer, deck_arg):
 
         choice = input("who do you want to target ? [You/Opponent]\n")
 
@@ -71,35 +66,34 @@ class Prince(Card):
             target = activePlayer.opponent
 
         target.discard()
-        target.draw()
+        target.draw(deck_arg)
 
 
 class Chancellor(Card):
-    def power(self, activePlayer, deck):
+    def power(self, activePlayer, deck_arg):
 
         for i in range(3):
-
-            activePlayer.draw(deck)
+            activePlayer.draw(deck_arg)
 
 
 class King(Card):
-    def power(self, activePlayer):
+    def power(self, activePlayer, deck_arg):
 
         opponent = activePlayer.opponent
-        temp = activePlayer.hand[0]
 
-        activePlayer.hand[0] = opponent.hand[1]
-        opponent.hand[1] = temp
+        temp = activePlayer.hand[0]
+        activePlayer.hand[0] = opponent.hand[0]
+        opponent.hand[0] = temp
 
 
 class Countess(Card):
-    def power(self, activePlayer):
+    def power(self, activePlayer, deck_arg):
         print('BOOM Countess')
 
     pass
 
 
 class Princess(Card):
-    def power(self, activePlayer):
+    def power(self, activePlayer, deck_arg):
         print('BOOM Princess')
     pass
