@@ -11,11 +11,18 @@ class Card:
     def reveal(self):
         print(f"Opponent's card is {self.title}\n")
 
+#TODO. Chancellor doit remettre 2 card dans deck (actuellement il garde tt ce qu'il a pioché dans sa main,
+#TODO. Guard doit tuer,
+#TODO. Princesse doit tuer aussi (mais pas le même)
+#TODO. Vérifier comtesse avec roi/prince
+#TODO. Chancellor cas particulier ou plus assez de carte dans deck, same for prince avec defausse (pcq pioche double)
+#TODO. Handmaid gérer l'immunité
+
 
 class Spy(Card):
     def power(self, activePLayer, deck_arg):
 
-        activePLayer.extraPoint += 1
+        activePLayer.extraPoint = 1
 
 
 class Guard(Card):

@@ -21,34 +21,40 @@ class Game:
         self.player1.oppositePlayer(self.player2)
         self.player2.oppositePlayer(self.player1)
 
-        Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
-        Guard_Card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.")
-        Priest_Card = Priest("Priest", 2, 2, "Regardez la main d'un autre jouer.")
-        Baron_Card = Baron("Baron", 3, 2, "Comparez votre main avec celle d'un autre joueur.")
-        Handmaid_Card = Handmaid("Handmaid", 4, 2,
+        self.Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
+        self.Guard_Card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.")
+        self.Priest_Card = Priest("Priest", 2, 2, "Regardez la main d'un autre jouer.")
+        self.Baron_Card = Baron("Baron", 3, 2, "Comparez votre main avec celle d'un autre joueur.")
+        self.Handmaid_Card = Handmaid("Handmaid", 4, 2,
                                  "Les autres cartes n'ont pas d'effet sur vous jusqu'au prochain tour.")
-        Prince_Card = Prince("Prince", 5, 2, "Défaussez votre main et piochez à nouveau.")
-        Chancellor_Card = Chancellor("Chancellor", 6, 2, "Piochez et remettez deux cartes sous le paquet.")
-        King_Card = King("King", 7, 1, "Échangez votre main contre celle d'un autre joueur.")
-        Countess_Card = Countess("Countess", 8, 1,
+        self.Prince_Card = Prince("Prince", 5, 2, "Défaussez votre main et piochez à nouveau.")
+        self.Chancellor_Card = Chancellor("Chancellor", 6, 2, "Piochez et remettez deux cartes sous le paquet.")
+        self.King_Card = King("King", 7, 1, "Échangez votre main contre celle d'un autre joueur.")
+        self.Countess_Card = Countess("Countess", 8, 1,
                                  "Vous devez impérativement la jouer si vous avez le Roi ou un Prince.")
-        Princess_Card = Princess("Princess", 9, 1, "Quittez la manche si vous devez la jouer.")
+        self.Princess_Card = Princess("Princess", 9, 1, "Quittez la manche si vous devez la jouer.")
 
-        self.deck = [Spy_Card, Spy_Card,
-                     Guard_Card, Guard_Card, Guard_Card, Guard_Card, Guard_Card, Guard_Card,
-                     Priest_Card, Priest_Card,
-                     Baron_Card, Baron_Card,
-                     Handmaid_Card, Handmaid_Card,
-                     Prince_Card, Prince_Card,
-                     Chancellor_Card, Chancellor_Card,
-                     King_Card,
-                     Countess_Card,
-                     Princess_Card]
+
 
         self.isolatedCard = []
 
     def initRound(self):
+
+        self.deck = [self.Spy_Card, self.Spy_Card,
+                     self.Guard_Card, self.Guard_Card, self.Guard_Card, self.Guard_Card, self.Guard_Card, self.Guard_Card,
+                     self.Priest_Card, self.Priest_Card,
+                     self.Baron_Card, self.Baron_Card,
+                     self.Handmaid_Card, self.Handmaid_Card,
+                     self.Prince_Card, self.Prince_Card,
+                     self.Chancellor_Card, self.Chancellor_Card,
+                     self.King_Card,
+                     self.Countess_Card,
+                     self.Princess_Card]
+
         random.shuffle(self.deck)
+
+        self.player1.extraPoint = 0
+        self.player2.extraPoint = 0
 
         print("Known isolated cards are : ")
         for i in range(3):
