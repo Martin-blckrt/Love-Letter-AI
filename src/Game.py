@@ -49,12 +49,13 @@ class Game:
 
     def initRound(self):
         random.shuffle(self.deck)
-        print("Know isolated cards are :\n")
+
+        print("Known isolated cards are : ")
         for i in range(3):
             card = self.deck.pop(0)
             pack = [card, 0]  # 0 is visible, 1 is invisible
             self.isolatedCard.append(pack)
-            print(card.title, "[", card.value, "]\n")
+            print(f" {card.title} [{card.value}]", end=" ")
 
         card = self.deck.pop(0)
         pack = [card, 1]  # 0 is visible, 1 is invisible

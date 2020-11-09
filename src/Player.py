@@ -1,7 +1,7 @@
 class Player:
     def __init__(self, name, gender):
 
-        self.type = gender
+        self.gender = gender
         self.deadpool = False  # utilisé quand une personne est protégée par la servante
         self.isAlive = True  # toujours vrai au début de round
         self.playedCards = []  # liste vide au depart
@@ -25,8 +25,10 @@ class Player:
         self.deadpool = False
         self.draw(deck)
 
+        print("\n\nPlayer's hand is :")
+
         for i in range(len(self.hand)):
-            print(self.hand[i].title, "[", self.hand[i].value, "]\n")
+            print(f"{i}. {self.hand[i].title} [{self.hand[i].value}]")
 
         cardValues = []
 
@@ -39,14 +41,13 @@ class Player:
                 if cardValues[i] == 8:
                     index = i
         else:
-            index = int(input("what card do you want to play ? O/1\n"))
+            index = int(input("\nWhat card do you want to play ? 0/1\n"))
 
         self.playCard(index)
 
     def playCard(self, index):
-        cardPlayed = self.hand.pop(index)
 
-        #TODO: Fix card power arguments, see card class for more info
+        cardPlayed = self.hand.pop(index)
         cardPlayed.power(self)
 
         self.playedCards.insert(0, cardPlayed)
