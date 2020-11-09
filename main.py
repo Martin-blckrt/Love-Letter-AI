@@ -2,6 +2,7 @@ from src.Game import *
 
 
 def main():
+
     play_again = True
 
     while play_again:
@@ -42,6 +43,3 @@ def main():
             print(f"{player2_name} wins the game !")
             play_again = input("Do you want to play again ? (True/False)")
 
-
-if __name__ == "__main__":
-    main()

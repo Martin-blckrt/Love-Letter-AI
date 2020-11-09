@@ -3,7 +3,7 @@ GUI Module with PySimpleGUI
 """
 
 import PySimpleGUI as sg
-
+from main import *
 
 
 def initializeWindow():
@@ -28,10 +28,11 @@ def initializeWindow():
             break
         # TODO: check pq ça explose
         if event == '2 players':
-
+            main()
 
     window.close()
     return 0
 
 
-initializeWindow()
+if __name__ == '__main__':
+    initializeWindow()
