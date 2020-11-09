@@ -17,7 +17,7 @@ def main():
                 Game.player1.playTurn(Game.deck)
 
                 if Game.player2.isAlive and Game.deck:
-                    print(f"Time for {player2_name}({Game.player2.gender}) to play!")
+                    print(f"\n\nTime for {player2_name}({Game.player2.gender}) to play!")
                     Game.player2.playTurn(Game.deck)
 
             if not Game.deck:

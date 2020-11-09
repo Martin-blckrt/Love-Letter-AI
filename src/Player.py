@@ -31,6 +31,8 @@ class Player:
         for i in range(len(self.hand)):
             print(f"{i+1}. {self.hand[i].title} [{self.hand[i].value}]")
 
+        index =0
+
         cardValues = []
 
         for j in range(len(self.hand)):
@@ -62,7 +64,7 @@ class Player:
             cardDrawn = deck.pop(0)
             self.hand.append(cardDrawn)
         else:
-            print("Deck is empty")
+            print("Deck is empty\n")
 
     def compare(self, opponent):
         if self.hand[0].value < opponent.hand[0].value:
@@ -73,7 +75,15 @@ class Player:
             return 2
 
     def guess(self):
-        cardGuessed = int(input("Which card do you want to guess ? (0-9)\n"))
+        while True:
+            try:
+                cardGuessed = int(input("Which card do you want to guess ? (0-9 but not 1)\n"))
+                break
+            except cardGuessed < 0 or cardGuessed > 9 or cardGuessed == 1:
+                print("Unauthroized value !\n")
+
+
+
         return cardGuessed
 
     def decide(self):

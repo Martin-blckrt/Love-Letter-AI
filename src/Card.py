@@ -63,7 +63,7 @@ class Handmaid(Card):
 class Prince(Card):
     def power(self, activePlayer, deck_arg):
 
-        choice = input("who do you want to target ? [You/Opponent]\n")
+        choice = input("\nWho do you want to target ? [You/Opponent]\n")
 
         if choice == "You":
             target = activePlayer

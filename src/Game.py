@@ -53,6 +53,10 @@ class Game:
 
         random.shuffle(self.deck)
 
+        self.player1.hand = []
+        self.player2.hand = []
+        self.player1.playedCards = self.player2.playedCards = []
+
         self.player1.isAlive = self.player2.isAlive = True
         self.player1.deadpool = self.player2.deadpool = False
         self.player1.hasWon = self.player2.hasWon = False
