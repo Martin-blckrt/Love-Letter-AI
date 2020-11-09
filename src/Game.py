@@ -4,7 +4,7 @@ import random
 
 
 def initGame(name1, name2):
-    game = Game(name1, "Human", name2, "AI")
+    game = Game(name1, "Human", name2, "Human")
     return game
 
 
@@ -17,6 +17,7 @@ def fillDeck(listOfCards):
     for i in listOfCards:
         for j in range(i.totalNumber):
             deck.append(i)
+    random.shuffle(deck)
 
     return deck
 
@@ -57,7 +58,7 @@ class Game:
                             chancellor_card,
                             king_card,
                             countess_card,
-                            prince_card]
+                            princess_card]
 
         # liste des cartes qui vont être retirées du deck à chaque début de round
         self.isolatedCard = []
@@ -65,9 +66,8 @@ class Game:
 
     def initRound(self):
 
+        print("\n----------NEW ROUND----------")
         self.deck = fillDeck(self.listOfCards)
-
-        random.shuffle(self.deck)
 
         self.player1.hand = []
         self.player2.hand = []
@@ -78,7 +78,7 @@ class Game:
         self.player1.hasWon = self.player2.hasWon = False
         self.player1.extraPoint = self.player2.extraPoint = 0
 
-        print("Known isolated cards are : ")
+        print("\n\nKnown isolated cards are : ")
         for i in range(3):
             card = self.deck.pop(0)
             pack = [card, 0]  # 0 is visible, 1 is invisible

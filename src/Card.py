@@ -11,12 +11,11 @@ class Card:
     def reveal(self):
         print(f"Opponent's card is {self.title}\n")
 
-#TODO. Chancellor doit remettre 2 card dans deck (actuellement il garde tt ce qu'il a pioché dans sa main,
-#TODO. Guard doit tuer,     A TESTER (mais marche normalement)
-#TODO. Princesse doit tuer aussi (mais pas le même)     A TESTER
-#TODO. Vérifier comtesse avec roi/prince        A TESTER
+#TODO. Chancellor doit remettre 2 card dans deck (actuellement il garde tt ce qu'il a pioché dans sa main
 #TODO. Chancellor cas particulier ou plus assez de carte dans deck, same for prince avec defausse (pcq pioche double)
-#TODO. Handmaid gérer l'immunité        A TESTER
+
+#TODO. Gérer la double pioche lorsque defausse
+#TODO. Comtesse affiche le msg que si aggressée
 
 
 class Spy(Card):
@@ -35,6 +34,9 @@ class Guard(Card):
 
         if cardGuessed == activePlayer.opponent.hand[0].value:
             activePlayer.opponent.isAlive = False
+            print("The guess was correct !\n")
+        else:
+            print("Incorrect guess!")
 
 
 class Priest(Card):
@@ -49,9 +51,13 @@ class Baron(Card):
         opponent = activePlayer.opponent
 
         if activePlayer.compare(opponent) == 0:
+            print(f"{activePlayer.name} loses the duel !")
             activePlayer.isAlive = False
         elif activePlayer.compare(opponent) == 1:
+            print(f"\n{opponent.name} loses the duel !")
             opponent.isAlive = False
+        else:
+            print("It is a tie\n")
 
 
 class Handmaid(Card):
@@ -62,8 +68,9 @@ class Handmaid(Card):
 
 class Prince(Card):
     def power(self, activePlayer, deck_arg):
-
         choice = input("\nWho do you want to target ? [You/Opponent]\n")
+        while (choice != "You") and (choice != "Opponent"):
+            choice = input("\nIncorrect Input ! Who do you want to target ? [You/Opponent]\n")
 
         if choice == "You":
             target = activePlayer
@@ -93,11 +100,9 @@ class King(Card):
 
 class Countess(Card):
     def power(self, activePlayer, deck_arg):
-
         pass
 
 
 class Princess(Card):
     def power(self, activePlayer, deck_arg):
-
         pass
