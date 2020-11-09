@@ -12,44 +12,61 @@ def computePoints(player):
     player.points += player.hasWon + (player.isAlive and player.extraPoint)
 
 
+def fillDeck(listOfCards):
+    deck = []
+    for i in listOfCards:
+        for j in range(i.totalNumber):
+            deck.append(i)
+
+    return deck
+
+
 class Game:
     def __init__(self, player1name, player1Gender, player2name, player2Gender):
 
+        # creation des joueurs
         self.player1 = Player(player1name, player1Gender)
         self.player2 = Player(player2name, player2Gender)
 
+        # definition des joueurs opposes
         self.player1.oppositePlayer(self.player2)
         self.player2.oppositePlayer(self.player1)
 
-        self.Spy_Card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
-        self.Guard_Card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.")
-        self.Priest_Card = Priest("Priest", 2, 2, "Regardez la main d'un autre jouer.")
-        self.Baron_Card = Baron("Baron", 3, 2, "Comparez votre main avec celle d'un autre joueur.")
-        self.Handmaid_Card = Handmaid("Handmaid", 4, 2,
+        # creation des instances de classe des cartes
+
+        spy_card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
+        guard_card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.")
+        priest_card = Priest("Priest", 2, 2, "Regardez la main d'un autre jouer.")
+        baron_card = Baron("Baron", 3, 2, "Comparez votre main avec celle d'un autre joueur.")
+        handmaid_card = Handmaid("Handmaid", 4, 2,
                                  "Les autres cartes n'ont pas d'effet sur vous jusqu'au prochain tour.")
-        self.Prince_Card = Prince("Prince", 5, 2, "Défaussez votre main et piochez à nouveau.")
-        self.Chancellor_Card = Chancellor("Chancellor", 6, 2, "Piochez et remettez deux cartes sous le paquet.")
-        self.King_Card = King("King", 7, 1, "Échangez votre main contre celle d'un autre joueur.")
-        self.Countess_Card = Countess("Countess", 8, 1,
+        prince_card = Prince("Prince", 5, 2, "Défaussez votre main et piochez à nouveau.")
+        chancellor_card = Chancellor("Chancellor", 6, 2, "Piochez et remettez deux cartes sous le paquet.")
+        king_card = King("King", 7, 1, "Échangez votre main contre celle d'un autre joueur.")
+        countess_card = Countess("Countess", 8, 1,
                                  "Vous devez impérativement la jouer si vous avez le Roi ou un Prince.")
-        self.Princess_Card = Princess("Princess", 9, 1, "Quittez la manche si vous devez la jouer.")
+        princess_card = Princess("Princess", 9, 1, "Quittez la manche si vous devez la jouer.")
 
+        # liste des cartes qui vont permettre de remplir le deck
+        self.listOfCards = [spy_card,
+                            guard_card,
+                            priest_card,
+                            baron_card,
+                            handmaid_card,
+                            prince_card,
+                            chancellor_card,
+                            king_card,
+                            countess_card,
+                            prince_card]
 
-
+        # liste des cartes qui vont être retirées du deck à chaque début de round
         self.isolatedCard = []
+        self.deck = []
 
     def initRound(self):
 
-        self.deck = [self.Spy_Card, self.Spy_Card,
-                     self.Guard_Card, self.Guard_Card, self.Guard_Card, self.Guard_Card, self.Guard_Card, self.Guard_Card,
-                     self.Priest_Card, self.Priest_Card,
-                     self.Baron_Card, self.Baron_Card,
-                     self.Handmaid_Card, self.Handmaid_Card,
-                     self.Prince_Card, self.Prince_Card,
-                     self.Chancellor_Card, self.Chancellor_Card,
-                     self.King_Card,
-                     self.Countess_Card,
-                     self.Princess_Card]
+        self.deck = fillDeck(self.listOfCards)
+        print(f"deck = {self.deck}")
 
         random.shuffle(self.deck)
 
