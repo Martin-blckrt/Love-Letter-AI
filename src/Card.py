@@ -15,7 +15,10 @@ class Card:
 #TODO. Chancellor cas particulier ou plus assez de carte dans deck, same for prince avec defausse (pcq pioche double)
 
 #TODO. Gérer la double pioche lorsque defausse
-#TODO. Comtesse affiche le msg que si aggressée
+#TODO. Servante affiche le msg "immunity" que si la carte en face l'aggresse
+#TODO. Ecrire points a la fin du round
+#TODO. gestion input prince
+#TODO. Ecrire action king
 
 
 class Spy(Card):
