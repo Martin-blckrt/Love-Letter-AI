@@ -23,10 +23,10 @@ def main():
             if not Game.deck:
                 if Game.player1.compare(Game.player2) == 0:
                     Game.player2.hasWon = True
-                    print(f"{player2_name} wins")
+                    print(f"{player2_name} wins the round !")
                 elif Game.player1.compare(Game.player2) == 1:
                     Game.player1.hasWon = True
-                    print(f"{player1_name} wins")
+                    print(f"{player1_name} wins the round !")
                 else:
                     Game.player1.hasWon = Game.player2.hasWon = True
                     print("Tie")
@@ -35,13 +35,12 @@ def main():
             computePoints(Game.player2)
 
         if Game.player1.points == 6:
-            print("GG a toi le couz")
+            print(f"{player1_name} wins the game !")
             play_again = input("Do you want to play again ? (True/False)")
 
         elif Game.player2.points == 6:
-            print("GG a toi l'autre couz")
+            print(f"{player2_name} wins the game !")
             play_again = input("Do you want to play again ? (True/False)")
-
 
 
 if __name__ == "__main__":

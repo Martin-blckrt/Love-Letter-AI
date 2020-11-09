@@ -12,11 +12,11 @@ class Card:
         print(f"Opponent's card is {self.title}\n")
 
 #TODO. Chancellor doit remettre 2 card dans deck (actuellement il garde tt ce qu'il a pioché dans sa main,
-#TODO. Guard doit tuer,
-#TODO. Princesse doit tuer aussi (mais pas le même)
-#TODO. Vérifier comtesse avec roi/prince
+#TODO. Guard doit tuer,     A TESTER (mais marche normalement)
+#TODO. Princesse doit tuer aussi (mais pas le même)     A TESTER
+#TODO. Vérifier comtesse avec roi/prince        A TESTER
 #TODO. Chancellor cas particulier ou plus assez de carte dans deck, same for prince avec defausse (pcq pioche double)
-#TODO. Handmaid gérer l'immunité
+#TODO. Handmaid gérer l'immunité        A TESTER
 
 
 class Spy(Card):
@@ -28,15 +28,13 @@ class Spy(Card):
 class Guard(Card):
     def power(self, activePlayer, deck_arg):
 
-        opponent = activePlayer.opponent
-
         if activePlayer.gender == "Human":
             cardGuessed = activePlayer.guess()
         else:
             cardGuessed = activePlayer.decide()
 
-        if cardGuessed == opponent.hand[0].value:
-            opponent.isAlive = False
+        if cardGuessed == activePlayer.opponent.hand[0].value:
+            activePlayer.opponent.isAlive = False
 
 
 class Priest(Card):

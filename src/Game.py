@@ -53,8 +53,10 @@ class Game:
 
         random.shuffle(self.deck)
 
-        self.player1.extraPoint = 0
-        self.player2.extraPoint = 0
+        self.player1.isAlive = self.player2.isAlive = True
+        self.player1.deadpool = self.player2.deadpool = False
+        self.player1.hasWon = self.player2.hasWon = False
+        self.player1.extraPoint = self.player2.extraPoint = 0
 
         print("Known isolated cards are : ")
         for i in range(3):
@@ -74,9 +76,11 @@ class Game:
 
         if not self.player1.isAlive:
             self.player2.points += 1 + self.player2.extraPoint
+            print(f"{self.player2.name} wins the round !")
             return False
         elif not self.player2.isAlive:
             self.player1.points += 1 + self.player1.extraPoint
+            print(f"{self.player1.name} wins the round !")
             return False
         else:
             return True

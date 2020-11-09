@@ -29,33 +29,40 @@ class Player:
         print(f"{self.name}'s hand is :")
 
         for i in range(len(self.hand)):
-            print(f"{i}. {self.hand[i].title} [{self.hand[i].value}]")
+            print(f"{i+1}. {self.hand[i].title} [{self.hand[i].value}]")
 
         cardValues = []
 
         for j in range(len(self.hand)):
             cardValues.append(self.hand[j].value)
 
-        index = 0
-        if 8 in cardValues:
+        if (8 and (5 or 7)) in cardValues:
             for i in range(len(self.hand)):
                 if cardValues[i] == 8:
-                    index = i
+                    index = i+1
         else:
-            index = int(input("\nWhat card do you want to play ? 0/1\n"))
+            index = int(input("\nWhat card do you want to play ? 1/2\n"))
 
-        self.playCard(index, deck)
+        self.playCard(index-1, deck)
 
     def playCard(self, index, deck):
 
         cardPlayed = self.hand.pop(index)
-        cardPlayed.power(self, deck)
+
+        if not self.opponent.deadpool:
+            cardPlayed.power(self, deck)
 
         self.playedCards.insert(0, cardPlayed)
 
+        if cardPlayed.value == 9:
+            self.isAlive = False
+
     def draw(self, deck):  # doit prendre en parametre la liste deck pour manipuler les cartes du deck
-        cardDrawn = deck.pop(0)
-        self.hand.append(cardDrawn)
+        if deck:
+            cardDrawn = deck.pop(0)
+            self.hand.append(cardDrawn)
+        else:
+            print("Deck is empty")
 
     def compare(self, opponent):
         if self.hand[0].value < opponent.hand[0].value:
@@ -66,7 +73,7 @@ class Player:
             return 2
 
     def guess(self):
-        cardGuessed = input("What card do you want to guess ? (0-9)\n")
+        cardGuessed = int(input("Which card do you want to guess ? (0-9)\n"))
         return cardGuessed
 
     def decide(self):
