@@ -93,12 +93,11 @@ class King(Card):
 
 class Countess(Card):
     def power(self, activePlayer, deck_arg):
-        print('BOOM Countess')
 
-    pass
+        pass
 
 
 class Princess(Card):
     def power(self, activePlayer, deck_arg):
-        print('BOOM Princess')
-    pass
+
+        pass

@@ -79,7 +79,7 @@ class Player:
             try:
                 cardGuessed = int(input("Which card do you want to guess ? (0-9 but not 1)\n"))
                 break
-            except cardGuessed < 0 or cardGuessed > 9 or cardGuessed == 1:
+            except (cardGuessed < 0) or (cardGuessed > 9) or (cardGuessed == 1):
                 print("Unauthroized value !\n")
 
 

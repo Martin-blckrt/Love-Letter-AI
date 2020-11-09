@@ -66,7 +66,6 @@ class Game:
     def initRound(self):
 
         self.deck = fillDeck(self.listOfCards)
-        print(f"deck = {self.deck}")
 
         random.shuffle(self.deck)
 
