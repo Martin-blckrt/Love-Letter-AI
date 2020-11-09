@@ -13,7 +13,7 @@ Ressources:
 [Site officiel](https://www.zmangames.com/en/games/love-letter/)
 
 
-[Règles suivies pour le projet](https://fr.wikipedia.org/wiki/Love_Letter_%28jeu%29) 
+[Règles suivies pour le projet(document pdf)](https://images.zmangames.com/filer_public/5b/6c/5b6c17d7-7e0e-4b70-a311-9a6c32066010/ll-rulebook.pdf) 
 
 
 ## License
