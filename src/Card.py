@@ -1,4 +1,3 @@
-
 class Card:
     def __init__(self, title, value, totalNumber, description):
         self.title = title
@@ -11,19 +10,14 @@ class Card:
     def reveal(self):
         print(f"Opponent's card is {self.title}\n")
 
-#TODO. Chancellor doit remettre 2 card dans deck (actuellement il garde tt ce qu'il a pioché dans sa main
-#TODO. Chancellor cas particulier ou plus assez de carte dans deck, same for prince avec defausse (pcq pioche double)
 
-#TODO. Gérer la double pioche lorsque defausse
-#TODO. Servante affiche le msg "immunity" que si la carte en face l'aggresse
-#TODO. Ecrire points a la fin du round
-#TODO. gestion input prince
-#TODO. Ecrire action king
+# TODO. Chancellor : rendre plus joli ma zeub
+# TODO. Chancellor : Debug
+# TODO. Tester les cas de deck vide (notamment avec Chancellor et Prince) et les debug en cas de soucis
 
 
 class Spy(Card):
     def power(self, activePLayer, deck_arg):
-
         activePLayer.extraPoint = 1
 
 
@@ -44,7 +38,6 @@ class Guard(Card):
 
 class Priest(Card):
     def power(self, activePlayer, deck_arg):
-
         activePlayer.opponent.hand[0].reveal()
 
 
@@ -65,37 +58,79 @@ class Baron(Card):
 
 class Handmaid(Card):
     def power(self, activePlayer, deck_arg):
-
         activePlayer.deadpool = True
 
 
 class Prince(Card):
     def power(self, activePlayer, deck_arg):
         choice = input("\nWho do you want to target ? [You/Opponent]\n")
-        while (choice != "You") and (choice != "Opponent"):
+        choice.lower()
+        while (choice != "you") and (choice != "opponent"):
             choice = input("\nIncorrect Input ! Who do you want to target ? [You/Opponent]\n")
+            choice.lower()
 
-        if choice == "You":
+        if choice == "you":
             target = activePlayer
+            target.discard()
+            target.draw(deck_arg)
         else:
             target = activePlayer.opponent
-
-        target.discard()
-        target.draw(deck_arg)
+            if not target.deadpool:
+                target.discard()
+                target.draw(deck_arg)
+            else:
+                print(f"{target.name} is protected : your card has no effect !\n")
 
 
 class Chancellor(Card):
     def power(self, activePlayer, deck_arg):
 
-        for i in range(3):
+        j = 0
+        for i in range(2):
             activePlayer.draw(deck_arg)
+            j += 1
+
+        if j == 1:
+            print(
+                f"You now need to get rid of 1 of your cards by placing it at the bottom of the deck. Your hand is :\n")
+            for i in range(len(activePlayer.hand)):
+                print(f"{i + 1}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
+            index = int(input("Which card do you want to place as the last card in the deck ? (1/2)\n"))
+            while index not in [1, 2]:  # TODO. boucle infinie ?
+                index = int(
+                    input("\nWrong input ! Which card do you want to place as the last card in the deck ? (1/2)\n"))
+
+            placedCard = activePlayer.hand.pop(index - 1)
+            deck_arg.append(placedCard)
+
+        elif j == 2:
+            print(
+                f"You now need to get rid of 2 of your cards by placing them at the bottom of the deck. Your hand is :\n")
+            for i in range(len(activePlayer.hand)):
+                print(f"{i + 1}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
+
+            index = int(input("Which card do you want to place as the penultimate card in the deck ? (1/2/3)\n"))
+            while index not in [1, 2, 3]:  # TODO. boucle infinie ?
+                index = int(input(
+                    "\nWrong input ! Which card do you want to place as the penultimate card in the deck ? (1/2/3)\n"))
+
+            placedCard = activePlayer.hand.pop(index - 1)
+            deck_arg.append(placedCard)
+
+            index = int(input("Which card do you want to place as the last card in the deck ? (1/2)\n"))
+            while index not in [1, 2]:  # TODO. boucle infinie ?
+                index = int(
+                    input("\nWrong input ! Which card do you want to place as the last card in the deck ? (1/2)\n"))
+
+            placedCard = activePlayer.hand.pop(index - 1)
+            deck_arg.append(placedCard)
 
 
 class King(Card):
     def power(self, activePlayer, deck_arg):
-
         opponent = activePlayer.opponent
 
+        print("The hands have been switched !\n")
         temp = activePlayer.hand[0]
         activePlayer.hand[0] = opponent.hand[0]
         opponent.hand[0] = temp

@@ -78,6 +78,8 @@ class Game:
         self.player1.hasWon = self.player2.hasWon = False
         self.player1.extraPoint = self.player2.extraPoint = 0
 
+        print(f"\nCurrent scores are :\n{self.player1.name} : {self.player1.points}\n{self.player2.name} : {self.player2.points}")
+
         print("\n\nKnown isolated cards are : ")
         for i in range(3):
             card = self.deck.pop(0)
@@ -96,11 +98,11 @@ class Game:
 
         if not self.player1.isAlive:
             self.player2.points += 1 + self.player2.extraPoint
-            print(f"{self.player2.name} wins the round !")
+            print(f"{self.player2.name} wins the round ! He scores {1 + self.player2.extraPoint} point(s)\n")
             return False
         elif not self.player2.isAlive:
             self.player1.points += 1 + self.player1.extraPoint
-            print(f"{self.player1.name} wins the round !")
+            print(f"{self.player1.name} wins the round ! He scores {1 + self.player1.extraPoint} point(s)\n")
             return False
         else:
             return True

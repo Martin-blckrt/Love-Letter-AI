@@ -62,9 +62,9 @@ class Player:
                     index = i+1
                     print("\nThe countess was discarded !\n")
         else:
-            index = int(input("\nWhat card do you want to play ? 1/2\n"))
+            index = int(input("\nWhat card do you want to play ? (1/2)\n"))
             while (index != 1) and (index != 2):
-                index = int(input("\nWrong input ! What card do you want to play ? 1/2\n"))
+                index = int(input("\nWrong input ! What card do you want to play ? (1/2)\n"))
 
         self.playCard(index-1, deck)
 
@@ -73,11 +73,13 @@ class Player:
         cardPlayed = self.hand.pop(index)
 
         if not self.opponent.deadpool:
-            if cardPlayed.value == 5 and not deck:#TODO. check si y a besoin de cette ligne
+            if cardPlayed.value == 5 and not deck:
+                #la logique ici est de dire si il n'y a plus rien dans le deck alors ne fait pas l'action du prince pcq l'autre
+                #mec n'aura pas de quoi repiocher avant la comparaison finale
                 pass
             else:
                 cardPlayed.power(self, deck)
-        else:
+        elif cardPlayed.value in [1, 2, 3, 7]:
             print("\nThe opponent is protected : your card has no effect !\n")
 
         self.playedCards.insert(0, cardPlayed)
