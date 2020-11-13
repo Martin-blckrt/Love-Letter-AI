@@ -4,15 +4,21 @@ import random
 
 
 def initGame(name1, name2):
+    # Initialize the game and the player's name and 'gender'
+
     game = Game(name1, "Human", name2, "Human")
     return game
 
 
 def computePoints(player):
+    # Computes how much points is getting at the end of a round
+
     player.points += player.hasWon + (player.isAlive and player.extraPoint)
 
 
 def fillDeck(listOfCards):
+    # Fills the deck and shuffles it
+
     deck = []
     for i in listOfCards:
         for j in range(i.totalNumber):
@@ -25,15 +31,15 @@ def fillDeck(listOfCards):
 class Game:
     def __init__(self, player1name, player1Gender, player2name, player2Gender):
 
-        # creation des joueurs
+        # Creation of the players
         self.player1 = Player(player1name, player1Gender)
         self.player2 = Player(player2name, player2Gender)
 
-        # definition des joueurs opposes
+        # Assigns the opposite player
         self.player1.oppositePlayer(self.player2)
         self.player2.oppositePlayer(self.player1)
 
-        # creation des instances de classe des cartes
+        # Creation of the card's instances
 
         spy_card = Spy("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
         guard_card = Guard("Guard", 1, 6, "Devinez la main d'un autre joueur.")
@@ -48,7 +54,7 @@ class Game:
                                  "Vous devez impérativement la jouer si vous avez le Roi ou un Prince.")
         princess_card = Princess("Princess", 9, 1, "Quittez la manche si vous devez la jouer.")
 
-        # liste des cartes qui vont permettre de remplir le deck
+        # List of cards we will put in the deck
         self.listOfCards = [spy_card,
                             guard_card,
                             priest_card,
@@ -60,11 +66,13 @@ class Game:
                             countess_card,
                             princess_card]
 
-        # liste des cartes qui vont être retirées du deck à chaque début de round
+        # List of the card we will put on the side at the beginning of each round
         self.isolatedCard = []
+
         self.deck = []
 
     def initRound(self):
+        # Initializes a round
 
         print("\n----------NEW ROUND----------")
         self.deck = fillDeck(self.listOfCards)
@@ -78,7 +86,8 @@ class Game:
         self.player1.hasWon = self.player2.hasWon = False
         self.player1.extraPoint = self.player2.extraPoint = 0
 
-        print(f"\nCurrent scores are :\n{self.player1.name} : {self.player1.points}\n{self.player2.name} : {self.player2.points}")
+        print(f"\nCurrent scores are :"
+              f"\n{self.player1.name} : {self.player1.points}\n{self.player2.name} : {self.player2.points}")
 
         print("\n\nKnown isolated cards are : ")
         for i in range(3):
@@ -95,7 +104,7 @@ class Game:
         self.player2.draw(self.deck)
 
     def endRound(self):
-
+        # Checks if the round has ended and give points to the winning player
         if not self.player1.isAlive:
             self.player2.points += 1 + self.player2.extraPoint
             print(f"{self.player2.name} wins the round ! He scores {1 + self.player2.extraPoint} point(s)\n")

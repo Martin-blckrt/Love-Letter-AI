@@ -1,10 +1,14 @@
 from src.Game import *
 
+# TODO: why not mettre le if not game.deck et les computepoints() dans endround() ?
+# Tout à l'air de pouvoir s'écrir dans Game.py voir Player.py
+
 
 def main():
     play_again = True
 
     while play_again:
+
         player1_name = input("Player 1 , enter your name\n")
         player2_name = input("Player 2 , enter your name\n")
         game = initGame(player1_name, player2_name)

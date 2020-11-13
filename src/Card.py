@@ -1,10 +1,11 @@
 class Card:
     def __init__(self, title, value, totalNumber, description):
-        self.title = title
-        self.value = value
-        self.totalNumber = totalNumber
-        self.leftNumber = totalNumber
-        self.description = description
+
+        self.title = title              # Title of the card
+        self.value = value              # Value of the card
+        self.totalNumber = totalNumber  # Keeps in mind how much copies of a card there are
+        self.leftNumber = totalNumber   # Keeps in mind how much copies of a card are left in the game
+        self.description = description  # Description of the card's effect
         # self.assets = assets 
 
     def reveal(self):
@@ -38,6 +39,7 @@ class Guard(Card):
 
 class Priest(Card):
     def power(self, activePlayer, deck_arg):
+
         activePlayer.opponent.hand[0].reveal()
 
 
@@ -49,9 +51,11 @@ class Baron(Card):
         if activePlayer.compare(opponent) == 0:
             print(f"{activePlayer.name} loses the duel !")
             activePlayer.isAlive = False
+
         elif activePlayer.compare(opponent) == 1:
             print(f"\n{opponent.name} loses the duel !")
             opponent.isAlive = False
+
         else:
             print("It is a tie\n")
 
@@ -63,8 +67,11 @@ class Handmaid(Card):
 
 class Prince(Card):
     def power(self, activePlayer, deck_arg):
+
         choice = input("\nWho do you want to target ? [You/Opponent]\n")
+        #TODO: peut etre trouver une alternative à 'opponent' (frost)
         choice.lower()
+
         while (choice != "you") and (choice != "opponent"):
             choice = input("\nIncorrect Input ! Who do you want to target ? [You/Opponent]\n")
             choice.lower()
@@ -92,11 +99,14 @@ class Chancellor(Card):
 
         if j == 1:
             print(
-                f"You now need to get rid of 1 of your cards by placing it at the bottom of the deck. Your hand is :\n")
+                f"You now need to get rid of 1 of your cards by placing it at the bottom of the deck."
+                f"\nYour hand is :\n")
+
             for i in range(len(activePlayer.hand)):
                 print(f"{i + 1}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
+
             index = int(input("Which card do you want to place as the last card in the deck ? (1/2)\n"))
-            while index not in [1, 2]:  # TODO. boucle infinie ?
+            while index not in [1, 2]:
                 index = int(
                     input("\nWrong input ! Which card do you want to place as the last card in the deck ? (1/2)\n"))
 
@@ -105,12 +115,12 @@ class Chancellor(Card):
 
         elif j == 2:
             print(
-                f"You now need to get rid of 2 of your cards by placing them at the bottom of the deck. Your hand is :\n")
+                f"You need to get rid of 2 of your cards by placing them at the bottom of the deck. Your hand is :\n")
             for i in range(len(activePlayer.hand)):
                 print(f"{i + 1}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
 
             index = int(input("Which card do you want to place as the penultimate card in the deck ? (1/2/3)\n"))
-            while index not in [1, 2, 3]:  # TODO. boucle infinie ?
+            while index not in [1, 2, 3]:
                 index = int(input(
                     "\nWrong input ! Which card do you want to place as the penultimate card in the deck ? (1/2/3)\n"))
 
@@ -118,7 +128,7 @@ class Chancellor(Card):
             deck_arg.append(placedCard)
 
             index = int(input("Which card do you want to place as the last card in the deck ? (1/2)\n"))
-            while index not in [1, 2]:  # TODO. boucle infinie ?
+            while index not in [1, 2]:
                 index = int(
                     input("\nWrong input ! Which card do you want to place as the last card in the deck ? (1/2)\n"))
 
@@ -128,6 +138,7 @@ class Chancellor(Card):
 
 class King(Card):
     def power(self, activePlayer, deck_arg):
+
         opponent = activePlayer.opponent
 
         print("The hands have been switched !\n")
