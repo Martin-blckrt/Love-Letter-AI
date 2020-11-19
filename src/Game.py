@@ -23,7 +23,7 @@ def fillDeck(listOfCards):
     for i in listOfCards:
         for j in range(i.totalNumber):
             deck.append(i)
-    random.shuffle(deck)
+    #random.shuffle(deck)
 
     return deck
 
@@ -61,10 +61,11 @@ class Game:
                             baron_card,
                             handmaid_card,
                             prince_card,
-                            chancellor_card,
+                            #chancellor_card,
                             king_card,
                             countess_card,
-                            princess_card]
+                            #princess_card,
+                            chancellor_card]
 
         # List of the card we will put on the side at the beginning of each round
         self.isolatedCard = []

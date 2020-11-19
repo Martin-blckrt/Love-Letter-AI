@@ -12,21 +12,22 @@ class Player:
         self.name = name        # Player's name
         self.opponent = None    # Contains the player's opponent
 
-    def deckEmpty(self, opponent):
+    def deckEmpty(self):
         # Activates when they are no more card left
 
-        self.opponent = opponent
         print("\nThe deck is empty : highest card wins !")
-        if self.compare(opponent) == 0:
-            opponent.hasWon = True
-            print(f"{opponent.name} wins !")
+        i = self.compare(self.opponent)
 
-        elif self.compare(opponent) == 1:
+        if i == 0:
+            self.opponent.hasWon = True
+            print(f"{self.opponent.name} wins !")
+
+        elif i == 1:
             self.hasWon = True
             print(f"{self.name} wins !")
 
         else:
-            self.hasWon = opponent.hasWon = True
+            self.hasWon = self.opponent.hasWon = True
             print("Tie")
 
     def oppositePlayer(self, opponent):
@@ -55,7 +56,7 @@ class Player:
         for i in range(len(self.hand)):
             print(f"{i+1}. {self.hand[i].title} [{self.hand[i].value}]")    #prints the player's hand
 
-        index =0
+        index = 0
         cardValues = []
 
         for j in range(len(self.hand)):
@@ -86,11 +87,13 @@ class Player:
             if cardPlayed.value == 5 and not deck:
                 #la logique ici est de dire si il n'y a plus rien dans le deck alors ne fait pas l'action du prince pcq l'autre
                 #mec n'aura pas de quoi repiocher avant la comparaison finale
-                pass
+                self.playedCards.insert(0, cardPlayed)
             else:
                 cardPlayed.power(self, deck)
-        elif cardPlayed.value in [1, 2, 3, 7]:
+        elif self.opponent.deadpool and cardPlayed.value in [1, 2, 3, 7]:
             print("\nThe opponent is protected : your card has no effect !\n")
+        elif self.opponent.deadpool and cardPlayed.value in [0, 4, 5, 6, 8, 9]:
+            cardPlayed.power(self, deck)
 
         self.playedCards.insert(0, cardPlayed)
 
@@ -110,7 +113,7 @@ class Player:
         # Function who evaluates which card has greater value
 
         print(f"{self.name} has a {self.hand[0].title} [{self.hand[0].value}]\n"
-              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]")
+              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n")
         if self.hand[0].value < opponent.hand[0].value:
             return 0
         elif self.hand[0].value > opponent.hand[0].value:
