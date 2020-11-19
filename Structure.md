@@ -167,6 +167,14 @@
 
 - Max(bestscore, eval(s))
 
+
+#Pour eval() 
+Formule de proba d'une carte : 
+
+21 - len(self.playedCards[]) + len(opponent.playercard[]) + len(isolatedcard[]) + len(self.hand) + chancellored()
+
+chancelored() faire attention au cas ou il reste strict. moins de 4 cartes. 
+
 # ATTENTION :
 - carte cachée considérée comme "en jeu" alors que IRL not true
 - code pensé de façon modulable pour fonctionner avec des tweak mineurs à plusieurs joueurs
