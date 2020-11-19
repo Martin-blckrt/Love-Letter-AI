@@ -10,14 +10,9 @@ class Card:
     def reveal(self):
         print(f"Opponent's card is {self.title}\n")
 
-
-# TODO. Chancellor : rendre plus joli ma zeub
-# TODO. Chancellor : Debug
-# TODO. Tester les cas de deck vide (notamment avec Chancellor et Prince) et les debug en cas de soucis
-
-
 class Spy(Card):
     def power(self, activePLayer, deck_arg):
+
         activePLayer.extraPoint = 1
 
 
