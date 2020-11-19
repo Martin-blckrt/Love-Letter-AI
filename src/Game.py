@@ -23,6 +23,7 @@ def fillDeck(listOfCards):
     for i in listOfCards:
         for j in range(i.totalNumber):
             deck.append(i)
+
     random.shuffle(deck)
 
     return deck
@@ -105,6 +106,7 @@ class Game:
 
     def endRound(self):
         # Checks if the round has ended and give points to the winning player
+
         if not self.player1.isAlive:
             self.player2.points += 1 + self.player2.extraPoint
             print(f"{self.player2.name} wins the round ! He scores {1 + self.player2.extraPoint} point(s)\n")

@@ -17,6 +17,7 @@ def main():
             game.initRound()
 
             while game.endRound() and game.deck:
+                print(f"{len(game.deck)-1}")
                 print(f"\n\nTime for {player1_name} ({game.player1.gender}) to play!")
                 game.player1.playTurn(game.deck)
 
@@ -25,17 +26,17 @@ def main():
                     game.player2.playTurn(game.deck)
 
             if not game.deck:
-                game.player1.deckEmpty(game.player2)
+                game.player1.deckEmpty()
 
             computePoints(game.player1)
             computePoints(game.player2)
 
-        if game.player1.points == 6:
-            print(f"{player1_name} wins the game !")
-            play_again = input("Do you want to play again ? (True/False)")
-        elif game.player2.points == 6:
-            print(f"{player2_name} wins the game !")
-            play_again = input("Do you want to play again ? (True/False)")
+        if game.player1.points >= 6:
+            print(f"{player1_name} WINS THE GAME !")
+            play_again = input("\nDo you want to play again ? (True/False)\n")
+        elif game.player2.points >= 6:
+            print(f"{player2_name} WINS THE GAME !")
+            play_again = input("\nDo you want to play again ? (True/False)\n")
 
 
 if __name__ == "__main__":
