@@ -1,5 +1,6 @@
 from src.negamax import *
 
+
 class Player:
     def __init__(self, name, gender):
 
@@ -56,7 +57,7 @@ class Player:
         print(f"{self.name}'s hand is :")
 
         for i in range(len(self.hand)):
-            print(f"{i+1}. {self.hand[i].title} [{self.hand[i].value}]")    #prints the player's hand
+            print(f"{i+1}. {self.hand[i].title} [{self.hand[i].value}]")    # prints the player's hand
 
         index = 0
         cardValues = []
@@ -64,9 +65,9 @@ class Player:
         for j in range(len(self.hand)):
             cardValues.append(self.hand[j].value)
 
-        cond5 = 5 in cardValues     #detects a Prince
-        cond7 = 7 in cardValues     #detects a King
-        cond8 = 8 in cardValues     #detects a Countess
+        cond5 = 5 in cardValues     # detects a Prince
+        cond7 = 7 in cardValues     # detects a King
+        cond8 = 8 in cardValues     # detects a Countess
 
         if cond8 and (cond5 or cond7):
             for i in range(len(self.hand)):
@@ -88,8 +89,8 @@ class Player:
         if not self.opponent.deadpool:
 
             if cardPlayed.value == 5 and not deck:
-                #la logique ici est de dire si il n'y a plus rien dans le deck alors ne fait pas l'action du prince pcq
-                #l'autre mec n'aura pas de quoi repiocher avant la comparaison finale
+                # la logique ici est de dire si il n'y a plus rien dans le deck alors ne fait pas l'action du prince pcq
+                # l'autre mec n'aura pas de quoi repiocher avant la comparaison finale
                 self.playedCards.insert(0, cardPlayed)
             else:
                 cardPlayed.power(self, deck)

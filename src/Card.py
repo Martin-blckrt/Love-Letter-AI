@@ -10,6 +10,7 @@ class Card:
     def reveal(self):
         print(f"Opponent's card is {self.title}\n")
 
+
 class Spy(Card):
     def power(self, activePLayer, deck_arg):
 
@@ -103,20 +104,22 @@ class Chancellor(Card):
         else:
             if j == 2:
                 print(
-                    f"You need to get rid of 2 of your cards by placing them at the bottom of the deck. Your hand is :\n")
+                    f"You need to get rid of 2 of your cards by placing them "
+                    f"at the bottom of the deck. Your hand is :\n")
                 for i in range(len(activePlayer.hand)):
                     print(f"{i + 1}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
 
                 index = int(input("Which card do you want to place as the penultimate card in the deck ? (1/2/3)\n"))
                 while index not in [1, 2, 3]:
                     index = int(input(
-                        "\nWrong input ! Which card do you want to place as the penultimate card in the deck ? (1/2/3)\n"))
+                        "\nWrong input ! Which card do you want to place "
+                        "as the penultimate card in the deck ? (1/2/3)\n"))
 
                 placedCard = activePlayer.hand.pop(index - 1)
                 deck_arg.append(placedCard)
 
-            print(f"\nYou now need to get rid of 1 of your cards by placing it at the bottom of the deck.\n"
-                f"\nYour hand is :\n")
+            print(f"\nYou now need to get rid of 1 of your cards by placing it at the bottom of the deck."
+                  f"\n\nYour hand is :\n")
 
             for i in range(len(activePlayer.hand)):
                 print(f"{i + 1}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
