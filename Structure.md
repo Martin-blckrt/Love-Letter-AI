@@ -172,17 +172,18 @@
 
 Cette fonction doit sortir une valeur entre -1 et 1 (Pas grave si c'est pas le cas, on bricolera ça sans souci)
 
-eval(s) = impact_carte_jouée * p_1 + interet_carte_restante * p_2 
+`eval(s) = impact_carte_jouée * p_1 + interet_carte_restante * p_2`
 
 avec p_1 et p_2 les poids à appliquer au resultats des fonctions `impact_carte_jouée` et `interet_carte_restante`. 
 Ces poids pourront être calculés grâce aux connaissances du plateau, des cartes jouées précédement, du nombre de tour restant et du nombre de cartes dans le deck. 
 
+## Impact carte jouée
 
-_Formule de proba d'une carte : 
+Formule de proba d'une carte :
 
 21 - len(self.playedCards[]) + len(opponent.playercard[]) + len(isolatedcard[]) + len(self.hand) + chancellored()
 
-chancelored() faire attention au cas ou il reste strict. moins de 4 cartes._
+chancelored() faire attention au cas ou il reste strict. moins de 4 cartes.
 
 # ATTENTION :
 - carte cachée considérée comme "en jeu" alors que IRL not true
