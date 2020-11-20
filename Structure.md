@@ -168,9 +168,9 @@
 - Max(bestscore, eval(s))
 
 
-## eval(state) 
+## evaluate(state) 
 
-Cette fonction doit sortir une valeur entre -1 et 1 (Pas grave si c'est pas le cas, on bricolera ça sans souci)
+Cette fonction doit sortir une valeur entre -10 et 10 (Pas grave si c'est pas le cas, on bricolera ça sans souci)
 
 `eval(s) = impact_carte_jouée * p_1 + interet_carte_restante * p_2`
 
