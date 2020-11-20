@@ -172,7 +172,7 @@
 
 Cette fonction doit sortir une valeur entre -10 et 10 (Pas grave si c'est pas le cas, on bricolera ça sans souci)
 
-`eval(s) = impact_carte_jouée * p_1 + interet_carte_restante * p_2`
+`eval(s) = impact_couple_main * p_1`
 
 avec p_1 et p_2 les poids à appliquer au resultats des fonctions `impact_carte_jouée` et `interet_carte_restante`. 
 Ces poids pourront être calculés grâce aux connaissances du plateau, des cartes jouées précédement, du nombre de tour restant et du nombre de cartes dans le deck. 
