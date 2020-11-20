@@ -1,3 +1,5 @@
+from src.negamax import *
+
 class Player:
     def __init__(self, name, gender):
 
@@ -84,14 +86,17 @@ class Player:
         cardPlayed = self.hand.pop(index)
 
         if not self.opponent.deadpool:
+
             if cardPlayed.value == 5 and not deck:
-                #la logique ici est de dire si il n'y a plus rien dans le deck alors ne fait pas l'action du prince pcq l'autre
-                #mec n'aura pas de quoi repiocher avant la comparaison finale
+                #la logique ici est de dire si il n'y a plus rien dans le deck alors ne fait pas l'action du prince pcq
+                #l'autre mec n'aura pas de quoi repiocher avant la comparaison finale
                 self.playedCards.insert(0, cardPlayed)
             else:
                 cardPlayed.power(self, deck)
+
         elif self.opponent.deadpool and cardPlayed.value in [1, 2, 3, 7]:
             print("\nThe opponent is protected : your card has no effect !\n")
+
         elif self.opponent.deadpool and cardPlayed.value in [0, 4, 5, 6, 8, 9]:
             cardPlayed.power(self, deck)
 
@@ -123,11 +128,22 @@ class Player:
 
     def guess(self):
         # Function who makes the player guess a card (Guard effect - Player only)
+
         cardGuessed = int(input("Which card do you want to guess ? (0-9 but not 1)\n"))
+
         while(cardGuessed < 0) or (cardGuessed > 9) or (cardGuessed == 1):
+
             cardGuessed = int(input("Unauthorized value ! Which card do you want to guess ? (0-9 but not 1)\n"))
+
         return cardGuessed
 
-    def decide(self):
-        # IA magic shit
-        pass
+    def decide(self, deck, isolatedCard):
+
+        color = 1
+        pos_inf = float('inf')
+        neg_inf = float('-inf')
+
+        state = State(deck, isolatedCard, self, self.opponent)
+        node = Node(state, 0, None)
+
+        score = node.negamax(node, pos_inf, neg_inf, color)
