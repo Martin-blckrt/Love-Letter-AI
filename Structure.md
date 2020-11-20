@@ -157,18 +157,18 @@
 
 # IA 
 
-- NextState(game) : Prend en paramètre l'instance d'objet de la classe Game et que ca retoune l'updated game.
+- NextState(state) : Prend en paramètre l'instance d'objet de la classe Game et que ca retoune l'updated game.
 
-- Terminate(s) : Vérifie que l'état donné en paramètre est un état "final".
+- Terminate(state) : Vérifie que l'état donné en paramètre est un état "final".
 
-- eval(s) : Calcule/estime l'issu du round à chaque position p retourne. 
+- eval(state) : Calcule/estime l'issu du round à chaque position p retourne. 
 
 - Min(bestscore, eval(s))
 
 - Max(bestscore, eval(s))
 
 
-# eval() 
+## eval(state) 
 
 Cette fonction doit sortir une valeur entre -1 et 1 (Pas grave si c'est pas le cas, on bricolera ça sans souci)
 
@@ -177,13 +177,16 @@ Cette fonction doit sortir une valeur entre -1 et 1 (Pas grave si c'est pas le c
 avec p_1 et p_2 les poids à appliquer au resultats des fonctions `impact_carte_jouée` et `interet_carte_restante`. 
 Ces poids pourront être calculés grâce aux connaissances du plateau, des cartes jouées précédement, du nombre de tour restant et du nombre de cartes dans le deck. 
 
-## Impact carte jouée
+### Impact carte jouée
 
 Formule de proba d'une carte :
 
 21 - len(self.playedCards[]) + len(opponent.playercard[]) + len(isolatedcard[]) + len(self.hand) + chancellored()
 
 chancelored() faire attention au cas ou il reste strict. moins de 4 cartes.
+
+## NextState(state)
+Doit prendre en compte les choix qui découlent de chancellor, prince et comtesse.
 
 # ATTENTION :
 - carte cachée considérée comme "en jeu" alors que IRL not true
