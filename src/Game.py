@@ -26,6 +26,8 @@ def fillDeck(listOfCards):
 
     random.shuffle(deck)
 
+
+
     return deck
 
 
