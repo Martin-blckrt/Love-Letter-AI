@@ -1,4 +1,5 @@
-from src.negamax import *
+from src.AI.Node import *
+from src.AI.negamax import *
 
 
 class Player:
@@ -138,7 +139,7 @@ class Player:
 
         return cardGuessed
 
-    def decide(self, deck, isolatedCard):
+    def playAiTurn(self, deck, isolatedCard):
 
         color = 1
         pos_inf = float('inf')
@@ -147,4 +148,6 @@ class Player:
         state = State(deck, isolatedCard, self, self.opponent)
         node = Node(state, 0, None)
 
-        score = node.negamax(node, pos_inf, neg_inf, color)
+        index = negamax(node, pos_inf, neg_inf, color)
+
+        self.playCard(index, deck)

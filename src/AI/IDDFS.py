@@ -1,4 +1,4 @@
-from src.IA.Node import Node
+from src.AI.Node import Node
 # TODO. adapter l'algo pour l'integrer à l'IA
 
 
@@ -9,6 +9,8 @@ def IDDFS(problem, initial_state, final_state, maxDepth):
 
 
 def DFS(problem, initial_state, final_state, depth):
+    #TODO: La déclaration est imcomplète, si c'est le noeud parent, rajoutez 'None'
+    #TODO: faire next states
     orderedList = [Node(initial_state, None)]
     checkedStatesList = []
 

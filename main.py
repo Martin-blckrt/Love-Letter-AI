@@ -25,7 +25,7 @@ def main():
                     print(f"\n\nTime for {player2_name}({game.player2.gender}) to play!")
                     game.player2.playTurn(game.deck)
                     # pour IA
-                    # game.player2.decide(game.deck, game.isolatedCard)
+                    # game.player2.playAiTurn(game.deck, game.isolatedCard)
 
             if not game.deck:
                 game.player1.deckEmpty()
