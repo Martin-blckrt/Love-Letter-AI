@@ -148,6 +148,6 @@ class Player:
         state = State(deck, isolatedCard, self, self.opponent)
         node = Node(state, 0, None)
 
-        index = negamax(node, pos_inf, neg_inf, color)
+        index = negamax(node, neg_inf, pos_inf, color)
 
         self.playCard(index, deck)

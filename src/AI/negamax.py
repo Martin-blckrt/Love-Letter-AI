@@ -1,4 +1,4 @@
-from src.AI.NodeManipulationToolkit import isTerminal, evaluate, getAncestorCardIndex
+from src.AI.NodeToolkit import isTerminal, evaluate, getAncestorCardIndex
 
 
 def negamax(node, depth, alpha, beta, color):
@@ -13,7 +13,7 @@ def negamax(node, depth, alpha, beta, color):
 
     for child in node.children:
 
-        value = max(value, -negamax(child, depth - 1, -beta, -alpha, color))
+        value = max(value, -negamax(child, depth - 1, -beta, -alpha, -color))
         alpha = max(alpha, value)
 
         if alpha >= beta:
