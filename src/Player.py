@@ -1,8 +1,13 @@
 from src.AI.Node import *
 from src.AI.negamax import *
 
+# TODO. Adapter playTurn à l'IA
+# TODO. Creer les virtual power
+# TODO. Integrer negamax dans play turn
+
 
 class Player:
+
     def __init__(self, name, gender):
 
         self.gender = gender
@@ -145,7 +150,7 @@ class Player:
         pos_inf = float('inf')
         neg_inf = float('-inf')
 
-        state = State(deck, isolatedCard, self, self.opponent)
+        state = State(deck, isolatedCard, self)
         node = Node(state, 0, None)
 
         index = negamax(node, neg_inf, pos_inf, color)

@@ -9,8 +9,10 @@ def IDDFS(problem, initial_state, final_state, maxDepth):
 
 
 def DFS(problem, initial_state, final_state, depth):
-    #TODO: La déclaration est imcomplète, si c'est le noeud parent, rajoutez 'None'
-    #TODO: faire next states
+
+    # TODO: La déclaration est imcomplète, si c'est le noeud parent, rajoutez 'None'
+    # TODO: faire next states
+
     orderedList = [Node(initial_state, None)]
     checkedStatesList = []
 

@@ -13,7 +13,6 @@ class Card:
 
 class Spy(Card):
     def power(self, activePLayer, deck_arg):
-
         activePLayer.extraPoint = 1
 
 
@@ -141,6 +140,9 @@ class King(Card):
         temp = activePlayer.hand[0]
         activePlayer.hand[0] = opponent.hand[0]
         opponent.hand[0] = temp
+
+    def narniaPower(self):
+        pass
 
 
 class Countess(Card):
