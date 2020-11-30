@@ -1,6 +1,6 @@
 from src.AI.NodeToolkit import isTerminal, evaluate, getAncestorCardIndex, nextStates
-from src.Game import Game
-
+# from src.Game import Game
+# TODO. régler limport circulaire
 
 
 def negamax(node, depth, alpha, beta, color):
@@ -12,7 +12,7 @@ def negamax(node, depth, alpha, beta, color):
 
     virtualNode = node
 
-    nextStates(virtualNode, fake.listOfCards)
+    nextStates(virtualNode, fake.listOfCards, fake.isolatedCard)
 
     del fake  # supprimer l'instance d'objet pour eviter le bordel
 

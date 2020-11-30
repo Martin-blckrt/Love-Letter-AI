@@ -44,6 +44,7 @@ def getAncestorCardIndex(node, value):
 
 def isTerminal(node):
     # TODO: si on a des erreurs, réfléchir au cas où state == None
+    # TODO. deck empty check
     return len(node.children) == 0
 
 
@@ -52,7 +53,7 @@ def getNodeValue(node):
     return node.value
 
 
-def nextStates(virtualNode, listOfCards):
+def nextStates(virtualNode, listOfCards, isolatedCard):
 
     # TOOD. Gerer qui joue est le player dans le noeud
 
@@ -60,8 +61,8 @@ def nextStates(virtualNode, listOfCards):
     for usedCard in virtualNode.state.player.hand:
 
         # usedCard is the card virtually played by the player
-
-        virtualNode.state.player.playCard()
+        usedCardIndex = virtualNode.state.player.hand.index(usedCard)
+        virtualNode.state.player.playTurn(virtualNode.state.deck, caption=False)
         virtualNode.state.player.hand.remove(usedCard)
 
         for card in listOfCards:

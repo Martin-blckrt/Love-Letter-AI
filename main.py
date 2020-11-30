@@ -1,4 +1,4 @@
-from src.Game import *
+from src.Game import initGame, computePoints
 
 # TODO: why not mettre le if not game.deck et les computepoints() dans endround() ?
 # Tout à l'air de pouvoir s'écrir dans Game.py voir Player.py
@@ -18,7 +18,7 @@ def main():
 
             while game.endRound() and game.deck:
 
-                print(f"{len(game.deck)-1}")
+                print(f"\nLongueur du deck : {len(game.deck)-1} \n")
                 print(f"\n\nTime for {player1_name} ({game.player1.gender}) to play!")
 
                 game.player1.playTurn(game.deck)
