@@ -76,6 +76,7 @@ class Game:
         # Initializes a round
 
         print("\n----------NEW ROUND----------")
+
         self.deck = fillDeck(self.listOfCards)
 
         self.player1.hand = []
@@ -91,7 +92,9 @@ class Game:
               f"\n{self.player1.name} : {self.player1.points}\n{self.player2.name} : {self.player2.points}")
 
         print("\n\nKnown isolated cards are : ")
+
         for i in range(3):
+
             card = self.deck.pop(0)
             pack = [card, 0]  # 0 is visible, 1 is invisible
             self.isolatedCard.append(pack)
@@ -99,15 +102,18 @@ class Game:
 
         card = self.deck.pop(0)
         pack = [card, 1]  # 0 is visible, 1 is invisible
+
         self.isolatedCard.append(pack)
 
         self.player1.draw(self.deck)
         self.player2.draw(self.deck)
 
     def endRound(self):
+
         # Checks if the round has ended and give points to the winning player
 
         if not self.player1.isAlive:
+
             self.player2.points += 1 + self.player2.extraPoint
             print(f"{self.player2.name} wins the round ! He scores {1 + self.player2.extraPoint} point(s)\n")
 

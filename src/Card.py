@@ -65,18 +65,18 @@ class Card:
         # ------------------------------ Prince --------------------------
         elif self.value == 5:
 
-            prince_power(activePlayer, deck_arg)
+            prince_power(activePlayer, deck_arg, caption)
 
         # ------------------------------ Chancellor ---------------------
 
         elif self.value == 6:
 
-            chancellor_power(activePlayer, deck_arg)
+            chancellor_power(activePlayer, deck_arg, caption)
 
         # ------------------------------ King ------------------------------
         elif self.value == 7:
 
-            king_power(activePlayer)
+            king_power(activePlayer, caption)
 
         else:
 

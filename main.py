@@ -1,7 +1,6 @@
 from src.Game import initGame, computePoints
 
 # TODO: why not mettre le if not game.deck et les computepoints() dans endround() ?
-# Tout à l'air de pouvoir s'écrir dans Game.py voir Player.py
 
 
 def main():

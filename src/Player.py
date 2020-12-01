@@ -3,9 +3,6 @@ from src.AI.negamax import negamax
 
 
 # TODO. Adapter playTurn à l'IA
-# TODO. Creer les virtual power
-# TODO. Integrer negamax dans play turn
-
 
 class Player:
 
