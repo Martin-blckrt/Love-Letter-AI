@@ -160,7 +160,7 @@ class Player:
         pos_inf = float('inf')
         neg_inf = float('-inf')
 
-        state = State(deck, self)
+        state = State(deck, isolatedCard, self)  # TODO. import isolatedCard in Player
         node = Node(state, 0, None)
 
         index = negamax(node, neg_inf, pos_inf, color)

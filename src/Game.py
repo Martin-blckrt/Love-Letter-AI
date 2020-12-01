@@ -6,7 +6,7 @@ import random
 def initGame(name1, name2):
     # Initialize the game and the player's name and 'gender'
 
-    game = Game(name1, "Human", name2, "Human")
+    game = Game(name1, "Human", name2, "IA")
     return game
 
 

@@ -46,6 +46,10 @@ def main():
             print(f"{player2_name} WINS THE GAME !")
             play_again = input("\nDo you want to play again ? (True/False)\n")
 
+        else:
+            print('DRAW')
+            play_again = input("\nDo you want to play again ? (True/False)\n")
+
 
 if __name__ == "__main__":
     main()

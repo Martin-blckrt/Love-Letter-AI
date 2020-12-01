@@ -2,6 +2,7 @@
 
 
 def prince_power(activePlayer, deck_arg, caption=True):
+
     if activePlayer.gender == "Human":
         choice = input("\nWho do you want to target ? [You/Opponent]\n")
         # TODO: peut etre trouver une alternative à 'opponent' (frost)
