@@ -28,7 +28,7 @@ def main():
                     game.player2.playTurn(game.deck)
 
                     # pour IA
-                    # game.player2.playAiTurn(game.deck, game.isolatedCard)
+                    # game.player2.playAiTurn(game.deck, game.isolatedCards)
 
             if not game.deck:
                 game.player1.deckEmpty()

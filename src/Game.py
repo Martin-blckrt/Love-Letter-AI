@@ -32,16 +32,7 @@ def fillDeck(listOfCards):
 class Game:
     def __init__(self, player1name, player1Gender, player2name, player2Gender):
 
-        # Creation of the players
-        self.player1 = Player(player1name, player1Gender)
-        self.player2 = Player(player2name, player2Gender)
-
-        # Assigns the opposite player
-        self.player1.oppositePlayer(self.player2)
-        self.player2.oppositePlayer(self.player1)
-
         # Creation of the card's instances
-
         spy_card = Card("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
         guard_card = Card("Guard", 1, 6, "Devinez la main d'un autre joueur.")
         priest_card = Card("Priest", 2, 2, "Regardez la main d'un autre jouer.")
@@ -68,9 +59,17 @@ class Game:
                             princess_card]
 
         # List of the card we will put on the side at the beginning of each round
-        self.isolatedCard = []
+        self.isolatedCards = []
 
         self.deck = []
+
+        # Creation of the players
+        self.player1 = Player(player1name, player1Gender, self.isolatedCards, self.listOfCards)
+        self.player2 = Player(player2name, player2Gender, self.isolatedCards, self.listOfCards)
+
+        # Assigns the opposite player
+        self.player1.oppositePlayer(self.player2)
+        self.player2.oppositePlayer(self.player1)
 
     def initRound(self):
         # Initializes a round
@@ -98,13 +97,13 @@ class Game:
             card = self.deck.pop(0)
             card.leftNumber -= 1
             pack = [card, 0]  # 0 is visible, 1 is invisible
-            self.isolatedCard.append(pack)
+            self.isolatedCards.append(pack)
             print(f" {card.title} [{card.value}]", end=" ")
 
         card = self.deck.pop(0)
         pack = [card, 1]  # 0 is visible, 1 is invisible
 
-        self.isolatedCard.append(pack)
+        self.isolatedCards.append(pack)
 
         self.player1.draw(self.deck)
         self.player2.draw(self.deck)

@@ -19,7 +19,6 @@ class Card:
 
         # ------------------------------ Spy ------------------------------
         if self.value == 0:
-            # if spy
             activePlayer.extraPoint = 1
 
         # ------------------------------ Guard ----------------------------
@@ -49,7 +48,7 @@ class Card:
 
             i = activePlayer.compare(opponent)
             if i == 0:
-                print(f"{activePlayer.name} loses the duel !" if caption else None )
+                print(f"{activePlayer.name} loses the duel !" if caption else None)
                 activePlayer.isAlive = False
 
             elif i == 1:

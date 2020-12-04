@@ -1,21 +1,16 @@
 from src.AI.NodeToolkit import isTerminal, evaluate, getAncestorCardIndex, nextStates
-# from src.Game import Game
-# TODO. régler limport circulaire
+import copy
 
 
 def negamax(node, depth, alpha, beta, color):
 
-    fake = Game()
-
-    virtualNode = node
+    virtualNode = copy.deepcopy(node)
 
 
     if isTerminal(node):
         return color * evaluate(node, fake.listOfCards)
 
-    nextStates(virtualNode, fake.listOfCards, fake.isolatedCard)
-
-    del fake  # supprimer l'instance d'objet pour eviter le bordel
+    nextStates(virtualNode)
 
     value = float('-inf')
 

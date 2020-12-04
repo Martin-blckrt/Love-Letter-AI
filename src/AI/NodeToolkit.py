@@ -1,15 +1,13 @@
-from src.AI.card_weight import *
-
-
 def evaluate(node):
+
     knownCards = node.state.player.isolatedCards + node.state.player.hand + \
                  + node.state.player.playedCards + node.state.opponent.playedCards
     # TODO. histoire de je connais la fin du deck si chancellier
 
-    weights(node, knownCards, node.state.player.isolatedCards)
+    #weights(node, knownCards, node.state.player.isolatedCards)
 
     # return card1_impact + card2_impact
-    pass
+    return node.value
 
 
 def getChildren(node):
@@ -50,6 +48,7 @@ def getAncestorCardIndex(node, value):
 
 def isTerminal(node):
     # TODO: si on a des erreurs, réfléchir au cas où state == None
+    # TODO. deck empty check
     return len(node.children) == 0
 
 
@@ -58,6 +57,9 @@ def getNodeValue(node):
     return node.value
 
 
+def nextStates(virtualNode):
+
+    # TODO. Gerer qui joue est le player dans le noeud
 def nextStates(virtualNode, listOfCards):
     # TOOD. Gerer qui joue est le player dans le noeud
 
@@ -65,13 +67,14 @@ def nextStates(virtualNode, listOfCards):
     for usedCard in virtualNode.state.player.hand:
 
         # usedCard is the card virtually played by the player
-
-        virtualNode.state.player.playCard()
+        usedCardIndex = virtualNode.state.player.hand.index(usedCard)
+        virtualNode.state.player.playTurn(virtualNode.state.deck, caption=False)
         virtualNode.state.player.hand.remove(usedCard)
 
-        for card in listOfCards:
+        for card in virtualNode.state.listOfCards:
 
             if card.leftNumber > 0:
+
                 newVirtualNode = virtualNode  # on cree une copie du noeud pour genere des enfants de celui ci
 
                 # piocher

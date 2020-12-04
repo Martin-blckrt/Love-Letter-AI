@@ -6,7 +6,7 @@ from src.AI.negamax import negamax
 
 class Player:
 
-    def __init__(self, name, gender):
+    def __init__(self, name, gender, isolatedCards, listofCards):
 
         self.gender = gender
         self.deadpool = False  # Activates immunity when the Handmaid is played
@@ -18,6 +18,8 @@ class Player:
         self.points = 0  # Player's total points
         self.name = name  # Player's name
         self.opponent = None  # Contains the player's opponent
+        self.isolatedCards = isolatedCards
+        self.listofCards = listofCards
 
     def deckEmpty(self):
         # Activates when they are no more card left
@@ -77,7 +79,7 @@ class Player:
         if cond8 and (cond5 or cond7):
             for i in range(len(self.hand)):
                 if cardValues[i] == 8:
-                    index = i + 1
+                    index = i
 
                     print("\nThe countess was discarded !\n" if caption else None)
         else:
@@ -162,10 +164,10 @@ class Player:
         pos_inf = float('inf')
         neg_inf = float('-inf')
 
-        state = State(deck, isolatedCard, self)  # TODO. import isolatedCard in Player
+        state = State(deck, self.isolatedCards, self.listofCards, self)  # TODO. import isolatedCards in Player
         node = Node(state, 0, None)
 
-        index = negamax(node, neg_inf, pos_inf, color)
+        index = negamax(node, 2, neg_inf, pos_inf, color)
 
         return index
 

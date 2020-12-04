@@ -1,5 +1,33 @@
 # Fichier regroupant les fonctions representant les actifs des cartes lorsqu'elles sont jouées.
 
+def powerChancellorAI(activePlayer):
+
+    pass
+
+
+def powerPrinceAI(activePlayer):
+
+    if activePlayer.hand[0].value == 9:
+        return "opponent"
+    elif activePlayer.hand[0].value == 0 and activePlayer.extraPoint:
+        return "you"
+    elif activePlayer.hand[0].value == 1:
+
+        knownCards = activePlayer.isolatedCards + activePlayer.hand + \
+                     + activePlayer.playedCards + activePlayer.opponent.playedCards
+
+        probs = []
+        b = 21 - len(knownCards)
+
+        for Card in activePlayer.listofCards:
+            a = Card.totalNumber - knownCards.count(Card)
+            probs.append((a / b))
+
+        impact = max(probs)
+
+        if impact > 0.2:
+            return "opponent"
+
 
 def prince_power(activePlayer, deck_arg, caption=True):
 
@@ -8,8 +36,7 @@ def prince_power(activePlayer, deck_arg, caption=True):
         # TODO: peut etre trouver une alternative à 'opponent' (frost)
         choice.lower()
     else:
-        # TODO. IA doit choisir une target
-        pass
+        choice = powerPrinceAI(activePlayer)
 
     while (choice != "you") and (choice != "opponent"):
         choice = input("\nIncorrect Input ! Who do you want to target ? [You/Opponent]\n" if caption else None)
@@ -67,6 +94,8 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
 
             if activePlayer.gender == "Human":
                 index = int(input("Which card do you want to place as the penultimate card in the deck ? (1/2/3)\n"))
+            else:
+                index = powerChancellorAI(activePlayer)
 
             while index not in [1, 2, 3]:
                 index = int(input(
