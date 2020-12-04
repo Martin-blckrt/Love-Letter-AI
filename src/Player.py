@@ -1,8 +1,9 @@
 from src.AI.Node import Node, State
-from src.AI.negamax import negamax
-
+from src.AI.NodeToolkit import *
+#from src.AI.negamax import negamax
 
 # TODO. Adapter playTurn à l'IA
+
 
 class Player:
 
@@ -174,3 +175,5 @@ class Player:
     def decide(self):
         # TODO. ecrire decide pour guess
         pass
+
+

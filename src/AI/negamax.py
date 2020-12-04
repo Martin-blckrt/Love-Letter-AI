@@ -3,12 +3,10 @@ import copy
 
 
 def negamax(node, depth, alpha, beta, color):
-
     virtualNode = copy.deepcopy(node)
 
-
     if isTerminal(node):
-        return color * evaluate(node, fake.listOfCards)
+        return color * evaluate(node)
 
     nextStates(virtualNode)
 
