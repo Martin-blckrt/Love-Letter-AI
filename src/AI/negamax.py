@@ -5,12 +5,13 @@ from src.AI.NodeToolkit import isTerminal, evaluate, getAncestorCardIndex, nextS
 
 def negamax(node, depth, alpha, beta, color):
 
-    if isTerminal(node):
-        return color * evaluate(node)
-
     fake = Game()
 
     virtualNode = node
+
+
+    if isTerminal(node):
+        return color * evaluate(node, fake.listOfCards)
 
     nextStates(virtualNode, fake.listOfCards, fake.isolatedCard)
 

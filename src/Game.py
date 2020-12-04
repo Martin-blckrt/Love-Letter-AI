@@ -96,6 +96,7 @@ class Game:
         for i in range(3):
 
             card = self.deck.pop(0)
+            card.leftNumber -= 1
             pack = [card, 0]  # 0 is visible, 1 is invisible
             self.isolatedCard.append(pack)
             print(f" {card.title} [{card.value}]", end=" ")

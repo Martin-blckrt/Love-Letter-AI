@@ -128,6 +128,8 @@ class Player:
         if deck:
             cardDrawn = deck.pop(0)
             self.hand.append(cardDrawn)
+            if self.gender == 'AI':
+                cardDrawn.leftNumber -= 1
         else:
             print("Deck is empty\n")
 

@@ -1,5 +1,7 @@
 from src.cardPower import *
 
+#TODO. if player rajouter leftNUmber-1 dans discard and play
+#TODO. if AI rajouter leftNumber-1 dans draw / gerer chancellier
 
 class Card:
     def __init__(self, title, value, totalNumber, description):
