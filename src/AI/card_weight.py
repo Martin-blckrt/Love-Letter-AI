@@ -1,6 +1,5 @@
 # defines every weight of cards for the evaluation function
 def weights(node, knownCards, listofCards):
-
     def spy_weight():
         if node.state.player.extrapoint:
             impact = 0
@@ -80,19 +79,25 @@ def weights(node, knownCards, listofCards):
         impact = 200 * a
         return impact
 
+    switcher = {
+        0: spy_weight,
+        1: guard_weight,
+        2: priest_weight,
+        3: baron_weight,
+        4: handmaid_weight,
+        5: prince_weight,
+        6: chancellor_weight,
+        7: king_weight,
+        8: countess_weight,
+        9: princess_weight
+    }
+
+    x = 0
+
     for i in range(2):
         a = node.state.player.hand[i].value
-        switcher = {
-            0: spy_weight,
-            1: guard_weight,
-            2: priest_weight,
-            3: baron_weight,
-            4: handmaid_weight,
-            5: prince_weight,
-            6: chancellor_weight,
-            7: king_weight,
-            8: countess_weight,
-            9: princess_weight
-        }
-        func = switcher.get(j)
-        return func
+        func = switcher.get(a)
+        temp = func()
+        x += temp
+
+    return x/2
