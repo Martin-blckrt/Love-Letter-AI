@@ -53,7 +53,7 @@ def weights(node, knownCards):
         return impact
 
     def chancellor_weight():
-        impact = 0.2
+        impact = 0.25
         return impact
 
     def king_weight():
