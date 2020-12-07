@@ -1,10 +1,10 @@
 # defines every weight of cards for the evaluation function
 
-def weights(node, knownCards):
+def weights(player, knownCards, chancellor):
     a = 21 - len(knownCards)
 
     def spy_weight():
-        if node.state.player.extraPoint:
+        if player.extraPoint:
             impact = 0
         else:
             impact = 0.5
@@ -13,7 +13,7 @@ def weights(node, knownCards):
 
     def guard_weight():
         probs = []
-        for Card in node.state.player.listofCards:
+        for Card in player.listofCards:
             b = Card.totalNumber - knownCards.count(Card)
             probs.append((b / a))
 
@@ -26,25 +26,25 @@ def weights(node, knownCards):
 
     def baron_weight():
 
-        j = 0
+        m = 0
         idx = 0
-        b = node.state.player.hand[1]
+        b = player.hand[1]
         baron_index = None
 
-        for Card in node.state.player.hand:
+        for Card in player.hand:
             if Card.value == 3:
                 baron_index = idx
             idx += 1
 
         bool(baron_index)
         if baron_index:
-            b = node.state.player.hand[0]
+            b = player.hand[0]
 
-        for Card in node.state.player.listofCards:
+        for Card in player.listofCards:
             if b.value > Card.value:
-                j += Card.totalNumber - knownCards.count(Card)
+                m += Card.totalNumber - knownCards.count(Card)
 
-        impact = 1 - (j / a)
+        impact = 1 - (m / a)
         return impact
 
     def handmaid_weight():
@@ -70,17 +70,17 @@ def weights(node, knownCards):
     def countess_weight():
         countess_index = None
         idx = 0
-        b = node.state.player.hand[1]
+        b = player.hand[1]
         impact = 175 / a
 
-        for Card in node.state.player.hand:
+        for Card in player.hand:
             if Card.value == 8:
                 countess_index = idx
             idx += 1
 
         bool(countess_index)
         if countess_index:
-            b = node.state.player.hand[0]
+            b = player.hand[0]
 
         if b.value == [5, 7]:
             impact = 0
@@ -90,7 +90,6 @@ def weights(node, knownCards):
     def princess_weight():
         impact = 200 / a
         return impact
-
 
     switcher = {
         0: spy_weight,
@@ -105,29 +104,53 @@ def weights(node, knownCards):
         9: princess_weight
     }
 
-    mean = 0
-    j = 0
-    x = 0 #pour enlever un warning 0 use
+    if not chancellor:
 
-    for card in node.state.player.listOfCards:
+        mean = 0
+        j = 0
 
-        n = card.totalNumber - knownCards.count(card)
-        if n > 0:
+        for card in player.listOfCards:
 
-            x = 0
-            j += 1
+            n = card.totalNumber - knownCards.count(card)
+            if n > 0:
 
-            node.state.player.hand.append(card)
-            knownCards.append(card)
+                x = 0
+                j += 1
 
-            for i in range(2):
-                a = node.state.player.hand[i].value
-                func = switcher.get(a)
-                temp = func()
-                x += temp
+                player.hand.append(card)
+                knownCards.append(card)
 
-            mean += n * x / a
-            node.state.player.hand.remove(card)
-            knownCards.remove(card)
+                for i in range(2):
+                    a = player.hand[i].value
+                    func = switcher.get(a)
+                    temp = func()
+                    x += temp
 
-    return mean / (2 * j)
+                mean += n * x / a
+                player.hand.remove(card)
+                knownCards.remove(card)
+
+        return mean / (2 * j)
+
+    else:
+        impactList = []
+        valueList = []
+
+        for j in range(10):
+            func = switcher.get(j)
+            impact = func()
+            impactList[j] = impact
+            valueList[j] = j
+
+        for i in range(9):
+
+            if impactList[i] > impactList[i + 1]:
+                temp = impactList[i]
+                impactList[i] = impactList[i + 1]
+                impactList[i + 1] = temp
+
+                temp = valueList[i]
+                valueList[i] = valueList[i + 1]
+                valueList[i + 1] = temp
+
+        return valueList

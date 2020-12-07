@@ -1,8 +1,21 @@
 # Fichier regroupant les fonctions representant les actifs des cartes lorsqu'elles sont jouées.
+from src.AI.card_weight import weights
+
 
 def powerChancellorAI(activePlayer):
 
-    pass
+    indexList = []
+    knownCards = activePlayer.isolatedCards + activePlayer.hand + \
+                 + activePlayer.playedCards + activePlayer.opponent.playedCards
+
+    sortedValueList = weights(activePlayer, knownCards, True)
+
+    for i in range(len(sortedValueList)):
+        for j in range(len(activePlayer.hand)):
+            if activePlayer.hand[j].value == sortedValueList[i]:
+                indexList.append(i)
+
+    return indexList
 
 
 def powerPrinceAI(activePlayer):
@@ -95,34 +108,36 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
             for i in range(len(activePlayer.hand)):
                 print(f"{i + 1}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]" if caption else None)
 
-            # TODO. l'IA doit choisir les cartes a mettre dans le deck pour chancelier
             # remplacer la valeur par defaut de la ligne suivante par le choix de l'IA
 
             if activePlayer.gender == "Human":
-                index = int(input("Which card do you want to place as the penultimate card in the deck ? (1/2/3)\n"))
+                index = int(input("Which card do you want to place as the penultimate card in the deck ? (0/1/2)\n"))
+
+                while index not in [0, 1, 2]:
+                    index = int(input(
+                        "\nWrong input ! Which card do you want to place "
+                        "as the penultimate card in the deck ? (0/1/2)\n"))
             else:
                 index = powerChancellorAI(activePlayer)
 
-            while index not in [1, 2, 3]:
-                index = int(input(
-                    "\nWrong input ! Which card do you want to place "
-                    "as the penultimate card in the deck ? (1/2/3)\n"))
-
-            placedCard = activePlayer.hand.pop(index - 1)
+            placedCard = activePlayer.hand.pop(index)
             deck_arg.append(placedCard)
 
-        print(f"\nYou now need to get rid of 1 of your cards by placing it at the bottom of the deck."
-              f"\n\nYour hand is :\n" if caption else None)
+        if activePlayer.gender == "Human":
+            print(f"\nYou now need to get rid of 1 of your cards by placing it at the bottom of the deck."
+                  f"\n\nYour hand is :\n" if caption else None)
 
-        for i in range(len(activePlayer.hand)):
-            print(f"{i + 1}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]" if caption else None)
+            for i in range(len(activePlayer.hand)):
+                print(f"{i}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]" if caption else None)
 
-        index = int(input("Which card do you want to place as the last card in the deck ? (1/2)\n"))
-        while index not in [1, 2]:
-            index = int(
-                input("\nWrong input ! Which card do you want to place as the last card in the deck ? (1/2)\n"))
+            index = int(input("Which card do you want to place as the last card in the deck ? (0/1)\n"))
+            while index not in [0, 1]:
+                index = int(
+                    input("\nWrong input ! Which card do you want to place as the last card in the deck ? (0/1)\n"))
+        else:
+            index = powerChancellorAI(activePlayer)
 
-        placedCard = activePlayer.hand.pop(index - 1)
+        placedCard = activePlayer.hand.pop(index)
         deck_arg.append(placedCard)
 
 

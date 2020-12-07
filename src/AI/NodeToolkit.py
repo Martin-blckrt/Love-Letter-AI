@@ -7,7 +7,8 @@ def evaluate(node):
                  node.state.player.playedCards + node.state.opponent.playedCards
     # TODO. histoire de je connais la fin du deck si chancellier
 
-    impact = weights(node, knownCards)
+    impact = weights(node.state.player, knownCards, False)
+
     return impact
 
 
