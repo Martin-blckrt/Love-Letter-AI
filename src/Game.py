@@ -128,5 +128,3 @@ class Game:
 
         else:
             return True
-
-

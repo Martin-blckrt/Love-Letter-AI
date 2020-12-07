@@ -20,7 +20,7 @@ def getAncestor(node, value):
 
     elif node.children is not None:
         for child in node.children:
-            target = getAncestor(child)
+            target = getAncestor(child, value)
 
     return target
 
@@ -56,9 +56,11 @@ def getNodeValue(node):
 
 
 def nextStates(virtualNode):
-
+    pass
     # TODO. Gerer qui joue est le player dans le noeud
-def nextStates(virtualNode, listOfCards):
+
+
+def nextStates(virtualNode):
     # TOOD. Gerer qui joue est le player dans le noeud
 
     next_nodes = []
@@ -66,6 +68,7 @@ def nextStates(virtualNode, listOfCards):
 
         # usedCard is the card virtually played by the player
         usedCardIndex = virtualNode.state.player.hand.index(usedCard)
+
         virtualNode.state.player.playTurn(virtualNode.state.deck, caption=False)
         virtualNode.state.player.hand.remove(usedCard)
 
