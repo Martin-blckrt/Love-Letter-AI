@@ -1,7 +1,5 @@
 # defines every weight of cards for the evaluation function
 
-# TODO. Tout refaire
-
 def weights(node, knownCards):
     a = 21 - len(knownCards)
 
@@ -93,7 +91,6 @@ def weights(node, knownCards):
         impact = 200 / a
         return impact
 
-# TODO. pondérer avec les proba de tomber sur les cartes (guarde a plus de chance que princesse)
 
     switcher = {
         0: spy_weight,
