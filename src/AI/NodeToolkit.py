@@ -60,11 +60,6 @@ def getNodeValue(node):
 
 
 def nextStates(virtualNode):
-    pass
-    # TODO. Gerer qui joue est le player dans le noeud
-
-
-def nextStates(virtualNode):
     # TOOD. Gerer qui joue est le player dans le noeud
 
     next_nodes = []

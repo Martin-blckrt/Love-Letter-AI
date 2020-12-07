@@ -6,7 +6,7 @@ from src.AI.negamax import negamax
 
 class Player:
 
-    def __init__(self, name, gender, isolatedCards, listofCards):
+    def __init__(self, name, gender, hiddenCard, isolatedCards, listOfCards):
 
         self.gender = gender
         self.deadpool = False  # Activates immunity when the Handmaid is played
@@ -18,8 +18,9 @@ class Player:
         self.points = 0  # Player's total points
         self.name = name  # Player's name
         self.opponent = None  # Contains the player's opponent
+        self.hiddenCard = hiddenCard
         self.isolatedCards = isolatedCards
-        self.listofCards = listofCards
+        self.listOfCards = listOfCards
 
     def deckEmpty(self):
         # Activates when they are no more card left
@@ -164,7 +165,7 @@ class Player:
         pos_inf = float('inf')
         neg_inf = float('-inf')
 
-        state = State(deck, self.isolatedCards, self.listofCards, self)  # TODO. import isolatedCards in Player
+        state = State(deck, self.isolatedCards, self.listOfCards, self)  # TODO. import isolatedCards in Player
         node = Node(state, 0, None)
 
         index = negamax(node, 2, neg_inf, pos_inf, color)

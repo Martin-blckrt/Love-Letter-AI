@@ -60,13 +60,14 @@ class Game:
                             princess_card]
 
         # List of the card we will put on the side at the beginning of each round
+        self.hiddenCard = []
         self.isolatedCards = []
 
         self.deck = []
 
         # Creation of the players
-        self.player1 = Player(player1name, player1Gender, self.isolatedCards, self.listOfCards)
-        self.player2 = Player(player2name, player2Gender, self.isolatedCards, self.listOfCards)
+        self.player1 = Player(player1name, player1Gender, self.hiddenCard, self.isolatedCards, self.listOfCards)
+        self.player2 = Player(player2name, player2Gender, self.hiddenCard, self.isolatedCards, self.listOfCards)
 
         # Assigns the opposite player
         self.player1.oppositePlayer(self.player2)
@@ -97,14 +98,12 @@ class Game:
 
             card = self.deck.pop(0)
             card.leftNumber -= 1
-            pack = [card, 0]  # 0 is visible, 1 is invisible
-            self.isolatedCards.append(pack)
+            self.isolatedCards.append(card)
             print(f" {card.title} [{card.value}]", end=" ")
 
+        # remove hidden card from deck
         card = self.deck.pop(0)
-        pack = [card, 1]  # 0 is visible, 1 is invisible
-
-        self.isolatedCards.append(pack)
+        self.hiddenCard.append(card)
 
         self.player1.draw(self.deck)
         self.player2.draw(self.deck)
