@@ -1,8 +1,8 @@
 from src.AI.card_weight import weights
+import copy
 
 
 def evaluate(node):
-
     knownCards = node.state.player.isolatedCards + node.state.player.hand + \
                  node.state.player.playedCards + node.state.opponent.playedCards
     # TODO. histoire de je connais la fin du deck si chancellier
@@ -63,25 +63,38 @@ def nextStates(virtualNode):
     # TOOD. Gerer qui joue est le player dans le noeud
 
     next_nodes = []
-    for usedCard in virtualNode.state.player.hand:
+    knownCards = virtualNode.state.player.isolatedCards + virtualNode.state.player.hand + \
+                 virtualNode.state.player.playedCards + virtualNode.state.opponent.playedCards
 
-        # usedCard is the card virtually played by the player
-        usedCardIndex = virtualNode.state.player.hand.index(usedCard)
+    for card in virtualNode.state.listOfCards:
 
-        virtualNode.state.player.playTurn(virtualNode.state.deck, caption=False)
-        virtualNode.state.player.hand.remove(usedCard)
+        if card.totalNumber - knownCards.count(card) > 0:
+            copiedDeck = copy.deepcopy(virtualNode.state.deck)
+            copiedHand = copy.deepcopy(virtualNode.state.player.hand)
+            copiedDeck.remove(card)
+            copiedHand.append(card)
 
-        for card in virtualNode.state.listOfCards:
-
-            if card.leftNumber > 0:
-
-                newVirtualNode = virtualNode  # on cree une copie du noeud pour genere des enfants de celui ci
-
-                # piocher
-                newVirtualNode.state.deck.remove(newVirtualNode.state.card)
-                card.leftNumber -= 1
+            for i in range(2):
+                newVirtualNode = copy.deepcopy(virtualNode)
+                # on cree une copie du noeud pour genere des enfants de celui ci
+                newVirtualNode.state.deck.remove(card)
                 newVirtualNode.state.player.hand.append(card)
+                newVirtualNode.state.player.playTurn(copiedDeck, i, caption=False)
                 newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
-                next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
 
+                if newVirtualNode.state.player.playedCards[0].value == 5:
+
+                    for drawnCard in virtualNode.state.listOfCards:
+
+                        if card.totalNumber - knownCards.count(drawnCard) > 0:
+
+                            newVirtualNode.state.deck.remove(drawnCard)
+
+                            if not newVirtualNode.state.player.hand:
+                                newVirtualNode.state.player.hand.append(drawnCard)
+
+                            elif not newVirtualNode.state.opponent.hand:
+                                newVirtualNode.state.opponent.hand.append(drawnCard)
+
+                next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
     return next_nodes

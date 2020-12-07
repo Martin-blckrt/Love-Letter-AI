@@ -1,4 +1,7 @@
 # defines every weight of cards for the evaluation function
+
+#TODO. Tout refaire
+
 def weights(node, knownCards):
     def spy_weight():
         if node.state.player.extraPoint:
@@ -50,7 +53,7 @@ def weights(node, knownCards):
         return impact
 
     def chancellor_weight():
-        impact = 0.25
+        impact = 0.2
         return impact
 
     def king_weight():

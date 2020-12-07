@@ -55,7 +55,7 @@ class Player:
             self.isAlive = False
             print(f"\n{self.name} discarded a Princess !\n" if caption else None)
 
-    def playTurn(self, deck, caption=True):
+    def playTurn(self, deck, *usedCardIndex, caption=True):
         # Handles the player's turn. Checks for Countess effect
 
         self.deadpool = False
@@ -88,8 +88,10 @@ class Player:
                 index = int(input("\nWhat card do you want to play ? (0/1)\n "))
                 while (index != 0) and (index != 1):
                     index = int(input("\nWrong input ! What card do you want to play ? (0/1)\n"))
-            else:
+            elif caption and self.gender == "IA":
                 index = self.playAiTurn(deck)
+            else:
+                index = usedCardIndex[0]
 
         self.playCard(index, deck, caption=caption)
 
