@@ -1,28 +1,36 @@
-# defines every weight of cards for the evaluation function
+# -----------------------------------------
+#  Fichier permettant de determiner les poids de chaque carte nécessaires au bon fonctionnement de la fonction evaluate
+#  --> weights() : utilisation d'un switcher pour savoir quelle sous fonctione utiliser ;
+#  Cette fonction est aussi utilisé par la fonction powerChancellorAI.
+# -----------------------------------------
 
 def weights(player, knownCards, chancellor):
     a = 21 - len(knownCards)
 
     def spy_weight():
-        if player.extraPoint:
-            impact = 0
-        else:
-            impact = 0.5
 
-        return impact
+        if player.extraPoint:
+
+            spy_impact = 0
+        else:
+            spy_impact = 0.5
+
+        return spy_impact
 
     def guard_weight():
-        probs = []
+
+        probabilities = []
         for Card in player.listofCards:
             b = Card.totalNumber - knownCards.count(Card)
-            probs.append((b / a))
+            probabilities.append((b / a))
 
-        impact = max(probs)
-        return impact
+        guard_impact = max(probabilities)
+
+        return guard_impact
 
     def priest_weight():
-        impact = 0.15
-        return impact
+
+        return 0.15
 
     def baron_weight():
 
@@ -44,34 +52,35 @@ def weights(player, knownCards, chancellor):
             if b.value > Card.value:
                 m += Card.totalNumber - knownCards.count(Card)
 
-        impact = 1 - (m / a)
-        return impact
+        baron_impact = 1 - (m / a)
+
+        return baron_impact
 
     def handmaid_weight():
-        impact = 0.2
-        return impact
+
+        return .2
 
     def prince_weight():
         p = 1
         for Card in knownCards:
             if Card.value == 9:
                 p = 0
-        impact = 0.15 + (p / a)
-        return impact
+        prince_impact = 0.15 + (p / a)
+        return prince_impact
 
     def chancellor_weight():
-        impact = 0.25
-        return impact
+
+        return 0.25
 
     def king_weight():
-        impact = 150 / a
-        return impact
+
+        return 150 / a
 
     def countess_weight():
         countess_index = None
         idx = 0
         b = player.hand[1]
-        impact = 175 / a
+        countess_impact = 175 / a
 
         for Card in player.hand:
             if Card.value == 8:
@@ -83,13 +92,13 @@ def weights(player, knownCards, chancellor):
             b = player.hand[0]
 
         if b.value == [5, 7]:
-            impact = 0
+            countess_impact = 0
 
-        return impact
+        return countess_impact
 
     def princess_weight():
-        impact = 200 / a
-        return impact
+
+        return 200 / a
 
     switcher = {
         0: spy_weight,

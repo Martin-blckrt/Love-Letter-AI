@@ -1,3 +1,8 @@
+# -----------------------------------
+# la classe Game et ses methodes.
+#
+# -----------------------------------
+
 from src.Player import Player
 from src.Card import *
 import random

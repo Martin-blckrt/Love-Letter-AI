@@ -1,7 +1,11 @@
-from src.cardPower import *
+# -----------------------------------------------
+# Fichier de définition de la classe Card representant les cartes du jeu.
+# Template de la classe Card et ses méthodes.
+#   --> Reveal() : dévoile la carte du joueur adverse
+#   --> power() : applique le pouvoir de la carte jouée.
+# -----------------------------------------------
 
-# TODO. if player rajouter leftNUmber-1 dans discard and play
-# TODO. if AI rajouter leftNumber-1 dans draw / gerer chancellier
+from src.cardPower import *
 
 
 class Card:
@@ -9,8 +13,7 @@ class Card:
         self.title = title  # Title of the card
         self.value = value  # Value of the card
         self.totalNumber = totalNumber  # Keeps in mind how much copies of a card there are
-        self.leftNumber = totalNumber  # Keeps in mind how much copies of a card are left in the game
-        self.description = description  # Description of the card's effect
+        # self.description = description  # Description of the card's effect
         # self.assets = assets 
 
     def reveal(self):

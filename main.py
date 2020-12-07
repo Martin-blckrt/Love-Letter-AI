@@ -1,7 +1,5 @@
 from src.Game import initGame, computePoints
 
-# TODO: why not mettre le if not game.deck et les computepoints() dans endround() ?
-
 
 def main():
     play_again = True

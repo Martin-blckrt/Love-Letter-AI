@@ -1,7 +1,9 @@
+# -------------------------
+#  Defini template de Player.
+# -------------------------
+
 from src.AI.Node import Node, State
 from src.AI.negamax import negamax
-
-# TODO. Adapter playTurn à l'IA
 
 
 class Player:
@@ -29,10 +31,12 @@ class Player:
         i = self.compare(self.opponent)
 
         if i == 0:
+
             self.opponent.hasWon = True
             print(f"{self.opponent.name} wins !")
 
         elif i == 1:
+
             self.hasWon = True
             print(f"{self.name} wins !")
 
@@ -52,6 +56,7 @@ class Player:
         self.playedCards.insert(0, cardDiscarded)
 
         if cardDiscarded.value == 9:
+
             self.isAlive = False
             print(f"\n{self.name} discarded a Princess !\n" if caption else None)
 
@@ -78,18 +83,26 @@ class Player:
         cond8 = 8 in cardValues  # detects a Countess
 
         if cond8 and (cond5 or cond7):
+
             for i in range(len(self.hand)):
+
                 if cardValues[i] == 8:
                     index = i
 
                     print("\nThe countess was discarded !\n" if caption else None)
         else:
+
             if caption and self.gender == "Human":
+
                 index = int(input("\nWhat card do you want to play ? (0/1)\n "))
+
                 while (index != 0) and (index != 1):
                     index = int(input("\nWrong input ! What card do you want to play ? (0/1)\n"))
+
             elif caption and self.gender == "IA":
+
                 index = self.playAiTurn(deck)
+
             else:
                 index = usedCardIndex[0]
 
@@ -126,10 +139,13 @@ class Player:
 
         # Makes a player draw a card. Need the game's deck as argument
         if deck:
+
             cardDrawn = deck.pop(0)
             self.hand.append(cardDrawn)
+
             if self.gender == 'AI':
                 cardDrawn.leftNumber -= 1
+
         else:
             print("Deck is empty\n")
 
@@ -162,7 +178,7 @@ class Player:
         pos_inf = float('inf')
         neg_inf = float('-inf')
 
-        state = State(deck, self.isolatedCards, self.listOfCards, self)  # TODO. import isolatedCards in Player
+        state = State(deck, self.isolatedCards, self.listOfCards, self)
         node = Node(state, 0, None)
 
         index = negamax(node, 2, neg_inf, pos_inf, color)
@@ -170,5 +186,5 @@ class Player:
         return index
 
     def decide(self):
-        # TODO. ecrire decide pour guess
+        # TODO. ecrire decide pour guess pour guard
         pass
