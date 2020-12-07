@@ -1,7 +1,7 @@
 # defines every weight of cards for the evaluation function
 def weights(node, knownCards):
     def spy_weight():
-        if node.state.player.extrapoint:
+        if node.state.player.extraPoint:
             impact = 0
         else:
             impact = 0.5

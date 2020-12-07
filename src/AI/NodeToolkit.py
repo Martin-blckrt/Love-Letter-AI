@@ -1,10 +1,13 @@
+from src.AI.card_weight import weights
+
+
 def evaluate(node):
 
     knownCards = node.state.player.isolatedCards + node.state.player.hand + \
-                 + node.state.player.playedCards + node.state.opponent.playedCards
+                 node.state.player.playedCards + node.state.opponent.playedCards
     # TODO. histoire de je connais la fin du deck si chancellier
 
-    impact = weights(node, knownCards, node.state.player.isolatedCards)
+    impact = weights(node, knownCards)
     return impact
 
 
@@ -14,11 +17,12 @@ def getChildren(node):
 
 def getAncestor(node, value):
     # returns the before-last ancestor of the child with the given value
+    target = None
 
     if getNodeValue(node) == value:
         target = node
 
-    elif node.children is not None:
+    elif node.children:
         for child in node.children:
             target = getAncestor(child, value)
 
@@ -32,7 +36,7 @@ def getAncestorCardIndex(node, value):
 
     target = getAncestor(node, value)
 
-    while target.parent.parent is not None:
+    while target.parent.parent:
         node = node.parent
 
     hand = node.state.player.hand
