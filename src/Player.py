@@ -100,12 +100,7 @@ class Player:
 
         if not self.opponent.deadpool:
 
-            if cardPlayed.value == 5 and not deck:
-                # la logique ici est de dire si il n'y a plus rien dans le deck alors ne fait pas l'action du prince pcq
-                # l'autre mec n'aura pas de quoi repiocher avant la comparaison finale
-                self.playedCards.insert(0, cardPlayed)
-            else:
-                cardPlayed.power(self, deck)
+            cardPlayed.power(self, deck)
 
         elif self.opponent.deadpool and cardPlayed.value in [1, 2, 3, 7]:
 

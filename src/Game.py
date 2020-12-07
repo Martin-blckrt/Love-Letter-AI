@@ -60,7 +60,7 @@ class Game:
                             princess_card]
 
         # List of the card we will put on the side at the beginning of each round
-        self.hiddenCard = []
+        self.hiddenCard = None
         self.isolatedCards = []
 
         self.deck = []
@@ -102,8 +102,7 @@ class Game:
             print(f" {card.title} [{card.value}]", end=" ")
 
         # remove hidden card from deck
-        card = self.deck.pop(0)
-        self.hiddenCard.append(card)
+        self.hiddenCard = self.deck.pop(0)
 
         self.player1.draw(self.deck)
         self.player2.draw(self.deck)

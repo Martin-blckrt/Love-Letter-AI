@@ -27,7 +27,7 @@ def weights(node, knownCards):
         j = 0
         b = node.state.player.hand[1]
 
-        baron_index = node.state.player.hand.index(node.state.baron_card)
+        baron_index = node.state.player.hand.index(baron_card)
         bool(baron_index)
         if baron_index:
             b = node.state.player.hand[0]

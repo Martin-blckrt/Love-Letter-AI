@@ -46,7 +46,10 @@ def prince_power(activePlayer, deck_arg, caption=True):
 
         target = activePlayer
         target.discard()
-        target.draw(deck_arg)
+        if not deck_arg:
+            target.hand[0] = target.hiddenCard
+        else:
+            target.draw(deck_arg)
 
     else:
 
@@ -54,7 +57,10 @@ def prince_power(activePlayer, deck_arg, caption=True):
         if not target.deadpool:
 
             target.discard()
-            target.draw(deck_arg)
+            if not deck_arg:
+                target.hand[0] = target.hiddenCard
+            else:
+                target.draw(deck_arg)
 
         else:
             print(f"{target.name} is protected : your card has no effect !\n" if caption else None)
