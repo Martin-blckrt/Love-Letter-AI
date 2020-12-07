@@ -114,18 +114,19 @@ def weights(node, knownCards):
     x = 0
     j = 0
 
-    for card in node.state.listOfCards:
+    for card in node.state.player.listOfCards:
 
         if card.totalNumber - knownCards.count(card) > 0:
 
             j += 1
             node.state.player.hand.append(card)
-            #TODO. est-ce que known cards est modifié aussi ?
+            #TODO. comptabiliser cette carte dans knownCards (append)
             for i in range(2):
                 a = node.state.player.hand[i].value
                 func = switcher.get(a)
                 temp = func()
                 x += temp
             node.state.player.hand.remove(card)
-            # TODO. est-ce que known cards est modifié aussi ?
-    return x / 2 * j
+            # TODO. dé-comptabiliser cette carte dans knownCards (remove)
+            # TODO. changer les 'w'
+    return x / (2 * j)
