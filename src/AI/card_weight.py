@@ -1,8 +1,10 @@
 # defines every weight of cards for the evaluation function
 
-#TODO. Tout refaire
+# TODO. Tout refaire
 
 def weights(node, knownCards):
+    a = 21 - len(knownCards)
+
     def spy_weight():
         if node.state.player.extraPoint:
             impact = 0
@@ -13,10 +15,9 @@ def weights(node, knownCards):
 
     def guard_weight():
         probs = []
-        b = 21 - len(knownCards)
         for Card in node.state.player.listofCards:
-            a = Card.totalNumber - knownCards.count(Card)
-            probs.append((a / b))
+            b = Card.totalNumber - knownCards.count(Card)
+            probs.append((b / a))
 
         impact = max(probs)
         return impact
@@ -26,19 +27,24 @@ def weights(node, knownCards):
         return impact
 
     def baron_weight():
-        a = 21 - len(knownCards)
-        j = 0
-        b = node.state.player.hand[1]
 
-        baron_index = node.state.player.hand.index(baron_card)
+        j = 0
+        idx = 0
+        b = node.state.player.hand[1]
+        baron_index = None
+
+        for Card in node.state.player.hand:
+            if Card.value == 3:
+                baron_index = idx
+            idx += 1
+
         bool(baron_index)
         if baron_index:
             b = node.state.player.hand[0]
 
         for Card in node.state.player.listofCards:
             if b.value > Card.value:
-                i = Card.totalNumber - knownCards.count(Card)
-                j += i
+                j += Card.totalNumber - knownCards.count(Card)
 
         impact = 1 - (j / a)
         return impact
@@ -48,8 +54,11 @@ def weights(node, knownCards):
         return impact
 
     def prince_weight():
-        p = node.state.princess_card.totalNumber - knownCards.count(node.state.princess_card)
-        impact = 0.15 + p / (21 - len(knownCards))
+        p = 1
+        for Card in knownCards:
+            if Card.value == 9:
+                p = 0
+        impact = 0.15 + (p / a)
         return impact
 
     def chancellor_weight():
@@ -57,18 +66,23 @@ def weights(node, knownCards):
         return impact
 
     def king_weight():
-        a = 1 / (21 - len(knownCards))
-        impact = 150 * a
+        w = 1 / a
+        impact = 150 * w
         return impact
 
     def countess_weight():
-        a = 1 / (21 - len(knownCards))
+        w = 1 / a
+        countess_index = None
+        idx = 0
         b = node.state.player.hand[1]
-        impact = 175 * a
+        impact = 175 * w
 
-        countess_index = node.state.player.hand.index(node.state.countess_card)
+        for Card in node.state.player.hand:
+            if Card.value == 8:
+                countess_index = idx
+            idx += 1
+
         bool(countess_index)
-
         if countess_index:
             b = node.state.player.hand[0]
 
@@ -78,9 +92,11 @@ def weights(node, knownCards):
         return impact
 
     def princess_weight():
-        a = 1 / (21 - len(knownCards))
-        impact = 200 * a
+        w = 1 / a
+        impact = 200 * w
         return impact
+
+#TODO. pondérer avec les proba de tomber sur les cartes (guarde a plus de chance que princesse)
 
     switcher = {
         0: spy_weight,
@@ -96,11 +112,20 @@ def weights(node, knownCards):
     }
 
     x = 0
+    j = 0
 
-    for i in range(2):
-        a = node.state.player.hand[i].value
-        func = switcher.get(a)
-        temp = func()
-        x += temp
+    for card in node.state.listOfCards:
 
-    return x/2
+        if card.totalNumber - knownCards.count(card) > 0:
+
+            j += 1
+            node.state.player.hand.append(card)
+            #TODO. est-ce que known cards est modifié aussi ?
+            for i in range(2):
+                a = node.state.player.hand[i].value
+                func = switcher.get(a)
+                temp = func()
+                x += temp
+            node.state.player.hand.remove(card)
+            # TODO. est-ce que known cards est modifié aussi ?
+    return x / 2 * j

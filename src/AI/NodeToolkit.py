@@ -86,7 +86,7 @@ def nextStates(virtualNode):
 
                     for drawnCard in virtualNode.state.listOfCards:
 
-                        if card.totalNumber - knownCards.count(drawnCard) > 0:
+                        if drawnCard.totalNumber - knownCards.count(drawnCard) > 0:
 
                             newVirtualNode.state.deck.remove(drawnCard)
 
