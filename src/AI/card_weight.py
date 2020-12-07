@@ -66,16 +66,14 @@ def weights(node, knownCards):
         return impact
 
     def king_weight():
-        w = 1 / a
-        impact = 150 * w
+        impact = 150 / a
         return impact
 
     def countess_weight():
-        w = 1 / a
         countess_index = None
         idx = 0
         b = node.state.player.hand[1]
-        impact = 175 * w
+        impact = 175 / a
 
         for Card in node.state.player.hand:
             if Card.value == 8:
@@ -86,17 +84,16 @@ def weights(node, knownCards):
         if countess_index:
             b = node.state.player.hand[0]
 
-        if node.state.b.value == [5, 7]:
+        if b.value == [5, 7]:
             impact = 0
 
         return impact
 
     def princess_weight():
-        w = 1 / a
-        impact = 200 * w
+        impact = 200 / a
         return impact
 
-#TODO. pondérer avec les proba de tomber sur les cartes (guarde a plus de chance que princesse)
+# TODO. pondérer avec les proba de tomber sur les cartes (guarde a plus de chance que princesse)
 
     switcher = {
         0: spy_weight,
@@ -111,22 +108,29 @@ def weights(node, knownCards):
         9: princess_weight
     }
 
-    x = 0
+    mean = 0
     j = 0
+    x = 0 #pour enlever un warning 0 use
 
     for card in node.state.player.listOfCards:
 
-        if card.totalNumber - knownCards.count(card) > 0:
+        n = card.totalNumber - knownCards.count(card)
+        if n > 0:
 
+            x = 0
             j += 1
+
             node.state.player.hand.append(card)
-            #TODO. comptabiliser cette carte dans knownCards (append)
+            knownCards.append(card)
+
             for i in range(2):
                 a = node.state.player.hand[i].value
                 func = switcher.get(a)
                 temp = func()
                 x += temp
+
+            mean += n * x / a
             node.state.player.hand.remove(card)
-            # TODO. dé-comptabiliser cette carte dans knownCards (remove)
-            # TODO. changer les 'w'
-    return x / (2 * j)
+            knownCards.remove(card)
+
+    return mean / (2 * j)
