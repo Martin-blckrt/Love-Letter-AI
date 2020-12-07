@@ -60,7 +60,7 @@ def getNodeValue(node):
 
 
 def nextStates(virtualNode):
-    # TOOD. Gerer qui joue est le player dans le noeud
+    # TODO. Gerer qui joue est le player dans le noeud
 
     next_nodes = []
     for usedCard in virtualNode.state.player.hand:

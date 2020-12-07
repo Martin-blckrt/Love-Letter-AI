@@ -1,4 +1,5 @@
 # defines every weight of cards for the evaluation function
+
 def weights(node, knownCards):
     def spy_weight():
         if node.state.player.extraPoint:
@@ -24,14 +25,20 @@ def weights(node, knownCards):
 
     def baron_weight():
         a = 21 - len(knownCards)
-        j = 0
         b = node.state.player.hand[1]
 
-        baron_index = node.state.player.hand.index(baron_card)
+        i = 0
+        for Card in node.state.player.hand:
+            if Card.value == 3:
+                baron_index = i
+            i += 1
+
         bool(baron_index)
+
         if baron_index:
             b = node.state.player.hand[0]
 
+        j = 0
         for Card in node.state.player.listofCards:
             if b.value > Card.value:
                 i = Card.totalNumber - knownCards.count(Card)
@@ -63,7 +70,12 @@ def weights(node, knownCards):
         b = node.state.player.hand[1]
         impact = 175 * a
 
-        countess_index = node.state.player.hand.index(node.state.countess_card)
+        i = 0
+        for Card in node.state.player.hand:
+            if Card.value == 8:
+                countess_index = i
+            i += 1
+
         bool(countess_index)
 
         if countess_index:
