@@ -5,7 +5,6 @@ import copy
 def evaluate(node):
     knownCards = node.state.player.isolatedCards + node.state.player.hand + \
                  node.state.player.playedCards + node.state.opponent.playedCards
-    # TODO. histoire de je connais la fin du deck si chancellier
 
     impact = weights(node.state.player, knownCards, False)
 
@@ -50,6 +49,7 @@ def getAncestorCardIndex(node, value):
 
 
 def isTerminal(node):
+    # TODO. Ecrire la fonction isTerminal
     # TODO: si on a des erreurs, réfléchir au cas où state == None
     # TODO. deck empty check
     return len(node.children) == 0
