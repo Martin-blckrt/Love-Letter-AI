@@ -181,7 +181,9 @@ class Player:
         node = Node(state, 0, None)
 
         depth = len(self.playedCards)+2
+        # Gère l'aspect "iterative deepening" de l'algorithme
         # Permet de compter le nombre de tours passés et d'incrémenter en fonction
+
         index = negamax(node, depth, neg_inf, pos_inf, color)
         return index
 
