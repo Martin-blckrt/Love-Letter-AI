@@ -56,7 +56,6 @@ class Player:
         self.playedCards.insert(0, cardDiscarded)
 
         if cardDiscarded.value == 9:
-
             self.isAlive = False
             print(f"\n{self.name} discarded a Princess !\n" if caption else None)
 
@@ -181,8 +180,9 @@ class Player:
         state = State(deck, self.isolatedCards, self.listOfCards, self)
         node = Node(state, 0, None)
 
-        index = negamax(node, 2, neg_inf, pos_inf, color)
-
+        depth = len(self.playedCards)+2
+        #Permet de compter le nombre de tours passés et d'incrémenter en fonction
+        index = negamax(node, depth, neg_inf, pos_inf, color)
         return index
 
     def decide(self):
