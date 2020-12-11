@@ -29,7 +29,7 @@ def main():
                     # game.player2.playAiTurn(game.deck, game.isolatedCards)
 
             if not game.deck:
-                game.player1.deckEmpty()
+                game.player1.showdown()
 
             computePoints(game.player1)
             computePoints(game.player2)

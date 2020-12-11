@@ -49,14 +49,17 @@ def getAncestorCardIndex(node, value):
 
 
 def isTerminal(node):
-    # TODO. Ecrire la fonction isTerminal
-    # TODO: si on a des erreurs, réfléchir au cas où state == None
-    # TODO. deck empty check
-    return len(node.children) == 0
+
+    cond1 = not node.state.deck  # deck vide
+    cond2 = node.state.player.isAlive or node.state.player.hasWon
+    cond3 = node.state.opponent.isAlive or node.state.player.hasWon
+
+    return cond1 or cond2 or cond3
 
 
 def getNodeValue(node):
-    # TODO: si on a des erreurs, réfléchir au cas où state == None
+    # Utile si besoin de debugger.
+
     return node.value
 
 
@@ -65,7 +68,7 @@ def nextStates(virtualNode):
 
     next_nodes = []
     knownCards = virtualNode.state.player.isolatedCards + virtualNode.state.player.hand + \
-                 virtualNode.state.player.playedCards + virtualNode.state.opponent.playedCards
+        virtualNode.state.player.playedCards + virtualNode.state.opponent.playedCards
 
     for card in virtualNode.state.listOfCards:
 

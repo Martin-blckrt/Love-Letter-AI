@@ -24,7 +24,7 @@ class Player:
         self.isolatedCards = isolatedCards
         self.listOfCards = listOfCards
 
-    def deckEmpty(self):
+    def showdown(self):
         # Activates when they are no more card left
 
         print("\nThe deck is empty : highest card wins !")

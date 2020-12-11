@@ -13,8 +13,8 @@ from src.AI.card_weight import weights
 def powerChancellorAI(activePlayer):
 
     indexList = []
-    knownCards = activePlayer.isolatedCards + activePlayer.hand + \
-        + activePlayer.playedCards + activePlayer.opponent.playedCards
+    knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards + \
+        activePlayer.opponent.playedCards
 
     sortedValueList = weights(activePlayer, knownCards, True)
 
