@@ -14,7 +14,7 @@ def powerChancellorAI(activePlayer):
 
     indexList = []
     knownCards = activePlayer.isolatedCards + activePlayer.hand + \
-                 + activePlayer.playedCards + activePlayer.opponent.playedCards
+        + activePlayer.playedCards + activePlayer.opponent.playedCards
 
     sortedValueList = weights(activePlayer, knownCards, True)
 
@@ -98,22 +98,52 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
     else:
         k = len(deck_arg)
 
-    j = 0
     for i in range(k):
         activePlayer.draw(deck_arg)
-        j += 1
 
+    print("\nThere are no more cards in the deck !" if not k else None)
+
+    while k != 0:
+
+        aiCount = 0
+        if activePlayer.gender == "Human":
+
+            if caption:
+                print(f"\n you need to put {k} card(s) in the deck !"
+                      f"\n\nYour hand is :\n")
+
+                for i in range(len(activePlayer.hand)):
+                    print(f"{i}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
+
+                index = int(
+                    input(f"Which card do you want to place at the bottom of the deck ? Pick between 0 and {k}\n"))
+
+                availableIndexes = list(range(k + 1))
+
+                while index not in availableIndexes:
+                    index = int(input(f"\nWrong input ! Remember, between 0 and {k}\n"))
+
+        else:
+            listOfIndex = powerChancellorAI(activePlayer)
+            index = listOfIndex[aiCount]
+            aiCount += 1
+
+        placedCard = activePlayer.hand.pop(index)
+        deck_arg.append(placedCard)
+        k -= 1
+
+    """
     if j == 0:
 
         print("\nThere are no more cards in the deck !")
 
     else:
 
-        """
+        
         Dans le cas ou le deck a une longueur strict. supérieure à 0.
             - Le test j = 2 permet de tirer une seconde carte.
             - l'autre cas, executé dans tous les cas, permet de tirer une carte.
-        """
+    
 
         if j == 2:
 
@@ -158,41 +188,8 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
 
         placedCard = activePlayer.hand.pop(index)
         deck_arg.append(placedCard)
-
     """
-    POSSIBLY BETTER VERSION. WAITING FOR ALEX...
-    PLUS DE J, JUSTE K
-    
-    print("\nThere are no more cards in the deck !" if not j else None)
 
-    while k != 0:
-        
-        aiCount = 0
-        if activePlayer.gender == "Human":
-            
-            if caption:
-                print(f"\n you need to put {k} card(s) in the deck !" 
-                      f"\n\nYour hand is :\n"))
-                      
-                for i in range(len(activePlayer.hand)):
-                    print(f"{i}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
-    
-                index = int(input(f"Which card do you want to place at the bottom of the deck ? Pick between 0 and {k}\n"))
-                
-                availableIndexes = list(range(k+1))
-                
-                while index not in availableIndexes:
-                    index = int(input(f"\nWrong input ! Remember, between 0 and {k}\n"))
-                
-        else:
-            listOfIndex = powerChancellorAI(activePlayer)
-            index = listOfIndex[aiCount]
-            aiCount += 1
-            
-        placedCard = activePlayer.hand.pop(index)
-        deck_arg.append(placedCard)
-        k -= 1
-    """
 
 def king_power(activePlayer, caption=True):
     opponent = activePlayer.opponent
