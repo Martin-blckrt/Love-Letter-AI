@@ -5,6 +5,7 @@ import copy
 def negamax(node, depth, alpha, beta, color):
     virtualNode = copy.deepcopy(node)
 
+    print("Bool value is", isTerminal(node) or depth == 0)
     if isTerminal(node) or depth == 0:
         return color * evaluate(node)
 

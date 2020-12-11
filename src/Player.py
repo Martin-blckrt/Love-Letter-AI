@@ -173,7 +173,7 @@ class Player:
 
     def decide(self):
 
-        knownCards = self.isolatedCards + self.hand + self.playedCards + self.opponent.playedCards
+        knownCards = self.isolatedCards + self.hand + self.playedCards
         a = 21 - len(knownCards)
         probabilities = []
 
@@ -201,7 +201,7 @@ class Player:
         state = State(deck, self.isolatedCards, self.listOfCards, self)
         node = Node(state, 0, None)
 
-        depth = len(self.playedCards) + 2
+        depth = len(self.playedCards) + 1
         # Gère l'aspect "iterative deepening" de l'algorithme
         # Permet de compter le nombre de tours passés et d'incrémenter en fonction
 

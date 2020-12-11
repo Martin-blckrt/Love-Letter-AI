@@ -4,7 +4,7 @@ import copy
 
 def evaluate(node):
     knownCards = node.state.player.isolatedCards + node.state.player.hand + \
-                 node.state.player.playedCards + node.state.opponent.playedCards
+                 node.state.player.playedCards
 
     impact = weights(node.state.player, knownCards, False)
 
@@ -17,7 +17,6 @@ def getChildren(node):
 
 def getAncestor(node, value):
     # returns the before-last ancestor of the child with the given value
-    target = None
 
     if getNodeValue(node) == value:
         target = node
@@ -25,6 +24,8 @@ def getAncestor(node, value):
     elif node.children:
         for child in node.children:
             target = getAncestor(child, value)
+    else:
+        print("WRONG")
 
     return target
 
@@ -50,8 +51,8 @@ def getAncestorCardIndex(node, value):
 def isTerminal(node):
 
     cond1 = not node.state.deck  # deck vide
-    cond2 = node.state.player.isAlive or node.state.player.hasWon
-    cond3 = node.state.opponent.isAlive or node.state.player.hasWon
+    cond2 = (not node.state.player.isAlive) or node.state.opponent.hasWon
+    cond3 = (not node.state.opponent.isAlive) or node.state.player.hasWon
 
     return cond1 or cond2 or cond3
 
@@ -62,30 +63,46 @@ def getNodeValue(node):
     return node.value
 
 
+def findCard(cardvalue, list):
+
+    index = 0
+    for i in range(len(list)):
+        if cardvalue == list[i].value:
+            index = i
+    return index
+
+
 def nextStates(virtualNode):
     # TODO. Gerer qui joue est le player dans le noeud
+    print("NEXT STATE ENTERED")
 
     next_nodes = []
+    index = 0
 
     knownCards = virtualNode.state.player.isolatedCards + virtualNode.state.player.hand + \
-        virtualNode.state.player.playedCards + virtualNode.state.opponent.playedCards
+        virtualNode.state.player.playedCards
 
     for card in virtualNode.state.listOfCards:
 
         if card.totalNumber - knownCards.count(card) > 0:
             copiedDeck = copy.deepcopy(virtualNode.state.deck)
             copiedHand = copy.deepcopy(virtualNode.state.player.hand)
-            copiedDeck.remove(card)
-            copiedHand.append(card)
+
+            index = findCard(card.value, copiedDeck)
+            del copiedDeck[index]
+
+            index = findCard(card.value, copiedHand)
+            del copiedHand[index]
 
             for i in range(2):
                 newVirtualNode = copy.deepcopy(virtualNode)
                 # on cree une copie du noeud pour genere des enfants de celui ci
 
-                newVirtualNode.state.deck.remove(card)
+                index = findCard(card.value, newVirtualNode.state.deck)
+                del newVirtualNode.state.deck[index]
                 newVirtualNode.state.player.hand.append(card)
 
-                newVirtualNode.state.player.playTurn(copiedDeck, i, caption=False)
+                newVirtualNode.state.player.playTurn(newVirtualNode.state.player.hand, i, caption=False)
 
                 newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
 
@@ -95,7 +112,8 @@ def nextStates(virtualNode):
 
                         if drawnCard.totalNumber - knownCards.count(drawnCard) > 0:
 
-                            newVirtualNode.state.deck.remove(drawnCard)
+                            index = findCard(drawnCard.value, newVirtualNode.state.deck)
+                            del newVirtualNode.state.deck[index]
 
                             if not newVirtualNode.state.player.hand:
                                 newVirtualNode.state.player.hand.append(drawnCard)

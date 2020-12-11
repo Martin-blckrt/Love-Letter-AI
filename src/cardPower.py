@@ -6,6 +6,8 @@
 #
 # Isolées pour la clarté du code.
 # -----------------------------------------------
+#TODO. refaire prince
+#TODO. mettre fonction findCard partout ou y avait for card in listofcards
 
 from src.AI.card_weight import weights
 
@@ -13,8 +15,7 @@ from src.AI.card_weight import weights
 def powerChancellorAI(activePlayer):
 
     indexList = []
-    knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards + \
-        activePlayer.opponent.playedCards
+    knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
     sortedValueList = weights(activePlayer, knownCards, True)
 
@@ -37,8 +38,7 @@ def powerPrinceAI(activePlayer):
         return "you"
     elif activePlayer.hand[0].value == 1:
 
-        knownCards = activePlayer.isolatedCards + activePlayer.hand + \
-                     + activePlayer.playedCards + activePlayer.opponent.playedCards
+        knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
         probs = []
         b = 21 - len(knownCards)
