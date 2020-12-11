@@ -3,6 +3,7 @@
 # -------------------------
 
 from src.AI.Node import Node, State
+from src.AI.NodeToolkit import *
 from src.AI.negamax import negamax
 
 
@@ -98,12 +99,14 @@ class Player:
                 while (index != 0) and (index != 1):
                     index = int(input("\nWrong input ! What card do you want to play ? (0/1)\n"))
 
-            elif caption and self.gender == "IA":
+            elif caption and self.gender == "AI":
 
                 index = self.playAiTurn(deck)
 
             else:
-                index = usedCardIndex[0]
+                # virtual turn
+                index = int(usedCardIndex[0])
+                print("Index value for * arg is ", index)
 
         self.playCard(index, deck, caption=caption)
 
@@ -142,9 +145,6 @@ class Player:
             cardDrawn = deck.pop(0)
             self.hand.append(cardDrawn)
 
-            if self.gender == 'AI':
-                cardDrawn.leftNumber -= 1
-
         else:
             print("Deck is empty\n")
 
@@ -171,6 +171,27 @@ class Player:
 
         return cardGuessed
 
+    def decide(self):
+
+        knownCards = self.isolatedCards + self.hand + self.playedCards + self.opponent.playedCards
+        a = 21 - len(knownCards)
+        probabilities = []
+
+        cardToGuess = self.listOfCards[9]  # par defaut, tu tapes la princesse
+
+        for Card in self.listOfCards:
+
+            if Card is not self.listOfCards[1]:  # on peut pas guess un guarde
+
+                b = Card.totalNumber - knownCards.count(Card)
+                value = b / a
+                probabilities.append(value)
+
+                if value > max(probabilities):
+                    cardToGuess = Card
+
+        return cardToGuess
+
     def playAiTurn(self, deck):
 
         color = 1
@@ -180,13 +201,14 @@ class Player:
         state = State(deck, self.isolatedCards, self.listOfCards, self)
         node = Node(state, 0, None)
 
-        depth = len(self.playedCards)+2
+        depth = len(self.playedCards) + 2
         # Gère l'aspect "iterative deepening" de l'algorithme
         # Permet de compter le nombre de tours passés et d'incrémenter en fonction
 
-        index = negamax(node, depth, neg_inf, pos_inf, color)
-        return index
+        value = negamax(node, depth, neg_inf, pos_inf, color)
 
-    def decide(self):
-        # TODO. ecrire decide pour guess pour guard
-        pass
+        cardIndex = getAncestorCardIndex(node, value)
+
+        return cardIndex
+
+

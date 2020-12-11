@@ -42,10 +42,9 @@ def getAncestorCardIndex(node, value):
     hand = node.state.player.hand
     originHand = origin.state.player.hand
 
-    for index in range(2):
+    for index in range(len(hand)):
         if not hand[index] == originHand[index]:
-            result = index
-            return result
+            return index
 
 
 def isTerminal(node):
@@ -67,6 +66,7 @@ def nextStates(virtualNode):
     # TODO. Gerer qui joue est le player dans le noeud
 
     next_nodes = []
+
     knownCards = virtualNode.state.player.isolatedCards + virtualNode.state.player.hand + \
         virtualNode.state.player.playedCards + virtualNode.state.opponent.playedCards
 
@@ -81,9 +81,12 @@ def nextStates(virtualNode):
             for i in range(2):
                 newVirtualNode = copy.deepcopy(virtualNode)
                 # on cree une copie du noeud pour genere des enfants de celui ci
+
                 newVirtualNode.state.deck.remove(card)
                 newVirtualNode.state.player.hand.append(card)
+
                 newVirtualNode.state.player.playTurn(copiedDeck, i, caption=False)
+
                 newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
 
                 if newVirtualNode.state.player.playedCards[0].value == 5:

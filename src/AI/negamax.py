@@ -8,7 +8,7 @@ def negamax(node, depth, alpha, beta, color):
     if isTerminal(node) or depth == 0:
         return color * evaluate(node)
 
-    nextStates(virtualNode)
+    node.children = nextStates(virtualNode)
 
     value = float('-inf')
 
@@ -20,6 +20,4 @@ def negamax(node, depth, alpha, beta, color):
         if alpha >= beta:
             break
 
-    cardIndex = getAncestorCardIndex(node, value)
-
-    return cardIndex
+    return value

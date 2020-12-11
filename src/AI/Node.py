@@ -1,8 +1,8 @@
 class State:
-    def __init__(self, deck, isolatedCards, listofCards, player):
+    def __init__(self, deck, isolatedCards, listOfCards, player):
         self.deck = deck
         self.isolatedCards = isolatedCards
-        self.listofCards = listofCards
+        self.listOfCards = listOfCards
         self.player = player
         self.opponent = player.opponent
 

@@ -11,7 +11,7 @@ import random
 def initGame(name1, name2):
     # Initialize the game and the player's name and 'gender'
 
-    game = Game(name1, "Human", name2, "IA")
+    game = Game(name1, "Human", name2, "AI")
     return game
 
 
@@ -101,7 +101,6 @@ class Game:
         for i in range(3):
 
             card = self.deck.pop(0)
-            card.leftNumber -= 1
             self.isolatedCards.append(card)
             print(f" {card.title} [{card.value}]", end=" ")
 

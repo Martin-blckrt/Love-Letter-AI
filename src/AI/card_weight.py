@@ -20,7 +20,7 @@ def weights(player, knownCards, chancellor):
     def guard_weight():
 
         probabilities = []
-        for Card in player.listofCards:
+        for Card in player.listOfCards:
             b = Card.totalNumber - knownCards.count(Card)
             probabilities.append((b / a))
 
@@ -48,7 +48,7 @@ def weights(player, knownCards, chancellor):
         if baron_index:
             b = player.hand[0]
 
-        for Card in player.listofCards:
+        for Card in player.listOfCards:
             if b.value > Card.value:
                 m += Card.totalNumber - knownCards.count(Card)
 
@@ -130,8 +130,8 @@ def weights(player, knownCards, chancellor):
                 knownCards.append(card)
 
                 for i in range(2):
-                    a = player.hand[i].value
-                    func = switcher.get(a)
+                    switchValue = player.hand[i].value
+                    func = switcher.get(switchValue)
                     temp = func()
                     x += temp
 
