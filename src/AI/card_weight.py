@@ -141,17 +141,17 @@ def weights(player, knownCards, chancellor):
 
         return mean / (2 * j)
 
-    else:
+    elif chancellor:
         impactList = []
         valueList = []
 
         for j in range(10):
             func = switcher.get(j)
             impact = func()
-            impactList[j] = impact
-            valueList[j] = j
+            impactList.append(impact)
+            valueList.append(j)
 
-        for i in range(9):
+        for i in range(10):
 
             if impactList[i] > impactList[i + 1]:
                 temp = impactList[i]

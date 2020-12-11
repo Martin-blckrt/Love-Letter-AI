@@ -62,6 +62,8 @@ def prince_power(activePlayer, deck_arg, caption=True):
     else:
         choice = powerPrinceAI(activePlayer)
 
+    # TODO. Prince rework : control d'input aprres if/else
+
     while (choice != "you") and (choice != "opponent"):
         choice = input("\nIncorrect Input ! Who do you want to target ? [You/Opponent]\n" if caption else None)
         choice.lower()
