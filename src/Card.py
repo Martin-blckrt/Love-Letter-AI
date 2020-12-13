@@ -16,8 +16,9 @@ class Card:
         # self.description = description  # Description of the card's effect
         # self.assets = assets 
 
-    def reveal(self):
-        print(f"Opponent's card is {self.title}\n")
+    def reveal(self, caption):
+
+        print(f"Opponent's card is {self.title}\n" if caption else "")
 
     def power(self, activePlayer, deck_arg, caption=True):
 
@@ -43,7 +44,7 @@ class Card:
 
         elif self.value == 2:
 
-            activePlayer.opponent.hand[0].reveal()
+            activePlayer.opponent.hand[0].reveal(caption)
 
         # ------------------------------ Baron ---------------------------
         elif self.value == 3:

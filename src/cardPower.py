@@ -114,7 +114,7 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
     for i in range(k):
         activePlayer.draw(deck_arg)
 
-    print("\nThere are no more cards in the deck !" if not k else None)
+    print("\nThere are no more cards in the deck !" if not k else "")
 
     while k != 0:
 

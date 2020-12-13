@@ -63,11 +63,11 @@ def getNodeValue(node):
     return node.value
 
 
-def findCard(cardvalue, list):
+def findCard(cardvalue, selectedList):
 
     index = 0
-    for i in range(len(list)):
-        if cardvalue == list[i].value:
+    for i in range(len(selectedList)):
+        if cardvalue == selectedList[i].value:
             index = i
     return index
 
