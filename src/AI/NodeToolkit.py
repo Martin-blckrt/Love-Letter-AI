@@ -72,54 +72,66 @@ def findCard(cardvalue, selectedList):
     return index
 
 
-def nextStates(virtualNode):
-    # TODO. Gerer qui joue est le player dans le noeud
-    print("NEXT STATE ENTERED")
+def nextStates(virtualNode, activePlayer):
+
+    print(f"active player is : {activePlayer.name} and node is {virtualNode.value}")
 
     next_nodes = []
-    index = 0
 
-    knownCards = virtualNode.state.player.isolatedCards + virtualNode.state.player.hand + \
-        virtualNode.state.player.playedCards
+    knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
     for card in virtualNode.state.listOfCards:
 
+        print("je boucle")
+
         if card.totalNumber - knownCards.count(card) > 0:
+            """
             copiedDeck = copy.deepcopy(virtualNode.state.deck)
             copiedHand = copy.deepcopy(virtualNode.state.player.hand)
 
             index = findCard(card.value, copiedDeck)
+            copiedHand.append(copiedDeck[index])
             del copiedDeck[index]
-
-            index = findCard(card.value, copiedHand)
-            del copiedHand[index]
-
+            """
             for i in range(2):
+
                 newVirtualNode = copy.deepcopy(virtualNode)
                 # on cree une copie du noeud pour genere des enfants de celui ci
-
-                index = findCard(card.value, newVirtualNode.state.deck)
-                del newVirtualNode.state.deck[index]
-                newVirtualNode.state.player.hand.append(card)
-
-                newVirtualNode.state.player.playTurn(newVirtualNode.state.player.hand, i, caption=False)
-
                 newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
 
-                if newVirtualNode.state.player.playedCards[0].value == 5:
+                cond = (len(virtualNode.state.deck) == 12) and virtualNode.state.player.playedCards[1].value == 5
+                if (len(virtualNode.state.deck) == 13) or cond:
+                    pass
+                else:
+                    index = findCard(card.value, newVirtualNode.state.deck)
+                    newVirtualNode.state.player.hand.append(newVirtualNode.state.deck[index])
+                    del newVirtualNode.state.deck[index]
+
+                    print(f"nextStates hand : {newVirtualNode.state.player.hand}")
+
+                    activePlayer.playTurn(newVirtualNode.state.player.hand, i, caption=False)
+
+                if not activePlayer.hand:
 
                     for drawnCard in virtualNode.state.listOfCards:
 
                         if drawnCard.totalNumber - knownCards.count(drawnCard) > 0:
 
+                            princedNode = copy.deepcopy(newVirtualNode)
+                            princedNode.parent = virtualNode
+
                             index = findCard(drawnCard.value, newVirtualNode.state.deck)
+                            activePlayer.hand.append(newVirtualNode.state.deck[index])
                             del newVirtualNode.state.deck[index]
 
-                            if not newVirtualNode.state.player.hand:
-                                newVirtualNode.state.player.hand.append(drawnCard)
+                            next_nodes.append(princedNode)
 
-                            elif not newVirtualNode.state.opponent.hand:
-                                newVirtualNode.state.opponent.hand.append(drawnCard)
+                elif not activePlayer.opponent.hand:
 
-                next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
+                    drawnCard = newVirtualNode.state.deck.pop(0)
+                    activePlayer.opponent.hand.append(drawnCard)
+                    next_nodes.append(newVirtualNode)
+
+                else:
+                    next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
     return next_nodes

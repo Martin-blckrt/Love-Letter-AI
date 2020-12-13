@@ -116,13 +116,16 @@ class Game:
 
         if not self.player1.isAlive:
 
-            self.player2.points += 1 + self.player2.extraPoint
+            self.player2.hasWon = True
+            computePoints(self.player2)
             print(f"{self.player2.name} wins the round ! He scores {1 + self.player2.extraPoint} point(s)\n")
 
             return False
 
         elif not self.player2.isAlive:
-            self.player1.points += 1 + self.player1.extraPoint
+
+            self.player1.hasWon = True
+            computePoints(self.player1)
             print(f"{self.player1.name} wins the round ! He scores {1 + self.player1.extraPoint} point(s)\n")
 
             return False

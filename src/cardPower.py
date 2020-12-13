@@ -76,8 +76,6 @@ def prince_power(activePlayer, deck_arg, caption=True):
         choice = powerPrinceAI(activePlayer)
         choice.lower()
 
-    # TODO. Prince rework : control d'input aprres if/else
-
     if choice == "you":
 
         target = activePlayer

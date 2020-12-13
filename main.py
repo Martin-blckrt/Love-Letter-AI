@@ -31,14 +31,8 @@ def main():
                     print(f"\n\nTime for {player2_name}({game.player2.gender}) to play!")
                     game.player2.playTurn(game.deck)
 
-                    # pour IA
-                    # game.player2.playAiTurn(game.deck, game.isolatedCards)
-
-            if not game.deck:
+            if not game.deck and game.player2.isAlive and game.player1.isAlive:
                 game.player1.showdown()
-
-            computePoints(game.player1)
-            computePoints(game.player2)
 
         if game.player1.points >= 6:
 

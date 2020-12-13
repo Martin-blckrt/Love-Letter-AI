@@ -64,9 +64,9 @@ class Player:
         # Handles the player's turn. Checks for Countess effect
 
         self.deadpool = False
-        self.draw(deck)
 
         if caption:
+            self.draw(deck)
             print(f"{self.name}'s hand is :")
 
             for i in range(len(self.hand)):
@@ -105,8 +105,8 @@ class Player:
 
             else:
                 # virtual turn
-                index = int(usedCardIndex[0])
-                print(f"{self.hand[0].title} {self.hand[1].title}, index is {index}")
+                index = usedCardIndex[0]
+                print(f"playTurn hand : {self.hand[0].title}, {self.hand[1].title}, index is {index}")
 
         self.playCard(index, deck, caption=caption)
 
@@ -210,5 +210,3 @@ class Player:
         cardIndex = getAncestorCardIndex(node, value)
 
         return cardIndex
-
-

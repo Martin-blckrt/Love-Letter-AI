@@ -9,7 +9,10 @@ def negamax(node, depth, alpha, beta, color):
     if isTerminal(node) or depth == 0:
         return color * evaluate(node)
 
-    node.children = nextStates(virtualNode)
+    if color == 1:
+        node.children = nextStates(virtualNode, virtualNode.state.player)
+    elif color == -1:
+        node.children = nextStates(virtualNode, virtualNode.state.opponent)
 
     value = float('-inf')
 
