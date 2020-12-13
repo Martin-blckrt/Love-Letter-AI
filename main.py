@@ -5,9 +5,15 @@ def main():
     play_again = True
 
     while play_again:
-
+        """
+        mis a part pour faciliter le debug
+        
         player1_name = input("Player 1 , enter your name\n")
         player2_name = input("Player 2 , enter your name\n")
+        """
+        player1_name = "Hooman"
+        player2_name = "Masheen"
+
         game = initGame(player1_name, player2_name)
 
         while game.player1.points < 6 and game.player2.points < 6:

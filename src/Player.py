@@ -25,11 +25,11 @@ class Player:
         self.isolatedCards = isolatedCards
         self.listOfCards = listOfCards
 
-    def showdown(self):
+    def showdown(self, caption=True):
         # Activates when they are no more card left
 
         print("\nThe deck is empty : highest card wins !")
-        i = self.compare(self.opponent)
+        i = self.compare(self.opponent, caption)
 
         if i == 0:
 
@@ -58,7 +58,7 @@ class Player:
 
         if cardDiscarded.value == 9:
             self.isAlive = False
-            print(f"\n{self.name} discarded a Princess !\n" if caption else None)
+            print(f"\n{self.name} discarded a Princess !\n" if caption else "")
 
     def playTurn(self, deck, *usedCardIndex, caption=True):
         # Handles the player's turn. Checks for Countess effect
@@ -89,7 +89,7 @@ class Player:
                 if cardValues[i] == 8:
                     index = i
 
-                    print("\nThe countess was discarded !\n" if caption else None)
+                    print("\nThe countess was discarded !\n" if caption else "")
         else:
 
             if caption and self.gender == "Human":
@@ -106,7 +106,7 @@ class Player:
             else:
                 # virtual turn
                 index = int(usedCardIndex[0])
-                print("Index value for * arg is ", index)
+                print(f"{self.hand[0].title} {self.hand[1].title}, index is {index}")
 
         self.playCard(index, deck, caption=caption)
 
@@ -117,7 +117,7 @@ class Player:
 
         if not self.opponent.deadpool:
 
-            cardPlayed.power(self, deck)
+            cardPlayed.power(self, deck, caption)
 
         elif self.opponent.deadpool and cardPlayed.value in [1, 2, 3, 7]:
 
@@ -125,7 +125,7 @@ class Player:
                 print(" \nThe opponent is protected : your card has no effect !\n")
 
         elif self.opponent.deadpool and cardPlayed.value in [0, 4, 5, 6, 8, 9]:
-            cardPlayed.power(self, deck)
+            cardPlayed.power(self, deck, caption)
 
         self.playedCards.insert(0, cardPlayed)
 
@@ -152,7 +152,7 @@ class Player:
         # Function who evaluates which card has greater value
 
         print(f"{self.name} has a {self.hand[0].title} [{self.hand[0].value}]\n"
-              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n" if caption else None)
+              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n" if caption else "")
 
         if self.hand[0].value < opponent.hand[0].value:
             return 0

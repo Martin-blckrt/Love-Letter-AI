@@ -151,7 +151,7 @@ def weights(player, knownCards, chancellor):
             impactList.append(impact)
             valueList.append(j)
 
-        for i in range(10):
+        for i in range(9):
 
             if impactList[i] > impactList[i + 1]:
                 temp = impactList[i]

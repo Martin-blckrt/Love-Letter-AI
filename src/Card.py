@@ -35,9 +35,9 @@ class Card:
 
             if cardGuessed == activePlayer.opponent.hand[0].value:
                 activePlayer.opponent.isAlive = False
-                print("The guess was correct !\n" if caption else None)
+                print("The guess was correct !\n" if caption else "")
             else:
-                print("Incorrect guess!" if caption else None)
+                print("Incorrect guess!" if caption else "")
 
         # ------------------------------ Priest --------------------------
 
@@ -50,17 +50,17 @@ class Card:
 
             opponent = activePlayer.opponent
 
-            i = activePlayer.compare(opponent)
+            i = activePlayer.compare(opponent, caption)
             if i == 0:
-                print(f"{activePlayer.name} loses the duel !" if caption else None)
+                print(f"{activePlayer.name} loses the duel !" if caption else "")
                 activePlayer.isAlive = False
 
             elif i == 1:
-                print(f"\n{opponent.name} loses the duel !"if caption else None)
+                print(f"\n{opponent.name} loses the duel !"if caption else "")
                 opponent.isAlive = False
 
             else:
-                print("It is a tie\n"if caption else None)
+                print("It is a tie\n"if caption else "")
 
         # ------------------------------ Handmaid ------------------------
         elif self.value == 4:
@@ -83,6 +83,10 @@ class Card:
 
             king_power(activePlayer, caption)
 
-        else:
+        elif self.value == 8 :
 
-            print("une carte mystique ou countess ou princess")
+            print("Countess has been played" if caption else "")
+
+        elif self.value == 9:
+
+            print("Princess has been played" if caption else "")
