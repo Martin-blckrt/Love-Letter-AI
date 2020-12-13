@@ -40,6 +40,8 @@ def negamax(node, depth, alpha, beta, color):
 
     """
     MINMAX AU CAS OU
+    Attention, si on change, réflechir si evaluate est toujours adaptée
+    
     def minimax(node, depth, alpha, beta, isMax):
 
         if isTerminal(node) or depth == 0:
@@ -75,7 +77,5 @@ def negamax(node, depth, alpha, beta, color):
     L'appel dans player ressemblerait à:
 
     value = minimax(node, depth, neg_inf, pos_inf, true)    
-
     """
     return value
-
