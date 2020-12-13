@@ -1,5 +1,5 @@
-from src.AI.card_weight import weights
 import copy
+from src.AI.card_weight import weights
 
 
 def evaluate(node):
