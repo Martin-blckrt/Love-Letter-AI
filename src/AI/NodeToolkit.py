@@ -17,6 +17,7 @@ def getChildren(node):
 
 def getAncestor(node, value):
     # returns the before-last ancestor of the child with the given value
+    # TODO. Trouver soluce pour valeur non trouvée
 
     if getNodeValue(node) == value:
         target = node
@@ -25,6 +26,7 @@ def getAncestor(node, value):
         for child in node.children:
             target = getAncestor(child, value)
     else:
+        target = node.children[0]
         print("WRONG")
 
     return target
@@ -74,7 +76,7 @@ def findCard(cardvalue, selectedList):
 
 def nextStates(virtualNode, activePlayer):
 
-    print(f"active player is : {activePlayer.name} and node is {virtualNode.value}")
+    print(f"Active player is : {activePlayer.name} and node value is {virtualNode.value}")
 
     next_nodes = []
 
@@ -82,9 +84,9 @@ def nextStates(virtualNode, activePlayer):
 
     for card in virtualNode.state.listOfCards:
 
-        print("je boucle")
-
         if card.totalNumber - knownCards.count(card) > 0:
+            print("je boucle tant que des cartes sont dispos")
+
             """
             copiedDeck = copy.deepcopy(virtualNode.state.deck)
             copiedHand = copy.deepcopy(virtualNode.state.player.hand)
