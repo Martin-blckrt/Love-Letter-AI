@@ -5,7 +5,7 @@ from src.AI.NodeToolkit import isTerminal, evaluate, nextStates
 def negamax(node, depth, alpha, beta, color):
     virtualNode = copy.deepcopy(node)
 
-    # TODO. Fix color, switch des joueurs, generation des enfants, attribution des valeurs des noeuds
+    # TODO. Generation & valeurs des noeuds
 
     if isTerminal(node) or depth == 0:
 
@@ -13,18 +13,17 @@ def negamax(node, depth, alpha, beta, color):
 
         return color * node.value
 
-    nextChildren = nextStates(virtualNode, color)
+    node.children = nextStates(virtualNode, color)
 
-    node.children = copy.deepcopy(nextChildren)
-
-    print(f"Next state over and i have {len(node.children)} babies")
+    print(f"Next state over and I have {len(node.children)} babies")
 
     value = float('-inf')
 
     for child in node.children:
         #print("Next color is ", -color)
-        child.value = evaluate(child)
+
         value = max(value, -negamax(child, depth - 1, -beta, -alpha, -color))
+        child.value = value
         alpha = max(alpha, value)
 
         if beta <= alpha:
@@ -33,6 +32,7 @@ def negamax(node, depth, alpha, beta, color):
     """
     MINMAX AU CAS OU
     Attention, si on change, réflechir si evaluate est toujours adaptée
+    Pensez aux valeurs des noeuds
     
     def minimax(node, depth, alpha, beta, isMax):
 

@@ -10,14 +10,15 @@ def evaluate(node):
 
     return impact
 
-
-def getChildren(node):
-    return node.children
-
-
 def getAncestor(node, value):
     # returns the before-last ancestor of the child with the given value
     # TODO. Trouver soluce pour valeur non trouvée
+    """
+        Option possible : param depth qu'on utiliserais pour limiter la recherche
+        :param node: Noeud d'où la recherche part
+        :param value: valeur à trouver dans le noeud
+        :return: retourne le noeud (enfant de node) vers lequel il faut se diriger
+    """
 
     if getNodeValue(node) == value:
         target = node
@@ -26,8 +27,7 @@ def getAncestor(node, value):
         for child in node.children:
             target = getAncestor(child, value)
     else:
-        target = node.children[0]
-        print("WRONG")
+        print("Value not found")
 
     return target
 
