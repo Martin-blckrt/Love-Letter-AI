@@ -106,7 +106,7 @@ class Player:
             else:
                 # virtual turn
                 index = usedCardIndex[0]
-                print(f"playTurn hand : {self.hand[0].title}, {self.hand[1].title}, index is {index}")
+                print(f"playTurn hand : {self.hand[0].title}, {self.hand[1].title}, index is {index}, {self.hand}")
 
         self.playCard(index, deck, caption=caption)
 

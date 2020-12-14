@@ -13,7 +13,6 @@ from src.AI.card_weight import weights
 
 
 def powerChancellorAI(activePlayer):
-
     indexList = []
     knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
@@ -30,7 +29,6 @@ def powerChancellorAI(activePlayer):
 
 
 def powerPrinceAI(activePlayer):
-
     if activePlayer.hand[0].value in [4, 6, 9]:
         return "opponent"
 
@@ -64,8 +62,7 @@ def powerPrinceAI(activePlayer):
 
 
 def prince_power(activePlayer, deck_arg, caption=True):
-
-    if activePlayer.gender == "Human":
+    if activePlayer.gender == "Human" and caption:
         choice = input("\nWho do you want to target ? [You/Opponent]\n")
         choice.lower()
 
@@ -82,7 +79,7 @@ def prince_power(activePlayer, deck_arg, caption=True):
         target.discard()
 
         if not deck_arg:
-            target.hand[0] = target.hiddenCard
+            target.hand.append(target.hiddenCard)
         else:
             target.draw(deck_arg)
 
@@ -93,7 +90,7 @@ def prince_power(activePlayer, deck_arg, caption=True):
 
             target.discard()
             if not deck_arg:
-                target.hand[0] = target.hiddenCard
+                target.hand.append(target.hiddenCard)
             else:
                 target.draw(deck_arg)
 
@@ -102,7 +99,6 @@ def prince_power(activePlayer, deck_arg, caption=True):
 
 
 def chancellor_power(activePlayer, deck_arg, caption=True):
-
     if len(deck_arg) > 1:
         k = 2
 
@@ -117,22 +113,21 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
     while k != 0:
 
         aiCount = 0
-        if activePlayer.gender == "Human":
+        if activePlayer.gender == "Human" and caption:
 
-            if caption:
-                print(f"\n you need to put {k} card(s) in the deck !"
-                      f"\n\nYour hand is :\n")
+            print(f"\n you need to put {k} card(s) in the deck !"
+                  f"\n\nYour hand is :\n")
 
-                for i in range(len(activePlayer.hand)):
-                    print(f"{i}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
+            for i in range(len(activePlayer.hand)):
+                print(f"{i}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
 
-                index = int(
-                    input(f"Which card do you want to place at the bottom of the deck ? Pick between 0 and {k}\n"))
+            index = int(
+                input(f"Which card do you want to place at the bottom of the deck ? Pick between 0 and {k}\n"))
 
-                availableIndexes = list(range(k + 1))
+            availableIndexes = list(range(k + 1))
 
-                while index not in availableIndexes:
-                    index = int(input(f"\nWrong input ! Remember, between 0 and {k}\n"))
+            while index not in availableIndexes:
+                index = int(input(f"\nWrong input ! Remember, between 0 and {k}\n"))
 
         else:
             listOfIndex = powerChancellorAI(activePlayer)
@@ -142,64 +137,6 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
         placedCard = activePlayer.hand.pop(index)
         deck_arg.append(placedCard)
         k -= 1
-
-    """
-    if j == 0:
-
-        print("\nThere are no more cards in the deck !")
-
-    else:
-
-        
-        Dans le cas ou le deck a une longueur strict. supérieure à 0.
-            - Le test j = 2 permet de tirer une seconde carte.
-            - l'autre cas, executé dans tous les cas, permet de tirer une carte.
-    
-
-        if j == 2:
-
-            print(
-                f"You need to get rid of 2 of your cards by placing them "
-                f"at the bottom of the deck. Your hand is :\n" if caption else "")
-
-            for i in range(len(activePlayer.hand)):
-                print(f"{i + 1}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]" if caption else "")
-
-            if activePlayer.gender == "Human":
-                index = int(input("Which card do you want to place as the penultimate card in the deck ? (0/1/2)\n"))
-
-                while index not in [0, 1, 2]:
-                    index = int(input(
-                        "\nWrong input ! Which card do you want to place "
-                        "as the penultimate card in the deck ? (0/1/2)\n"))
-
-            else:
-                listOfIndex = powerChancellorAI(activePlayer)
-                index = listOfIndex[1]
-
-            placedCard = activePlayer.hand.pop(index)
-            deck_arg.append(placedCard)
-
-        if activePlayer.gender == "Human":
-
-            print(f"\nYou now need to get rid of 1 of your cards by placing it at the bottom of the deck."
-                  f"\n\nYour hand is :\n" if caption else "")
-
-            for i in range(len(activePlayer.hand)):
-                print(f"{i}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]" if caption else "")
-
-            index = int(input("Which card do you want to place as the last card in the deck ? (0/1)\n"))
-
-            while index not in [0, 1]:
-                index = int(
-                    input("\nWrong input ! Which card do you want to place as the last card in the deck ? (0/1)\n"))
-        else:
-            listOfIndex = powerChancellorAI(activePlayer)
-            index = listOfIndex[0]
-
-        placedCard = activePlayer.hand.pop(index)
-        deck_arg.append(placedCard)
-    """
 
 
 def king_power(activePlayer, caption=True):

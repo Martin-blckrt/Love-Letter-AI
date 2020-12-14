@@ -13,16 +13,8 @@ def negamax(node, depth, alpha, beta, color):
 
         return color * node.value
 
-    if color == 1:
-        targetPlayer = virtualNode.state.player
-        print(targetPlayer.name, "is playing")
-    else:
-        targetPlayer = virtualNode.state.opponent
-        print(targetPlayer.name, "is playing")
+    nextChildren = nextStates(virtualNode, color)
 
-    print("Current player is", targetPlayer.name)
-
-    nextChildren = nextStates(virtualNode, targetPlayer)
     node.children = copy.deepcopy(nextChildren)
 
     print(f"Next state over and i have {len(node.children)} babies")
@@ -30,8 +22,8 @@ def negamax(node, depth, alpha, beta, color):
     value = float('-inf')
 
     for child in node.children:
-
-        print("Next color is ", -color)
+        #print("Next color is ", -color)
+        child.value = evaluate(child)
         value = max(value, -negamax(child, depth - 1, -beta, -alpha, -color))
         alpha = max(alpha, value)
 

@@ -34,26 +34,28 @@ def weights(player, knownCards, chancellor):
 
     def baron_weight():
 
-        m = 0
-        idx = 0
-        b = player.hand[1]
-        baron_index = None
+        if chancellor:
+            baron_impact = 0
+        else:
+            m = 0
+            idx = 0
+            b = player.hand[1]
+            baron_index = None
 
-        for Card in player.hand:
-            if Card.value == 3:
-                baron_index = idx
-            idx += 1
+            for Card in player.hand:
+                if Card.value == 3:
+                    baron_index = idx
+                idx += 1
 
-        bool(baron_index)
-        if baron_index:
-            b = player.hand[0]
+            bool(baron_index)
+            if baron_index:
+                b = player.hand[0]
 
-        for Card in player.listOfCards:
-            if b.value > Card.value:
-                m += Card.totalNumber - knownCards.count(Card)
+            for Card in player.listOfCards:
+                if b.value > Card.value:
+                    m += Card.totalNumber - knownCards.count(Card)
 
-        baron_impact = 1 - (m / a)
-
+            baron_impact = 1 - (m / a)
         return baron_impact
 
     def handmaid_weight():
@@ -77,22 +79,23 @@ def weights(player, knownCards, chancellor):
         return 150 / a
 
     def countess_weight():
-        countess_index = None
-        idx = 0
-        b = player.hand[1]
         countess_impact = 175 / a
+        if not chancellor:
+            countess_index = None
+            idx = 0
+            b = player.hand[1]
 
-        for Card in player.hand:
-            if Card.value == 8:
-                countess_index = idx
-            idx += 1
+            for Card in player.hand:
+                if Card.value == 8:
+                    countess_index = idx
+                idx += 1
 
-        bool(countess_index)
-        if countess_index:
-            b = player.hand[0]
+            bool(countess_index)
+            if countess_index:
+                b = player.hand[0]
 
-        if b.value == [5, 7]:
-            countess_impact = 0
+            if b.value == [5, 7]:
+                countess_impact = 0
 
         return countess_impact
 

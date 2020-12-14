@@ -29,7 +29,7 @@ class Card:
         # ------------------------------ Guard ----------------------------
         elif self.value == 1:  # guard
 
-            if activePlayer.gender == "Human":
+            if activePlayer.gender == "Human" and caption:
                 cardGuessed = activePlayer.guess()
             else:
                 cardGuessed = activePlayer.decide()
