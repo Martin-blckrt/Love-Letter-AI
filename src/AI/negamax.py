@@ -20,8 +20,9 @@ def negamax(node, depth, alpha, beta, color):
     value = float('-inf')
 
     for child in node.children:
-        # print("Next color is ", -color)
-        #child.value = evaluate(child)
+        print("Next color is ", -color)
+        print("Child = " , child.state.player.name)
+        # child.value = evaluate(child)
         child.floor = virtualNode.floor + 1
         value = max(value, -negamax(child, depth - 1, -beta, -alpha, -color))
         child.value = value

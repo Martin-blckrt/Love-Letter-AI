@@ -130,20 +130,25 @@ def nextStates(virtualNode, color):
             newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
             activePlayer = newVirtualNode.state.player
 
+            print(f"hand 1st turn nextstate= {activePlayer.hand}")
             activePlayer.playTurn(newVirtualNode.state.deck, i, caption=False)
 
             if not activePlayer.hand:
+                # cas ou le prince a été joué
 
                 for drawnCard in virtualNode.state.listOfCards:
 
-                    if drawnCard.totalNumber - knownCards.count(drawnCard) > 0:
+                    n = findOccurences(drawnCard, knownCards)
+
+                    if drawnCard.totalNumber - n > 0:
+
                         princedNode = copy.deepcopy(newVirtualNode)
                         princedNode.parent = virtualNode
 
                         index = findCard(drawnCard.value, newVirtualNode.state.deck)
+
                         activePlayer.hand.append(newVirtualNode.state.deck[index])
                         del newVirtualNode.state.deck[index]
-                        knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
                         next_nodes.append(princedNode)
 
@@ -151,11 +156,13 @@ def nextStates(virtualNode, color):
 
                 drawnCard = newVirtualNode.state.deck.pop(0)
                 activePlayer.opponent.hand.append(drawnCard)
+
                 next_nodes.append(newVirtualNode)
 
             else:
                 next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
     else:
+
         for card in virtualNode.state.listOfCards:
 
             n = findOccurences(card, knownCards)
@@ -174,10 +181,13 @@ def nextStates(virtualNode, color):
                         activePlayer = newVirtualNode.state.opponent
 
                     index = findCard(card.value, newVirtualNode.state.deck)
+
                     activePlayer.hand.append(newVirtualNode.state.deck[index])
                     del newVirtualNode.state.deck[index]
+
                     knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
+                    print(f"next turn nextstates= {activePlayer.hand}")
                     activePlayer.playTurn(newVirtualNode.state.deck, i, caption=False)
 
                     if not activePlayer.hand:
