@@ -76,7 +76,7 @@ def prince_power(activePlayer, deck_arg, caption=True):
     if choice == "you":
 
         target = activePlayer
-        target.discard()
+        target.discard(caption)
 
         if not deck_arg:
             target.hand.append(target.hiddenCard)
@@ -88,7 +88,7 @@ def prince_power(activePlayer, deck_arg, caption=True):
         target = activePlayer.opponent
         if not target.deadpool:
 
-            target.discard()
+            target.discard(caption)
             if not deck_arg:
                 target.hand.append(target.hiddenCard)
             else:

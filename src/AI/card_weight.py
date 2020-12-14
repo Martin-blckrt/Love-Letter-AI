@@ -3,6 +3,7 @@
 #  --> weights() : utilisation d'un switcher pour savoir quelle sous fonctione utiliser ;
 #  Cette fonction est aussi utilisé par la fonction powerChancellorAI.
 # -----------------------------------------
+# TODO. if terminal node, mettre valeur en fonction de qui est vivant
 
 def weights(player, knownCards, chancellor):
     a = 21 - len(knownCards)

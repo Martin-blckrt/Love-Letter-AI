@@ -3,12 +3,37 @@ from src.AI.card_weight import weights
 
 
 def evaluate(node):
-    knownCards = node.state.player.isolatedCards + node.state.player.hand + \
-                 node.state.player.playedCards
+    knownCards = node.state.player.isolatedCards + node.state.player.hand + node.state.player.playedCards
+    m = 0
+    impact = 0.75
 
-    impact = weights(node.state.player, knownCards, False)
+    if isTerminal(node):
+
+        if node.state.player.isAlive:
+            if node.state.player.extraPoint:
+                impact = 1
+
+        elif node.state.opponent.isAlive:
+            impact = 0
+
+        elif not node.state.deck:
+
+            for Card in node.state.player.listOfCards:
+
+                if node.state.player.hand[0].value > Card.value:
+
+                    n = findOccurences(Card, knownCards)
+                    m += Card.totalNumber - n
+
+            impact = m / (1-len(knownCards))
+
+            if node.state.player.extraPoint:
+                impact += 0.5
+    else:
+        impact = weights(node.state.player, knownCards, False)
 
     return impact
+
 
 def getAncestor(node, value):
     # returns the before-last ancestor of the child with the given value
@@ -74,6 +99,16 @@ def findCard(cardvalue, selectedList):
     return index
 
 
+def findOccurences(card, searchedList):
+
+    i = 0
+    for aCard in searchedList:
+        if card.value == aCard.value:
+            i += 1
+    print(i)
+    return i
+
+
 def nextStates(virtualNode, color):
 
     if color == 1:
@@ -81,15 +116,13 @@ def nextStates(virtualNode, color):
     else:
         activePlayer = virtualNode.state.opponent
 
-    print(f"Active player is : {activePlayer.name} and node value is {virtualNode.value}\n\n")
+    print(f"\n{activePlayer.name} and node value is {virtualNode.value}\n")
 
     next_nodes = []
 
     knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
     if len(virtualNode.state.deck) >= 12 and color == 1:
-
-        print(f"nextStates hand in if: {virtualNode.state.player.hand[0].title} and {virtualNode.state.player.hand[1].title} ")
 
         for i in range(2):
             newVirtualNode = copy.deepcopy(virtualNode)
@@ -110,6 +143,7 @@ def nextStates(virtualNode, color):
                         index = findCard(drawnCard.value, newVirtualNode.state.deck)
                         activePlayer.hand.append(newVirtualNode.state.deck[index])
                         del newVirtualNode.state.deck[index]
+                        knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
                         next_nodes.append(princedNode)
 
@@ -124,13 +158,9 @@ def nextStates(virtualNode, color):
     else:
         for card in virtualNode.state.listOfCards:
 
-            if card.totalNumber - knownCards.count(card) > 0:
-                copiedDeck = copy.deepcopy(virtualNode.state.deck)
-                copiedHand = copy.deepcopy(virtualNode.state.player.hand)
+            n = findOccurences(card, knownCards)
 
-                index = findCard(card.value, copiedDeck)
-                copiedHand.append(copiedDeck[index])
-                del copiedDeck[index]
+            if card.totalNumber - n > 0:
 
                 for i in range(2):
 
@@ -146,6 +176,7 @@ def nextStates(virtualNode, color):
                     index = findCard(card.value, newVirtualNode.state.deck)
                     activePlayer.hand.append(newVirtualNode.state.deck[index])
                     del newVirtualNode.state.deck[index]
+                    knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
                     activePlayer.playTurn(newVirtualNode.state.deck, i, caption=False)
 
@@ -153,7 +184,9 @@ def nextStates(virtualNode, color):
 
                         for drawnCard in virtualNode.state.listOfCards:
 
-                            if drawnCard.totalNumber - knownCards.count(drawnCard) > 0:
+                            n = findOccurences(card, knownCards)
+
+                            if drawnCard.totalNumber - n > 0:
 
                                 princedNode = copy.deepcopy(newVirtualNode)
                                 princedNode.parent = virtualNode

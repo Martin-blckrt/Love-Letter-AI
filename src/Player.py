@@ -92,21 +92,18 @@ class Player:
                     print("\nThe countess was discarded !\n" if caption else "")
         else:
 
-            if caption and self.gender == "Human":
+            if caption:
+                if self.gender == "Human":
+                    index = int(input("\nWhat card do you want to play ? (0/1)\n "))
 
-                index = int(input("\nWhat card do you want to play ? (0/1)\n "))
-
-                while (index != 0) and (index != 1):
-                    index = int(input("\nWrong input ! What card do you want to play ? (0/1)\n"))
-
-            elif caption and self.gender == "AI":
-
-                index = self.playAiTurn(deck)
-
+                    while (index != 0) and (index != 1):
+                        index = int(input("\nWrong input ! What card do you want to play ? (0/1)\n"))
+                else:
+                    index = self.playAiTurn(deck)
             else:
                 # virtual turn
                 index = usedCardIndex[0]
-                print(f"playTurn hand : {self.hand[0].title}, {self.hand[1].title}, index is {index}, {self.hand}")
+                print(f"{self.hand[0].title}, {self.hand[1].title}, index is {index}")
 
         self.playCard(index, deck, caption=caption)
 
@@ -199,7 +196,7 @@ class Player:
         neg_inf = float('-inf')
 
         state = State(deck, self.isolatedCards, self.listOfCards, self)
-        node = Node(state, 0, None)
+        node = Node(state, 0, None, 0)
 
         depth = len(self.playedCards) + 1
         # Gère l'aspect "iterative deepening" de l'algorithme

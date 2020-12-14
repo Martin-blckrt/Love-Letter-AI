@@ -8,11 +8,12 @@ class State:
 
 
 class Node:
-    def __init__(self, state, value, parent):
+    def __init__(self, state, value, parent, floor):
         self.state = state
         self.value = value
         self.parent = parent
         self.children = []
+        self.floor = floor
 
     def addChild(self, childNode):
 
