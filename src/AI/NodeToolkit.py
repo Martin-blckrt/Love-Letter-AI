@@ -32,6 +32,9 @@ def evaluate(node):
     else:
         impact = weights(node.state.player, knownCards, False)
 
+    # arrondi pour éviter décimale infinie
+
+    impact = round(impact, 5)
     return impact
 
 
@@ -120,7 +123,10 @@ def nextStates(virtualNode, color):
 
     next_nodes = []
 
-    knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
+    knownCards = activePlayer.isolatedCards + activePlayer.playedCards + activePlayer.hand
+
+    for i in range(len(knownCards)):
+        print("KC début next state", knownCards[i].title)
 
     if len(virtualNode.state.deck) >= 12 and color == 1:
 
@@ -130,7 +136,9 @@ def nextStates(virtualNode, color):
             newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
             activePlayer = newVirtualNode.state.player
 
-            print(f"hand 1st turn nextstate= {activePlayer.hand}")
+            for count in range(len(activePlayer.hand)):
+                print("hand 1st turn", activePlayer.hand[count].title)
+
             activePlayer.playTurn(newVirtualNode.state.deck, i, caption=False)
 
             if not activePlayer.hand:
@@ -185,9 +193,11 @@ def nextStates(virtualNode, color):
                     activePlayer.hand.append(newVirtualNode.state.deck[index])
                     del newVirtualNode.state.deck[index]
 
-                    knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
+                    knownCards = activePlayer.isolatedCards + activePlayer.playedCards + activePlayer.hand
 
-                    print(f"next turn nextstates= {activePlayer.hand}")
+                    for count in range(len(activePlayer.hand)):
+                        print("hand not 1st turn", activePlayer.hand[count].title)
+
                     activePlayer.playTurn(newVirtualNode.state.deck, i, caption=False)
 
                     if not activePlayer.hand:

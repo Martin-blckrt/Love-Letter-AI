@@ -104,7 +104,9 @@ class Player:
                 # virtual turn
                 index = usedCardIndex[0]
 
-                print(f" hand playturn = {self.hand}")
+                for count in range(len(self.hand)):
+                    print("hand playturn", self.hand[count].title)
+
                 # print(f"{self.hand[0].title}, {self.hand[1].title}, index is {index}")
 
         self.playCard(index, deck, caption=caption)

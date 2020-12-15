@@ -21,15 +21,21 @@ def negamax(node, depth, alpha, beta, color):
 
     for child in node.children:
         print("Next color is ", -color)
-        print("Child = " , child.state.player.name)
+        print("Child = ", child.state.player.name)
         # child.value = evaluate(child)
+
         child.floor = virtualNode.floor + 1
+
         value = max(value, -negamax(child, depth - 1, -beta, -alpha, -color))
+
         child.value = value
-        """alpha = max(alpha, value)
+        print("child value is", child.value)
+        """
+        alpha = max(alpha, value)
 
         if beta <= alpha:
-            break"""
+            break
+        """
 
     """
     MINMAX AU CAS OU
