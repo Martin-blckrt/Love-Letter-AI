@@ -21,11 +21,10 @@ def evaluate(node):
             for Card in node.state.player.listOfCards:
 
                 if node.state.player.hand[0].value > Card.value:
-
                     n = findOccurences(Card, knownCards)
                     m += Card.totalNumber - n
 
-            impact = m / (1-len(knownCards))
+            impact = m / (1 - len(knownCards))
 
             if node.state.player.extraPoint:
                 impact += 0.5
@@ -79,7 +78,6 @@ def getAncestorCardIndex(node, value):
 
 
 def isTerminal(node):
-
     cond1 = not node.state.deck  # deck vide
     cond2 = (not node.state.player.isAlive) or node.state.opponent.hasWon
     cond3 = (not node.state.opponent.isAlive) or node.state.player.hasWon
@@ -94,7 +92,6 @@ def getNodeValue(node):
 
 
 def findCard(cardvalue, selectedList):
-
     index = 0
     for i in range(len(selectedList)):
         if cardvalue == selectedList[i].value:
@@ -108,36 +105,49 @@ def findOccurences(card, searchedList):
     for aCard in searchedList:
         if card.value == aCard.value:
             i += 1
-    print(i)
+    print(f"we found {i}/{card.totalNumber} occurences of {card.title}")
     return i
 
 
 def nextStates(virtualNode, color):
-
     if color == 1:
         activePlayer = virtualNode.state.player
     else:
         activePlayer = virtualNode.state.opponent
 
-    print(f"\n{activePlayer.name} and node value is {virtualNode.value}\n")
+    print(f"\nNode player : {activePlayer.name}\nnode value : {virtualNode.value}\n")
 
     next_nodes = []
 
     knownCards = activePlayer.isolatedCards + activePlayer.playedCards + activePlayer.hand
 
+    # debug print
+    print("KC début next state : ")
     for i in range(len(knownCards)):
-        print("KC début next state", knownCards[i].title)
+        print(knownCards[i].title, end=", ")
+
+    print("\n")
+    # end debug print
 
     if len(virtualNode.state.deck) >= 12 and color == 1:
 
-        for i in range(2):
-            newVirtualNode = copy.deepcopy(virtualNode)
+        for i in range(2):  # Pour chaque carte de la main
+
             # on cree une copie du noeud pour genere des enfants de celui ci
+            newVirtualNode = copy.deepcopy(virtualNode)
+
             newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
+
             activePlayer = newVirtualNode.state.player
 
+            # debug print
+            print("hand 1st turn : ")
             for count in range(len(activePlayer.hand)):
-                print("hand 1st turn", activePlayer.hand[count].title)
+                print(activePlayer.hand[count].title, end=", ")
+            print("\n")
+            # end debug print
+
+            # ------------------- On fait jouer le joueur au premier tour -----------------------
 
             activePlayer.playTurn(newVirtualNode.state.deck, i, caption=False)
 
@@ -149,7 +159,6 @@ def nextStates(virtualNode, color):
                     n = findOccurences(drawnCard, knownCards)
 
                     if drawnCard.totalNumber - n > 0:
-
                         princedNode = copy.deepcopy(newVirtualNode)
                         princedNode.parent = virtualNode
 
@@ -207,7 +216,6 @@ def nextStates(virtualNode, color):
                             n = findOccurences(card, knownCards)
 
                             if drawnCard.totalNumber - n > 0:
-
                                 princedNode = copy.deepcopy(newVirtualNode)
                                 princedNode.parent = virtualNode
 

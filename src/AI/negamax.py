@@ -15,13 +15,18 @@ def negamax(node, depth, alpha, beta, color):
 
     node.children = nextStates(virtualNode, color)
 
-    print(f"\n{len(node.children)} babies at floor {node.floor}\n")
+    print(f"\n{len(node.children)} babies at floor {node.floor} :")
 
     value = float('-inf')
 
     for child in node.children:
+
         print("Next color is ", -color)
         print("Child = ", child.state.player.name)
+        print("Hand in the child : ", child.state.player.hand[0].title)
+
+    for child in node.children:
+
         # child.value = evaluate(child)
 
         child.floor = virtualNode.floor + 1
