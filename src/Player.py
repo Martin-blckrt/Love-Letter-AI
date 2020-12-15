@@ -66,6 +66,8 @@ class Player:
         self.deadpool = False
 
         if caption:
+            # cas physique
+
             self.draw(deck)
             print(f"{self.name}'s hand is :")
 
