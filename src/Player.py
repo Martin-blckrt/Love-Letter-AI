@@ -74,7 +74,7 @@ class Player:
             for i in range(len(self.hand)):
                 print(f"{i}. {self.hand[i].title} [{self.hand[i].value}]")  # prints the player's hand
 
-        index = 0
+        index = None
         cardValues = []
 
         for j in range(len(self.hand)):
@@ -106,8 +106,11 @@ class Player:
                 # virtual turn
                 index = usedCardIndex[0]
 
-
-                # print(f"{self.hand[0].title}, {self.hand[1].title}, index is {index}")
+        # debug print
+        for j in range(len(self.hand)):
+            print(f"hand is : {self.hand[j].title}")
+        print("index in playTurn : ", index)
+        # debug print
 
         self.playCard(index, deck, caption=caption)
 

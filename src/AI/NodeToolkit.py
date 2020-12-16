@@ -57,7 +57,7 @@ def getAncestor(node, value):
 
     # TODO. Il passe dans if et elif lorsque value = node.value
 
-    elif node.children:
+    elif node.children and node.value != value:
         for child in node.children:
             print("I'm in the elif of GetAncestor")
             target = getAncestor(child, value)
@@ -87,11 +87,12 @@ def getAncestorCardIndex(node, value):
     originHand = origin.state.player.hand
 
     # debug for print :
+    print("PRINT DEBUG IN getAncestorIndex")
     for j in range(len(hand)):
         print(f"hand is : {hand[j].title}")
 
     for a in range(len(originHand)):
-        print(f" originHand = {originHand[a].title}")
+        print(f"originHand = {originHand[a].title}")
     # end debug print
 
     index = 0
@@ -100,6 +101,7 @@ def getAncestorCardIndex(node, value):
         if not hand[index] == originHand[index]:
             return index
 
+    print('index in getAncestorIndex : ', index)
     return index
 
 
