@@ -105,13 +105,7 @@ class Player:
             else:
                 # virtual turn
                 index = usedCardIndex[0]
-
-        # debug print
-        for j in range(len(self.hand)):
-            print(f"hand is : {self.hand[j].title}")
-        print("index in playTurn : ", index)
-        # debug print
-
+        print(f"index in playturn : {index}")
         self.playCard(index, deck, caption=caption)
 
     def playCard(self, index, deck, caption=True):
@@ -205,7 +199,7 @@ class Player:
         state = State(deck, self.isolatedCards, self.listOfCards, self)
         node = Node(state, 0, None, 0)
 
-        depth = len(self.playedCards) + 1
+        depth = len(self.playedCards) + 2
         # Gère l'aspect "iterative deepening" de l'algorithme
         # Permet de compter le nombre de tours passés et d'incrémenter en fonction
 

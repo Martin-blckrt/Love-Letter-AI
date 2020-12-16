@@ -3,13 +3,11 @@ from src.AI.NodeToolkit import isTerminal, evaluate, nextStates
 
 
 def negamax(node, depth, alpha, beta, color):
-
     virtualNode = copy.deepcopy(node)
 
     # TODO. Generation & valeurs des noeuds
 
     if isTerminal(node) or depth == 0:
-
         node.value = evaluate(node)
 
         return color * node.value
@@ -22,8 +20,8 @@ def negamax(node, depth, alpha, beta, color):
 
     for child in node.children:
 
-        print("Next color is ", -color)
-        print("Child = ", child.state.player.name)
+    # print("Next color is ", -color)
+    # print("Child = ", child.state.player.name)
         print("Hand in the child : ", child.state.player.hand[0].title)
 
     for child in node.children:
@@ -36,12 +34,11 @@ def negamax(node, depth, alpha, beta, color):
 
         child.value = value
         print("child value is", child.value)
-        """
+
         alpha = max(alpha, value)
 
         if beta <= alpha:
             break
-        """
 
     """
     MINMAX AU CAS OU

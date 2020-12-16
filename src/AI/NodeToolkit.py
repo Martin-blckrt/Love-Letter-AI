@@ -3,6 +3,7 @@ from src.AI.card_weight import weights
 
 
 def evaluate(node):
+
     knownCards = node.state.player.isolatedCards + node.state.player.hand + node.state.player.playedCards
     m = 0
     impact = 0.75
@@ -38,71 +39,58 @@ def evaluate(node):
     return impact
 
 
-def getAncestor(node, value):
-    # returns the before-last ancestor of the child with the given value
-    # TODO. Trouver soluce pour valeur non trouvée
-    """
-        Option possible : param depth qu'on utiliserais pour limiter la recherche
-        :param node: Noeud d'où la recherche part
-        :param value: valeur à trouver dans le noeud
-        :return: retourne le noeud (enfant de node) vers lequel il faut se diriger
-    """
+def getAncestor(lineage, value):
 
-    target = node
+    for child in lineage:
 
-    print(f"We are looking for : {value} but node.value is : {node.value}")
-    if node.value == value:
-        target = node
-        print("I'm in the if of GetAncestor")
+        if child.value == value:
+            print("je suis dans le if")
+            return child
 
-    # TODO. Il passe dans if et elif lorsque value = node.value
-
-    elif node.children and node.value != value:
-        for child in node.children:
-            print("I'm in the elif of GetAncestor")
-            target = getAncestor(child, value)
-
-    return target
+        elif child.children and child.value != value:
+            print("je suis dans le elif")
+            getAncestor(child.children, value)
 
 
 def getAncestorCardIndex(node, value):
-    # TODO. WORK on it, NoneType error, Tuple error
-    # returns the index of the card that we should play next
 
     origin = node
+    lineage = []
 
-    target = getAncestor(node, value)
+    # On skip les noeuds humain dans l'arbre
+    for humanChild in origin.children:
+        for aiChild in humanChild.children:
+            lineage.append(aiChild)
 
-    if target.parent is not None:
-        print("My parent is not None")
+    target = getAncestor(lineage, value)
 
-        while target.parent.parent:
-            print("No church in the wild")
-            # point de crash AVANT refractor avec if target.parent is not None
-            # Parfois avec NoneType, parfois avec 'tuple' has no parent
-            # Certain target n'ont pas de parent.
-            node = node.parent
+    while target.parent.parent:
+        print("found parents !")
+        target = target.parent
 
-    hand = node.state.player.hand
     originHand = origin.state.player.hand
+    targetHand = target.state.player.hand
 
     # debug for print :
-    print("PRINT DEBUG IN getAncestorIndex")
-    for j in range(len(hand)):
-        print(f"hand is : {hand[j].title}")
+    print("\n____________  PRINT DEBUG IN getAncestorIndex _____________\n")
 
-    for a in range(len(originHand)):
-        print(f"originHand = {originHand[a].title}")
+    for j in range(len(originHand)):
+        print(f"originHand is : {originHand[j].title}")
+
+    for a in range(len(targetHand)):
+        print(f"targetHand = {targetHand[a].title}")
     # end debug print
 
-    index = 0
+    #TODO. Au secours prince et adresses
+    i = 0
 
-    for index in range(len(hand)):
-        if not hand[index] == originHand[index]:
-            return index
+    for i in range(len(originHand)):
+        if targetHand[0].title != originHand[i].title:
+            print(f"found different card at {i}")
+            return i
 
-    print('index in getAncestorIndex : ', index)
-    return index
+    # cas défaut
+    return i
 
 
 def isTerminal(node):
@@ -138,6 +126,7 @@ def findOccurences(card, searchedList):
     print(f"we know {i}/{card.totalNumber} occurences of {card.title}")
     return i
 
+# TODO. gérer THE exception index est dans hiddencard
 
 def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *simulatedCard):
 
@@ -150,22 +139,23 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
 
         if firstTurn:
             activePlayer = newVirtualNode.state.player
-
+            print("_____________ FIRST TURN ________________")
         else:
             if color == 1:
                 activePlayer = newVirtualNode.state.player
             else:
                 activePlayer = newVirtualNode.state.opponent
 
+            print(f"player name : {activePlayer.name}")
             index = findCard(simulatedCard[0].value, newVirtualNode.state.deck)
-
+            print(newVirtualNode.state.deck[index].value)
             activePlayer.hand.append(newVirtualNode.state.deck[index])
             del newVirtualNode.state.deck[index]
 
             knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
         # debug print
-        print("hand :")
+        print("hand between 2 nodes :")
         for count in range(len(activePlayer.hand)):
             print(activePlayer.hand[count].title, end=", ")
         print("\n")
@@ -223,14 +213,17 @@ def nextStates(virtualNode, color):
     print("\n")
     # end debug print
 
-    if len(virtualNode.state.deck) >= 12 and color == 1:
+    cond1 = len(virtualNode.state.deck) == 12 and activePlayer.playedCards[1].value == 5
+
+    if color == 1 and (len(virtualNode.state.deck) == 13 or cond1):
+        print(f"On réussi le test if de nextstate\nvirtualNode.floor = {virtualNode.floor}")
+        print(f"deck length : {len(virtualNode.state.deck)}")
         generateChildren(virtualNode, next_nodes, knownCards, color, True)
 
     else:
 
         for simulatedCard in virtualNode.state.listOfCards:
             n = findOccurences(simulatedCard, knownCards)
-
             if simulatedCard.totalNumber - n > 0:
 
                 generateChildren(virtualNode, next_nodes, knownCards, color, False, simulatedCard)

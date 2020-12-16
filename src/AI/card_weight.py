@@ -21,7 +21,9 @@ def weights(player, knownCards, chancellor):
     def guard_weight():
 
         probabilities = []
+
         for Card in player.listOfCards:
+
             b = Card.totalNumber - knownCards.count(Card)
             probabilities.append((b / a))
 
@@ -77,10 +79,10 @@ def weights(player, knownCards, chancellor):
 
     def king_weight():
 
-        return 150 / a
+        return 1.5 / a
 
     def countess_weight():
-        countess_impact = 175 / a
+        countess_impact = 1.75 / a
         if not chancellor:
             countess_index = None
             idx = 0
@@ -102,7 +104,7 @@ def weights(player, knownCards, chancellor):
 
     def princess_weight():
 
-        return 200 / a
+        return 2 / a
 
     switcher = {
         0: spy_weight,
