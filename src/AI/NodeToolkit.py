@@ -47,21 +47,22 @@ def getAncestor(node, value):
         :param value: valeur à trouver dans le noeud
         :return: retourne le noeud (enfant de node) vers lequel il faut se diriger
     """
-    lost = False
+
     target = node
 
-    print(f"WE ARE LOOKING FOR {value} BUT I HAVE {node.value}")
+    print(f"We are looking for : {value} but node.value is : {node.value}")
     if node.value == value:
         target = node
+        print("I'm in the if of GetAncestor")
+
+    # TODO. Il passe dans if et elif lorsque value = node.value
 
     elif node.children:
         for child in node.children:
+            print("I'm in the elif of GetAncestor")
             target = getAncestor(child, value)
-    else:
-        lost = True
-        print("Value not found")
 
-    return target, lost
+    return target
 
 
 def getAncestorCardIndex(node, value):
@@ -70,22 +71,36 @@ def getAncestorCardIndex(node, value):
 
     origin = node
 
-    target, lost = getAncestor(node, value)
-    print("target", target)
-    print("lost", lost)
+    target = getAncestor(node, value)
 
-    if not lost:
+    if target.parent is not None:
+        print("My parent is not None")
+
         while target.parent.parent:
+            print("No church in the wild")
+            # point de crash AVANT refractor avec if target.parent is not None
+            # Parfois avec NoneType, parfois avec 'tuple' has no parent
+            # Certain target n'ont pas de parent.
             node = node.parent
 
-        hand = node.state.player.hand
-        originHand = origin.state.player.hand
+    hand = node.state.player.hand
+    originHand = origin.state.player.hand
 
-        for index in range(len(hand)):
-            if not hand[index] == originHand[index]:
-                return index
-    else:
-        print("I AM LOST FOREVER IN THE DEEP COLD SEA")
+    # debug for print :
+    for j in range(len(hand)):
+        print(f"hand is : {hand[j].title}")
+
+    for a in range(len(originHand)):
+        print(f" originHand = {originHand[a].title}")
+    # end debug print
+
+    index = 0
+
+    for index in range(len(hand)):
+        if not hand[index] == originHand[index]:
+            return index
+
+    return index
 
 
 def isTerminal(node):
