@@ -48,12 +48,11 @@ def getAncestor(lineage, value):
             print(f"\nje vais return ce child : {child}")
             print(f"parent of the child : {child.parent}")
             target = child
-            break
+            # break
+            return target
 
         else:
-            target = getAncestor(child.children, value)
-
-    return target
+            getAncestor(child.children, value)
 
 
 def getAncestorCardIndex(node, value):

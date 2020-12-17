@@ -3,6 +3,7 @@ from src.AI.NodeToolkit import isTerminal, evaluate, nextStates
 
 
 def negamax(node, depth, alpha, beta, color):
+
     virtualNode = copy.deepcopy(node)
 
     # TODO. Generation & valeurs des noeuds
