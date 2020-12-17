@@ -173,7 +173,7 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
 
             if not activePlayer.hand:
                 # cas ou le prince a été joué
-
+                print("JE SUIS DANS if not activePlayer.hand")
                 for drawnCard in virtualNode.state.listOfCards:
                     # TODO. A vérifier si c'est bien drawnCard (c'était simulatedCard avant)
                     n = findOccurences(drawnCard, knownCards)
@@ -182,19 +182,25 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
                         princedNode = copy.deepcopy(newVirtualNode)
                         princedNode.parent = virtualNode
 
-                        index = findCard(drawnCard.value, newVirtualNode.state.deck)
+                        if color == 1:
+                            activePlayer = princedNode.state.player
+                        else:
+                            activePlayer = princedNode.state.opponent
+
+                        index = findCard(drawnCard.value, princedNode.state.deck)
 
                         if index == -1:
                             del princedNode
                         else:
-                            activePlayer.hand.append(newVirtualNode.state.deck[index])
-                            del newVirtualNode.state.deck[index]
+                            activePlayer.hand.append(princedNode.state.deck[index])
+                            del princedNode.state.deck[index]
 
                             next_nodes.append(princedNode)
 
             elif not activePlayer.opponent.hand:
                 # TODO. Verif si le bon joueur est manipulé (peut etre la cause des node color opposee)
 
+                print("JE SUIS DANS elif not activePlayer.opponent.hand")
                 drawnCard = newVirtualNode.state.deck.pop(0)
                 activePlayer.opponent.hand.append(drawnCard)
 
@@ -220,6 +226,14 @@ def nextStates(virtualNode, color):
     print("KC début next state : ")
     for i in range(len(knownCards)):
         print(knownCards[i].title, end=", ")
+
+    print("\nactivePlayer.hand")
+    for i in range(len(activePlayer.hand)):
+        print(activePlayer.hand[i].title, end=", ")
+
+    print("\nactivePlayer.playedCards")
+    for i in range(len(activePlayer.playedCards)):
+        print(activePlayer.playedCards[i].title, end=", ")
 
     print("\n")
     # end debug print

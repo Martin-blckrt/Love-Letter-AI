@@ -81,7 +81,8 @@ def prince_power(activePlayer, deck_arg, caption=True):
         if not deck_arg:
             target.hand.append(target.hiddenCard)
         else:
-            target.draw(deck_arg)
+            if caption:
+                target.draw(deck_arg)
 
     else:
 
@@ -92,7 +93,8 @@ def prince_power(activePlayer, deck_arg, caption=True):
             if not deck_arg:
                 target.hand.append(target.hiddenCard)
             else:
-                target.draw(deck_arg)
+                if caption:
+                    target.draw(deck_arg)
 
         else:
             print(f"{target.name} is protected : your card has no effect !\n" if caption else "")
