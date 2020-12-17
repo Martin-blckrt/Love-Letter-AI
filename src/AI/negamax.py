@@ -22,6 +22,7 @@ def negamax(node, depth, alpha, beta, color):
 
     # print("Next color is ", -color)
     # print("Child = ", child.state.player.name)
+        print("Hand of this player : ", child.state.player.name)
         print("Hand in the child : ", child.state.player.hand[0].title)
 
     for child in node.children:

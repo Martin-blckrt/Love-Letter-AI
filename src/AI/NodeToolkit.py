@@ -110,7 +110,7 @@ def getNodeValue(node):
 
 def findCard(cardvalue, selectedList):
 
-    index = 0
+    index = None
     for i in range(len(selectedList)):
         if cardvalue == selectedList[i].value:
             index = i
@@ -128,6 +128,7 @@ def findOccurences(card, searchedList):
 
 # TODO. gérer THE exception index est dans hiddencard
 
+
 def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *simulatedCard):
 
     for i in range(2):  # Pour chaque carte de la main
@@ -139,6 +140,7 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
 
         if firstTurn:
             activePlayer = newVirtualNode.state.player
+            index = 0
             print("_____________ FIRST TURN ________________")
         else:
             if color == 1:
@@ -148,49 +150,56 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
 
             print(f"player name : {activePlayer.name}")
             index = findCard(simulatedCard[0].value, newVirtualNode.state.deck)
-            print(newVirtualNode.state.deck[index].value)
-            activePlayer.hand.append(newVirtualNode.state.deck[index])
-            del newVirtualNode.state.deck[index]
+
+            if index:
+                activePlayer.hand.append(newVirtualNode.state.deck[index])
+                del newVirtualNode.state.deck[index]
 
             knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
-        # debug print
-        print("hand between 2 nodes :")
-        for count in range(len(activePlayer.hand)):
-            print(activePlayer.hand[count].title, end=", ")
-        print("\n")
-        # end debug print
-
-        activePlayer.playTurn(newVirtualNode.state.deck, i, caption=False)
-
-        if not activePlayer.hand:
-            # cas ou le prince a été joué
-
-            for drawnCard in virtualNode.state.listOfCards:
-                # TODO. A vérifier si c'est bien drawnCard (c'était simulatedCard avant)
-                n = findOccurences(drawnCard, knownCards)
-
-                if drawnCard.totalNumber - n > 0:
-                    princedNode = copy.deepcopy(newVirtualNode)
-                    princedNode.parent = virtualNode
-
-                    index = findCard(drawnCard.value, newVirtualNode.state.deck)
-
-                    activePlayer.hand.append(newVirtualNode.state.deck[index])
-                    del newVirtualNode.state.deck[index]
-
-                    next_nodes.append(princedNode)
-
-        elif not activePlayer.opponent.hand:
-            # TODO. Verif si le bon joueur est manipulé (peut etre la cause des node color opposee
-
-            drawnCard = newVirtualNode.state.deck.pop(0)
-            activePlayer.opponent.hand.append(drawnCard)
-
-            next_nodes.append(newVirtualNode)
-
+        if index is None:
+            del newVirtualNode
         else:
-            next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
+            # debug print
+            print("hand between 2 nodes :")
+            for count in range(len(activePlayer.hand)):
+                print(activePlayer.hand[count].title, end=", ")
+            print("\n")
+            # end debug print
+
+            activePlayer.playTurn(newVirtualNode.state.deck, i, caption=False)
+
+            if not activePlayer.hand:
+                # cas ou le prince a été joué
+
+                for drawnCard in virtualNode.state.listOfCards:
+                    # TODO. A vérifier si c'est bien drawnCard (c'était simulatedCard avant)
+                    n = findOccurences(drawnCard, knownCards)
+
+                    if drawnCard.totalNumber - n > 0:
+                        princedNode = copy.deepcopy(newVirtualNode)
+                        princedNode.parent = virtualNode
+
+                        index = findCard(drawnCard.value, newVirtualNode.state.deck)
+
+                        if index is None:
+                            del princedNode
+                        else:
+                            activePlayer.hand.append(newVirtualNode.state.deck[index])
+                            del newVirtualNode.state.deck[index]
+
+                            next_nodes.append(princedNode)
+
+            elif not activePlayer.opponent.hand:
+                # TODO. Verif si le bon joueur est manipulé (peut etre la cause des node color opposee)
+
+                drawnCard = newVirtualNode.state.deck.pop(0)
+                activePlayer.opponent.hand.append(drawnCard)
+
+                next_nodes.append(newVirtualNode)
+
+            else:
+                next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
 
 
 def nextStates(virtualNode, color):
@@ -224,8 +233,8 @@ def nextStates(virtualNode, color):
 
         for simulatedCard in virtualNode.state.listOfCards:
             n = findOccurences(simulatedCard, knownCards)
-            if simulatedCard.totalNumber - n > 0:
 
+            if simulatedCard.totalNumber - n > 0:
                 generateChildren(virtualNode, next_nodes, knownCards, color, False, simulatedCard)
 
     return next_nodes

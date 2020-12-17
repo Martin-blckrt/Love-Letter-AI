@@ -107,6 +107,8 @@ class Game:
         # remove hidden card from deck
         self.hiddenCard = self.deck.pop(0)
 
+        print("\nhidden card is ", self.hiddenCard.title)
+
         self.player1.draw(self.deck)
         self.player2.draw(self.deck)
 

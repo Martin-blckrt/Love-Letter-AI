@@ -207,4 +207,6 @@ class Player:
 
         cardIndex = getAncestorCardIndex(node, value)
 
+        # TODO. check si princess in hand ou opponent deadpooled pour jouer l'autre : ca evite des calculs
+
         return cardIndex
