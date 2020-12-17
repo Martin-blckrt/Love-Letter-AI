@@ -110,10 +110,12 @@ def getNodeValue(node):
 
 def findCard(cardvalue, selectedList):
 
-    index = None
+    index = -1
     for i in range(len(selectedList)):
         if cardvalue == selectedList[i].value:
             index = i
+    print("index in findCard is : ", index)
+    print("first card of deck is : ", selectedList[0].title)
     return index
 
 
@@ -140,7 +142,7 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
 
         if firstTurn:
             activePlayer = newVirtualNode.state.player
-            index = 0
+            index = -1
             print("_____________ FIRST TURN ________________")
         else:
             if color == 1:
@@ -151,13 +153,13 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
             print(f"player name : {activePlayer.name}")
             index = findCard(simulatedCard[0].value, newVirtualNode.state.deck)
 
-            if index:
+            if index != -1:
                 activePlayer.hand.append(newVirtualNode.state.deck[index])
                 del newVirtualNode.state.deck[index]
 
             knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
-        if index is None:
+        if index == -1 and not firstTurn:
             del newVirtualNode
         else:
             # debug print
@@ -182,7 +184,7 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
 
                         index = findCard(drawnCard.value, newVirtualNode.state.deck)
 
-                        if index is None:
+                        if index == -1:
                             del princedNode
                         else:
                             activePlayer.hand.append(newVirtualNode.state.deck[index])

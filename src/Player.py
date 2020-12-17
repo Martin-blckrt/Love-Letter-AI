@@ -105,7 +105,7 @@ class Player:
             else:
                 # virtual turn
                 index = usedCardIndex[0]
-        print(f"index in playturn : {index}")
+
         self.playCard(index, deck, caption=caption)
 
     def playCard(self, index, deck, caption=True):
