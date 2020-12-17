@@ -63,6 +63,7 @@ class Game:
                             countess_card,
                             princess_card]
 
+
         # List of the card we will put on the side at the beginning of each round
         self.hiddenCard = None
         self.isolatedCards = []

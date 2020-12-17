@@ -244,9 +244,7 @@ def nextStates(virtualNode, color):
     print("\n")
     # end debug print
 
-    cond1 = len(virtualNode.state.deck) == 12 and activePlayer.playedCards[1].value == 5
-
-    if color == 1 and (len(virtualNode.state.deck) == 13 or cond1):
+    if color == 1 and len(activePlayer.hand) == 2:
 
         generateChildren(virtualNode, next_nodes, knownCards, color, True)
 
