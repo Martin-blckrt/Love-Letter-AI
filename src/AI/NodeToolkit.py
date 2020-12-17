@@ -44,12 +44,16 @@ def getAncestor(lineage, value):
     for child in lineage:
 
         if child.value == value:
-            print("je suis dans le if")
-            return child
 
-        elif child.children and child.value != value:
-            print("je suis dans le elif")
-            getAncestor(child.children, value)
+            print(f"\nje vais return ce child : {child}")
+            print(f"parent of the child : {child.parent}")
+            target = child
+            break
+
+        else:
+            target = getAncestor(child.children, value)
+
+    return target
 
 
 def getAncestorCardIndex(node, value):
@@ -64,6 +68,8 @@ def getAncestorCardIndex(node, value):
 
     target = getAncestor(lineage, value)
 
+    print("target : ", target)
+
     while target.parent.parent:
         print("found parents !")
         target = target.parent
@@ -74,8 +80,9 @@ def getAncestorCardIndex(node, value):
     # debug for print :
     print("\n____________  PRINT DEBUG IN getAncestorIndex _____________\n")
 
+    print("origin hand : ")
     for j in range(len(originHand)):
-        print(f"originHand is : {originHand[j].title}")
+        print(f"{originHand[j].title} ")
 
     for a in range(len(targetHand)):
         print(f"targetHand = {targetHand[a].title}")
@@ -189,7 +196,7 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
 
                         index = findCard(drawnCard.value, princedNode.state.deck)
 
-                        if index == -1:
+                        if index == -1 and not firstTurn:
                             del princedNode
                         else:
                             activePlayer.hand.append(princedNode.state.deck[index])
@@ -221,7 +228,7 @@ def nextStates(virtualNode, color):
     knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
     # debug print
-    print(f"\nNode player : {activePlayer.name}\nnode value : {virtualNode.value}\n")
+    print(f"\nNode player in nextstate : {activePlayer.name}")
 
     print("KC début next state : ")
     for i in range(len(knownCards)):
@@ -241,8 +248,7 @@ def nextStates(virtualNode, color):
     cond1 = len(virtualNode.state.deck) == 12 and activePlayer.playedCards[1].value == 5
 
     if color == 1 and (len(virtualNode.state.deck) == 13 or cond1):
-        print(f"On réussi le test if de nextstate\nvirtualNode.floor = {virtualNode.floor}")
-        print(f"deck length : {len(virtualNode.state.deck)}")
+
         generateChildren(virtualNode, next_nodes, knownCards, color, True)
 
     else:
