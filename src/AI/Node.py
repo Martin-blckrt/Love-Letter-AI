@@ -4,7 +4,7 @@ def getPathFrom(node):
 
     while node.parent:
         node = node.parent
-        l.insert(0, node)
+        thePath.insert(0, node)
 
     return thePath
 
@@ -23,6 +23,7 @@ class Node:
         self.parent = parent
         self.children = []
         self.floor = floor
+
 
     def getParent(self, negaValue):
         if self.value == negaValue:

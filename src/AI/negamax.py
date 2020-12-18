@@ -4,10 +4,11 @@ from src.AI.NodeToolkit import isTerminal, evaluate, nextStates
 
 def negamax(node, depth, alpha, beta, color):
 
+    # Creation d'une copie permettant de ne pas toucher au noeud originel
+
     virtualNode = copy.deepcopy(node)
 
-    # TODO. Generation & valeurs des noeuds
-
+    # Verification du noeud (est il terminal? Est ce que la profondeur limite est atteinte?)
     if isTerminal(node) or depth == 0:
 
         return color * evaluate(node)
@@ -26,13 +27,16 @@ def negamax(node, depth, alpha, beta, color):
 
     for child in node.children:
 
-        # child.value = evaluate(child)
-
+        # Definition de l'étage des enfants dans l'arbre
         child.floor = virtualNode.floor + 1
+
+        # Recursivité de Negamax
         negaValue = - negamax(child, depth - 1, -beta, -alpha, -color)
         bestValue = max(bestValue, negaValue)
 
         alpha = max(alpha, negaValue)
+
+        # Elagage Alpha/Beta
 
         if beta <= alpha:
             break

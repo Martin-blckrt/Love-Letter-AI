@@ -1,13 +1,9 @@
-# -----------------------------------------
-#  Fichier permettant de determiner les poids de chaque carte nécessaires au bon fonctionnement de la fonction evaluate
-#  --> weights() : utilisation d'un switcher pour savoir quelle sous fonctione utiliser ;
-#  Cette fonction est aussi utilisé par la fonction powerChancellorAI.
-# -----------------------------------------
-# TODO. if terminal node, mettre valeur en fonction de qui est vivant
 
 def weights(player, knownCards, chancellor):
+
     a = 21 - len(knownCards)
     d = 0
+
     if player.opponent.deadpool:
         d = 0.15
 
@@ -66,12 +62,12 @@ def weights(player, knownCards, chancellor):
         for Card in knownCards:
             if Card.value == 9:
                 p = 0
-        prince_impact = 0.15 + (p / a)
+        prince_impact = .15 + (p / a)
         return prince_impact
 
     def chancellor_weight():
 
-        return 0.25
+        return .25
 
     def king_weight():
 

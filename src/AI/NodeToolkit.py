@@ -136,25 +136,12 @@ def findCard(cardvalue, selectedList):
 def findOccurences(card, searchedList):
 
     i = 0
+
     for aCard in searchedList:
         if card.value == aCard.value:
             i += 1
-    print(f"we know {i}/{card.totalNumber} occurences of {card.title}")
+
     return i
-
-# TODO. gérer THE exception index est dans hiddencard
-
-
-def findOccurences(card, searchedList):
-
-    i = 0
-    for aCard in searchedList:
-        if card.value == aCard.value:
-            i += 1
-    # print(f"we know {i}/{card.totalNumber} occurences of {card.title}")
-    return i
-
-# TODO. gérer THE exception index est dans hiddencard
 
 
 def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *simulatedCard):
