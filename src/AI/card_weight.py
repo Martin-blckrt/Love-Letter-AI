@@ -149,7 +149,7 @@ def weights(player, knownCards, chancellor):
 
         return mean / (2 * j)
 
-    elif chancellor:
+    else:
         impactList = []
         valueList = []
 

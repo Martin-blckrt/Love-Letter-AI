@@ -114,9 +114,13 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
 
     print("\nThere are no more cards in the deck !" if not k else "")
 
+    if activePlayer.gender == "AI" or not caption:
+        listOfIndex = powerChancellorAI(activePlayer)
+        print("list of index is : ", listOfIndex)
+    aiCount = 0
+
     while k != 0:
 
-        aiCount = 0
         if activePlayer.gender == "Human" and caption:
 
             print(f"\nYou need to put {k} card(s) in the deck !"
@@ -136,8 +140,10 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
             index = int(playerInput)
 
         else:
-            listOfIndex = powerChancellorAI(activePlayer)
             index = listOfIndex[aiCount]
+            if aiCount == 1 and index != 0:
+                index -= 1
+            print("index is : ", index)
             aiCount += 1
 
         placedCard = activePlayer.hand.pop(index)
