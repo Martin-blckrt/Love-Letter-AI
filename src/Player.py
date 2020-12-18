@@ -58,7 +58,6 @@ class Player:
         self.playedCards.insert(0, cardDiscarded)
         print("\ni discarded : ", cardDiscarded.title)
 
-
         if cardDiscarded.value == 9:
             self.isAlive = False
             print(f"\n{self.name} discarded a Princess !\n" if caption else "")
@@ -202,8 +201,8 @@ class Player:
         state = State(deck, self.isolatedCards, self.listOfCards, self)
         node = Node(state, 0, None, 0)
 
-        # depth = len(self.playedCards) + 1
-        depth = 2
+        depth = len(self.playedCards) + 1
+
         # Gère l'aspect "iterative deepening" de l'algorithme
         # Permet de compter le nombre de tours passés et d'incrémenter en fonction
 

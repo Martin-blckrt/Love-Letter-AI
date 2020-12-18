@@ -87,7 +87,8 @@ def getAncestorCardIndex(node, value):
         print(f"targetHand = {targetHand[a].title}")
     # end debug print
 
-    #TODO. Au secours prince et adresses
+    # TODO. Au secours prince et adresses
+
     i = 0
 
     for i in range(len(originHand)):
@@ -110,7 +111,6 @@ def isTerminal(node):
 
 def getNodeValue(node):
     # Utile si besoin de debugger.
-
     return node.value
 
 
@@ -244,7 +244,7 @@ def nextStates(virtualNode, color):
     print("\n")
     # end debug print
 
-    if color == 1 and len(activePlayer.hand) == 2:
+    if len(activePlayer.hand) == 2:
 
         generateChildren(virtualNode, next_nodes, knownCards, color, True)
 
