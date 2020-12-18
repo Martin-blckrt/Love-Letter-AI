@@ -64,8 +64,8 @@ def powerPrinceAI(activePlayer):
         return "you"
 
 
-def prince_power(activePlayer, deck_arg, caption=True):
-    if activePlayer.gender == "Human" and caption:
+def prince_power(activePlayer, deck_arg, virtual=True):
+    if activePlayer.gender == "Human" and virtual:
         choice = input("\nWho do you want to target ? [You/Opponent]\n")
         choice.lower()
 
@@ -79,12 +79,12 @@ def prince_power(activePlayer, deck_arg, caption=True):
     if choice == "you":
 
         target = activePlayer
-        target.discard(caption)
+        target.discard(virtual)
 
         if not deck_arg:
             target.hand.append(target.hiddenCard)
         else:
-            if caption:
+            if virtual:
                 target.draw(deck_arg)
 
     else:
@@ -92,18 +92,18 @@ def prince_power(activePlayer, deck_arg, caption=True):
         target = activePlayer.opponent
         if not target.deadpool:
 
-            target.discard(caption)
+            target.discard(virtual)
             if not deck_arg:
                 target.hand.append(target.hiddenCard)
             else:
-                if caption:
+                if virtual:
                     target.draw(deck_arg)
 
         else:
-            print(f"{target.name} is protected : your card has no effect !\n" if caption else "")
+            print(f"{target.name} is protected : your card has no effect !\n" if virtual else "")
 
 
-def chancellor_power(activePlayer, deck_arg, caption=True):
+def chancellor_power(activePlayer, deck_arg, virtual=True):
     if len(deck_arg) > 1:
         k = 2
 
@@ -115,14 +115,14 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
 
     print("\nThere are no more cards in the deck !" if not k else "")
 
-    if activePlayer.gender == "AI" or not caption:
+    if activePlayer.gender == "AI" or not virtual:
         listOfIndex = powerChancellorAI(activePlayer)
         print("list of index is : ", listOfIndex)
     aiCount = 0
 
     while k != 0:
 
-        if activePlayer.gender == "Human" and caption:
+        if activePlayer.gender == "Human" and virtual:
 
             print(f"\nYou need to put {k} card(s) in the deck !"
                   f"\n\nYour hand is :\n")
@@ -153,10 +153,10 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
         k -= 1
 
 
-def king_power(activePlayer, caption=True):
+def king_power(activePlayer, virtual=True):
     opponent = activePlayer.opponent
 
-    print("The hands have been switched !\n" if caption else "")
+    print("The hands have been switched !\n" if virtual else "")
     temp = activePlayer.hand[0]
     activePlayer.hand[0] = opponent.hand[0]
     opponent.hand[0] = temp
