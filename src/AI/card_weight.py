@@ -6,19 +6,6 @@
 # TODO. if terminal node, mettre valeur en fonction de qui est vivant
 
 def weights(player, knownCards, chancellor):
-
-    print(f"\nau debut de weights, len knowncards : ", len(knownCards))
-    for i in range(len(knownCards)):
-        print(knownCards[i].title)
-
-    print(f"player.pLayedcards in weights : ")
-    for j in range(len(player.playedCards)):
-        print(player.playedCards[j].title)
-
-    print(f"opponent.pLayedcards in weights : ")
-    for j in range(len(player.opponent.playedCards)):
-        print(player.opponent.playedCards[j].title)
-
     a = 21 - len(knownCards)
     d = 0
     if player.opponent.deadpool:
@@ -124,7 +111,6 @@ def weights(player, knownCards, chancellor):
     if not chancellor:
 
         mean = 0
-        j = 0
 
         for card in player.listOfCards:
 
@@ -132,7 +118,6 @@ def weights(player, knownCards, chancellor):
             if n > 0:
 
                 x = 0
-                j += 1
 
                 player.hand.append(card)
                 knownCards.append(card)
@@ -143,11 +128,11 @@ def weights(player, knownCards, chancellor):
                     temp = func()
                     x += temp
 
-                mean += n * x / a
+                mean += n * x
                 player.hand.remove(card)
                 knownCards.remove(card)
 
-        return mean / (2 * j)
+        return mean / (2 * a)
 
     else:
         impactList = []

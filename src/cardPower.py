@@ -10,6 +10,7 @@
 # TODO. mettre fonction findCard partout ou y avait for card in listOfcards
 
 from src.AI.card_weight import weights
+from src.AI.NodeToolkit import findCard
 from src.AI.NodeToolkit import findOccurences
 
 
@@ -132,7 +133,8 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
             playerInput = input(f"Which card do you want to place at the bottom of the deck ? Pick between 0 and {k}\n")
 
             numbers = "0123456789"
-            availableIndexes = list(numbers)
+            numberList = list(numbers)
+            availableIndexes = [numberList[i] for i in range(k+1)]
 
             while len(playerInput) != 1 or playerInput not in availableIndexes:
                 playerInput = input(f"\nWrong input ! Remember, between 0 and {k}\n")

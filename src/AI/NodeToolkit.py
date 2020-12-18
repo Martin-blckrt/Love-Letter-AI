@@ -39,20 +39,24 @@ def evaluate(node):
     return impact
 
 
-def getAncestor(lineage, value):
+def getAncestor(testedChild, value):
 
-    for child in lineage:
+    children = testedChild.children
 
-        if child.value == value:
+    if testedChild.value == value:
+        print(f"\nje vais return ce child : {testedChild}")
+        print(f"parent of the child : {testedChild.parent}")
 
-            print(f"\nje vais return ce child : {child}")
-            print(f"parent of the child : {child.parent}")
-            target = child
-            # break
-            return target
+        target = testedChild
 
-        else:
-            getAncestor(child.children, value)
+        return target
+
+    else:
+        for newChild in children:
+            result = getAncestor(newChild, value)
+
+            if not result:
+                continue
 
 
 def getAncestorCardIndex(node, value):
@@ -65,7 +69,11 @@ def getAncestorCardIndex(node, value):
         for aiChild in humanChild.children:
             lineage.append(aiChild)
 
-    target = getAncestor(lineage, value)
+    for testedChild in lineage:
+        target = getAncestor(testedChild, value)
+
+        if target:
+            break
 
     print("target : ", target)
 
@@ -120,9 +128,21 @@ def findCard(cardvalue, selectedList):
     for i in range(len(selectedList)):
         if cardvalue == selectedList[i].value:
             index = i
-    # print("index in findCard is : ", index)
-    # print("first card of deck is : ", selectedList[0].title)
+    print("index in findCard is : ", index)
+    print("first card of deck is : ", selectedList[0].title)
     return index
+
+
+def findOccurences(card, searchedList):
+
+    i = 0
+    for aCard in searchedList:
+        if card.value == aCard.value:
+            i += 1
+    print(f"we know {i}/{card.totalNumber} occurences of {card.title}")
+    return i
+
+# TODO. gérer THE exception index est dans hiddencard
 
 
 def findOccurences(card, searchedList):
@@ -232,7 +252,6 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
 
             else:
                 next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
-
 
 def nextStates(virtualNode, color):
 
