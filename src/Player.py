@@ -114,6 +114,7 @@ class Player:
         # Activates the card's power. Checks for immunity
 
         cardPlayed = self.hand.pop(index)
+        self.playedCards.insert(0, cardPlayed)
 
         if not self.opponent.deadpool:
 
@@ -126,8 +127,6 @@ class Player:
 
         elif self.opponent.deadpool and cardPlayed.value in [0, 4, 5, 6, 8, 9]:
             cardPlayed.power(self, deck, caption)
-
-        self.playedCards.insert(0, cardPlayed)
 
         if cardPlayed.value == 9:
             self.isAlive = False

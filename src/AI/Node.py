@@ -4,7 +4,6 @@ class State:
         self.isolatedCards = isolatedCards
         self.listOfCards = listOfCards
         self.player = player
-        self.opponent = player.opponent
 
 
 class Node:

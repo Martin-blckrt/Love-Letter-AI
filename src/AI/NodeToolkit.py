@@ -14,7 +14,7 @@ def evaluate(node):
             if node.state.player.extraPoint:
                 impact = 1
 
-        elif node.state.opponent.isAlive:
+        elif node.state.player.opponent.isAlive:
             impact = 0
 
         elif not node.state.deck:
@@ -103,8 +103,8 @@ def getAncestorCardIndex(node, value):
 def isTerminal(node):
 
     cond1 = not node.state.deck  # deck vide
-    cond2 = (not node.state.player.isAlive) or node.state.opponent.hasWon
-    cond3 = (not node.state.opponent.isAlive) or node.state.player.hasWon
+    cond2 = (not node.state.player.isAlive) or node.state.player.opponent.hasWon
+    cond3 = (not node.state.player.opponent.isAlive) or node.state.player.hasWon
 
     return cond1 or cond2 or cond3
 
@@ -120,6 +120,8 @@ def findCard(cardvalue, selectedList):
     for i in range(len(selectedList)):
         if cardvalue == selectedList[i].value:
             index = i
+    # print("index in findCard is : ", index)
+    # print("first card of deck is : ", selectedList[0].title)
     return index
 
 
@@ -129,31 +131,47 @@ def findOccurences(card, searchedList):
     for aCard in searchedList:
         if card.value == aCard.value:
             i += 1
-    print(f"we know {i}/{card.totalNumber} occurences of {card.title}")
+    # print(f"we know {i}/{card.totalNumber} occurences of {card.title}")
     return i
 
 # TODO. gérer THE exception index est dans hiddencard
 
 
-def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *simulatedCard):
+def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *simulatedCard):
 
     for i in range(2):  # Pour chaque carte de la main
+
 
         # on cree une copie du noeud pour genere des enfants de celui ci
 
         newVirtualNode = copy.deepcopy(virtualNode)
         newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
 
+        print(f"\nau debut du for, len knowncards : ", len(knownCards))
+        for k in range(len(knownCards)):
+            print(knownCards[k].title)
+
+        print(f"player.pLayedcards in for : ")
+        for a in range(len(newVirtualNode.state.player.playedCards)):
+            print(newVirtualNode.state.player.playedCards[a].title)
+
+        print(f"opponent.pLayedcards in for : ")
+        for j in range(len(newVirtualNode.state.player.opponent.playedCards)):
+            print(newVirtualNode.state.player.opponent.playedCards[j].title)
+
         if firstTurn:
             activePlayer = newVirtualNode.state.player
             index = -1
+            # print("_____________ FIRST TURN ________________")
+
         else:
+
             if color == 1:
                 activePlayer = newVirtualNode.state.player
             else:
-                activePlayer = newVirtualNode.state.opponent
+                activePlayer = newVirtualNode.state.player.opponent
 
-            print(f"player name : {activePlayer.name}")
+            # print(f"player name : {activePlayer.name}")
             index = findCard(simulatedCard[0].value, newVirtualNode.state.deck)
 
             if index != -1:
@@ -164,7 +182,9 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
 
         if index == -1 and not firstTurn:
             del newVirtualNode
+
         else:
+
             # debug print
             print("hand between 2 nodes :")
             for count in range(len(activePlayer.hand)):
@@ -175,6 +195,7 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
             activePlayer.playTurn(newVirtualNode.state.deck, i, caption=False)
 
             if not activePlayer.hand:
+
                 # cas ou le prince a été joué
                 print("JE SUIS DANS if not activePlayer.hand")
                 for drawnCard in virtualNode.state.listOfCards:
@@ -188,7 +209,7 @@ def generateChildren(virtualNode, next_nodes, knownCards, color, firstTurn, *sim
                         if color == 1:
                             activePlayer = princedNode.state.player
                         else:
-                            activePlayer = princedNode.state.opponent
+                            activePlayer = princedNode.state.player.opponent
 
                         index = findCard(drawnCard.value, princedNode.state.deck)
 
@@ -218,7 +239,7 @@ def nextStates(virtualNode, color):
     if color == 1:
         activePlayer = virtualNode.state.player
     else:
-        activePlayer = virtualNode.state.opponent
+        activePlayer = virtualNode.state.player.opponent
 
     next_nodes = []
     knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
@@ -230,12 +251,12 @@ def nextStates(virtualNode, color):
     for i in range(len(knownCards)):
         print(knownCards[i].title, end=", ")
 
-    print("\n")
+    print(f"{len(knownCards)}\n")
     # end debug print
 
     if len(activePlayer.hand) == 2:
 
-        generateChildren(virtualNode, next_nodes, knownCards, color, True)
+        generateChildren(virtualNode, next_nodes, color, knownCards, True)
 
     else:
 
@@ -243,6 +264,7 @@ def nextStates(virtualNode, color):
             n = findOccurences(simulatedCard, knownCards)
 
             if simulatedCard.totalNumber - n > 0:
-                generateChildren(virtualNode, next_nodes, knownCards, color, False, simulatedCard)
+                generateChildren(virtualNode, next_nodes, color, knownCards, False, simulatedCard)
 
+    del knownCards
     return next_nodes

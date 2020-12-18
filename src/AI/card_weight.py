@@ -6,6 +6,19 @@
 # TODO. if terminal node, mettre valeur en fonction de qui est vivant
 
 def weights(player, knownCards, chancellor):
+
+    print(f"\nau debut de weights, len knowncards : ", len(knownCards))
+    for i in range(len(knownCards)):
+        print(knownCards[i].title)
+
+    print(f"player.pLayedcards in weights : ")
+    for j in range(len(player.playedCards)):
+        print(player.playedCards[j].title)
+
+    print(f"opponent.pLayedcards in weights : ")
+    for j in range(len(player.opponent.playedCards)):
+        print(player.opponent.playedCards[j].title)
+
     a = 21 - len(knownCards)
     d = 0
     if player.opponent.deadpool:

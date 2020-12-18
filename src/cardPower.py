@@ -10,6 +10,7 @@
 # TODO. mettre fonction findCard partout ou y avait for card in listOfcards
 
 from src.AI.card_weight import weights
+from src.AI.NodeToolkit import findOccurences
 
 
 def powerChancellorAI(activePlayer):
@@ -47,7 +48,8 @@ def powerPrinceAI(activePlayer):
         b = 21 - len(knownCards)
 
         for Card in activePlayer.listOfCards:
-            a = Card.totalNumber - knownCards.count(Card)
+            n = findOccurences(Card, knownCards)
+            a = Card.totalNumber - n
             probs.append((a / b))
 
         impact = max(probs)
@@ -132,6 +134,7 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
                 playerInput = input(f"\nWrong input ! Remember, between 0 and {k}\n")
 
             index = int(playerInput)
+
         else:
             listOfIndex = powerChancellorAI(activePlayer)
             index = listOfIndex[aiCount]

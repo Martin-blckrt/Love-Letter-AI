@@ -10,7 +10,7 @@ def negamax(node, depth, alpha, beta, color):
 
     if isTerminal(node) or depth == 0:
         node.value = evaluate(node)
-        print("node value : ", node.value)
+        # print("node value : ", node.value)
         return color * node.value
 
     node.children = nextStates(virtualNode, color)
@@ -19,11 +19,11 @@ def negamax(node, depth, alpha, beta, color):
 
     print(f"Number of babies : {len(node.children)} ; floor {node.floor} :")
 
-    for child in node.children:
+    # for child in node.children:
 
-        print("Hand in the child : ", child.state.player.hand[0].title)
-        print(f"color : {-color}")
-        print(f"name of the player in this child : {child.state.player.name}")
+    # print("Hand in the child : ", child.state.player.hand[0].title)
+    # print(f"color : {-color}")
+    # print(f"name of the player in this child : {child.state.player.name}")
 
     for child in node.children:
 
