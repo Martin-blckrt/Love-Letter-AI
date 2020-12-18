@@ -33,6 +33,8 @@ def main():
 
             if not game.deck and game.player2.isAlive and game.player1.isAlive:
                 game.player1.showdown()
+                computePoints(game.player1)
+                computePoints(game.player2)
 
         if game.player1.points >= 6:
 

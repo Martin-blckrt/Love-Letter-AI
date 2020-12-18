@@ -207,10 +207,17 @@ class Player:
         # Gère l'aspect "iterative deepening" de l'algorithme
         # Permet de compter le nombre de tours passés et d'incrémenter en fonction
 
-        value = negamax(node, depth, neg_inf, pos_inf, color)
+        if self.hand[0].value == 9:
+            cardIndex = 1
 
-        cardIndex = getAncestorCardIndex(node, value)
+        elif self.hand[1].value == 9:
+            cardIndex = 0
 
-        # TODO. check si princess in hand ou opponent deadpooled pour jouer l'autre : ca evite des calculs
+        elif self.hand[0].value == self.hand[1].value:
+            cardIndex = 0
+
+        else:
+            value = negamax(node, depth, neg_inf, pos_inf, color)
+            cardIndex = getAncestorCardIndex(node, value)
 
         return cardIndex

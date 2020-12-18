@@ -7,6 +7,9 @@
 
 def weights(player, knownCards, chancellor):
     a = 21 - len(knownCards)
+    d = 0
+    if player.opponent.deadpool:
+        d = 0.15
 
     def spy_weight():
 
@@ -27,13 +30,13 @@ def weights(player, knownCards, chancellor):
             b = Card.totalNumber - knownCards.count(Card)
             probabilities.append((b / a))
 
-        guard_impact = max(probabilities)
+        guard_impact = max(probabilities) - d
 
         return guard_impact
 
     def priest_weight():
 
-        return 0.15
+        return 0.15 - d
 
     def baron_weight():
 
@@ -58,7 +61,7 @@ def weights(player, knownCards, chancellor):
                 if b.value > Card.value:
                     m += Card.totalNumber - knownCards.count(Card)
 
-            baron_impact = 1 - (m / a)
+            baron_impact = 1 - (m / a) - d
         return baron_impact
 
     def handmaid_weight():
@@ -79,7 +82,7 @@ def weights(player, knownCards, chancellor):
 
     def king_weight():
 
-        return 1.5 / a
+        return (1.5 / a) - d
 
     def countess_weight():
         countess_impact = 1.75 / a
