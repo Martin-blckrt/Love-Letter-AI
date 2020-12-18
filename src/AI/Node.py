@@ -1,3 +1,13 @@
+def getPathFrom(node):
+
+    thePath = [node]
+
+    while node.parent:
+        node = node.parent
+        l.insert(0, node)
+
+    return thePath
+
 class State:
     def __init__(self, deck, isolatedCards, listOfCards, player):
         self.deck = deck
