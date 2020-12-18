@@ -44,24 +44,17 @@ def weights(player, knownCards, chancellor):
             baron_impact = 0
         else:
             m = 0
-            idx = 0
             b = player.hand[1]
-            baron_index = None
 
-            for Card in player.hand:
-                if Card.value == 3:
-                    baron_index = idx
-                idx += 1
-
-            bool(baron_index)
-            if baron_index:
+            if player.hand[1].value == 3:
                 b = player.hand[0]
 
             for Card in player.listOfCards:
                 if b.value > Card.value:
                     m += Card.totalNumber - knownCards.count(Card)
 
-            baron_impact = 1 - (m / a) - d
+            baron_impact = (m / a) - d
+
         return baron_impact
 
     def handmaid_weight():
@@ -88,16 +81,9 @@ def weights(player, knownCards, chancellor):
         countess_impact = 1.75 / a
         if not chancellor:
             countess_index = None
-            idx = 0
             b = player.hand[1]
 
-            for Card in player.hand:
-                if Card.value == 8:
-                    countess_index = idx
-                idx += 1
-
-            bool(countess_index)
-            if countess_index:
+            if player.hand[1].value == 8:
                 b = player.hand[0]
 
             if b.value == [5, 7]:

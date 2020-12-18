@@ -54,9 +54,7 @@ class Player:
         # Drops a player's card on the board
 
         cardDiscarded = self.hand.pop(0)
-        print("I AM IN DISCARD : MY HAND IS : ", self.hand)
         self.playedCards.insert(0, cardDiscarded)
-        print("\ni discarded : ", cardDiscarded.title)
 
         if cardDiscarded.value == 9:
             self.isAlive = False
@@ -222,5 +220,4 @@ class Player:
         else:
             value = negamax(node, depth, neg_inf, pos_inf, color)
             cardIndex = getAncestorCardIndex(node, value)
-
         return cardIndex
