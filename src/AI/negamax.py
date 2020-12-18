@@ -32,7 +32,7 @@ def negamax(node, depth, alpha, beta, color):
         child.floor = virtualNode.floor + 1
 
         value = max(value, -negamax(child, depth - 1, -beta, -alpha, -color))
-
+        # pourquoi on a beta a la place d'alpha?
         # child.value = value
 
         alpha = max(alpha, value)

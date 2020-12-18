@@ -63,8 +63,8 @@ class Game:
                             countess_card,
                             princess_card]
 
-
         # List of the card we will put on the side at the beginning of each round
+
         self.hiddenCard = None
         self.isolatedCards = []
 
@@ -100,7 +100,6 @@ class Game:
         print("\n\nKnown isolated cards are : ")
 
         for i in range(3):
-
             card = self.deck.pop(0)
             self.isolatedCards.append(card)
             print(f" {card.title} [{card.value}]", end=" ")
