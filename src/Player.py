@@ -1,7 +1,3 @@
-# -------------------------
-#  Defini template de Player.
-# -------------------------
-
 from src.AI.Node import Node, State
 from src.AI.NodeToolkit import *
 from src.AI.negamax import negamax
@@ -217,6 +213,8 @@ class Player:
             cardIndex = 0
 
         else:
-            value = negamax(node, depth, neg_inf, pos_inf, color)
-            cardIndex = getAncestorCardIndex(node, value)
+
+            negaValue = negamax(node, depth, neg_inf, pos_inf, color)
+            cardIndex = getAncestorCardIndex(node, negaValue)
+
         return cardIndex

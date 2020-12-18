@@ -253,6 +253,7 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
             else:
                 next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
 
+
 def nextStates(virtualNode, color):
 
     if color == 1:

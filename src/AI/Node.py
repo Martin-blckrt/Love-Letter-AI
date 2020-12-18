@@ -14,6 +14,6 @@ class Node:
         self.children = []
         self.floor = floor
 
-    def addChild(self, childNode):
-
-        self.children.append(childNode)
+    def getParent(self, negaValue):
+        if self.value == negaValue:
+            self.parent.getParent(negaValue)
