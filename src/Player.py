@@ -98,10 +98,12 @@ class Player:
 
             if caption:
                 if self.gender == "Human":
-                    index = int(input("\nWhat card do you want to play ? (0/1)\n "))
+                    playerInput = input("\nWhat card do you want to play ? (0/1)\n ")
 
-                    while (index != 0) and (index != 1):
-                        index = int(input("\nWrong input ! What card do you want to play ? (0/1)\n"))
+                    while ((playerInput != '0') and (playerInput != '1')) or len(playerInput) != 1:
+                        playerInput = input("\nWrong input ! What card do you want to play ? (0/1)\n")
+
+                    index = int(playerInput)
                 else:
                     index = self.playAiTurn(deck)
             else:
@@ -164,10 +166,12 @@ class Player:
     def guess(self):
         # Function who makes the player guess a card (Guard effect - Player only)
 
-        cardGuessed = int(input("Which card do you want to guess ? (0-9 but not 1)\n"))
+        playerGuess = input("Which card do you want to guess ? (0-9 but not 1)\n")
 
-        while (cardGuessed < 0) or (cardGuessed > 9) or (cardGuessed == 1):
-            cardGuessed = int(input("Unauthorized value ! Which card do you want to guess ? (0-9 but not 1)\n"))
+        while (playerGuess < '0') or (playerGuess > '9') or (playerGuess == '1') or len(playerGuess) != 1:
+            playerGuess = input("Unauthorized input ! Which card do you want to guess ? (0-9 but not 1)\n")
+
+        cardGuessed = int(playerGuess)
 
         return cardGuessed
 

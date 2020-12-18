@@ -117,20 +117,21 @@ def chancellor_power(activePlayer, deck_arg, caption=True):
         aiCount = 0
         if activePlayer.gender == "Human" and caption:
 
-            print(f"\n you need to put {k} card(s) in the deck !"
+            print(f"\nYou need to put {k} card(s) in the deck !"
                   f"\n\nYour hand is :\n")
 
             for i in range(len(activePlayer.hand)):
                 print(f"{i}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
 
-            index = int(
-                input(f"Which card do you want to place at the bottom of the deck ? Pick between 0 and {k}\n"))
+            playerInput = input(f"Which card do you want to place at the bottom of the deck ? Pick between 0 and {k}\n")
 
-            availableIndexes = list(range(k + 1))
+            numbers = "0123456789"
+            availableIndexes = list(numbers)
 
-            while index not in availableIndexes:
-                index = int(input(f"\nWrong input ! Remember, between 0 and {k}\n"))
+            while len(playerInput) != 1 or playerInput not in availableIndexes:
+                playerInput = input(f"\nWrong input ! Remember, between 0 and {k}\n")
 
+            index = int(playerInput)
         else:
             listOfIndex = powerChancellorAI(activePlayer)
             index = listOfIndex[aiCount]
