@@ -16,11 +16,11 @@ class Card:
         # self.description = description  # Description of the card's effect
         # self.assets = assets 
 
-    def reveal(self, virtual):
+    def reveal(self, real):
 
-        print(f"Opponent's card is {self.title}\n" if virtual else "")
+        print(f"Opponent's card is {self.title}\n" if real else "")
 
-    def power(self, activePlayer, deck_arg, virtual=True):
+    def power(self, activePlayer, deck_arg, real=True):
 
         # ------------------------------ Spy ------------------------------
         if self.value == 0:
@@ -29,39 +29,39 @@ class Card:
         # ------------------------------ Guard ----------------------------
         elif self.value == 1:  # guard
 
-            if activePlayer.gender == "Human" and virtual:
+            if activePlayer.gender == "Human" and real:
                 cardGuessed = activePlayer.guess()
             else:
                 cardGuessed = activePlayer.decide()
 
             if cardGuessed == activePlayer.opponent.hand[0].value:
                 activePlayer.opponent.isAlive = False
-                print("The guess was correct !\n" if virtual else "")
+                print("The guess was correct !\n" if real else "")
             else:
-                print("Incorrect guess!" if virtual else "")
+                print("Incorrect guess!" if real else "")
 
         # ------------------------------ Priest --------------------------
 
         elif self.value == 2:
 
-            activePlayer.opponent.hand[0].reveal(virtual)
+            activePlayer.opponent.hand[0].reveal(real)
 
         # ------------------------------ Baron ---------------------------
         elif self.value == 3:
 
             opponent = activePlayer.opponent
 
-            i = activePlayer.compare(opponent, virtual)
+            i = activePlayer.compare(opponent, real)
             if i == 0:
-                print(f"{activePlayer.name} loses the duel !" if virtual else "")
+                print(f"{activePlayer.name} loses the duel !" if real else "")
                 activePlayer.isAlive = False
 
             elif i == 1:
-                print(f"\n{opponent.name} loses the duel !"if virtual else "")
+                print(f"\n{opponent.name} loses the duel !"if real else "")
                 opponent.isAlive = False
 
             else:
-                print("It is a tie\n"if virtual else "")
+                print("It is a tie\n"if real else "")
 
         # ------------------------------ Handmaid ------------------------
         elif self.value == 4:
@@ -71,23 +71,23 @@ class Card:
         # ------------------------------ Prince --------------------------
         elif self.value == 5:
 
-            prince_power(activePlayer, deck_arg, virtual)
+            prince_power(activePlayer, deck_arg, real)
 
         # ------------------------------ Chancellor ---------------------
 
         elif self.value == 6:
 
-            chancellor_power(activePlayer, deck_arg, virtual)
+            chancellor_power(activePlayer, deck_arg, real)
 
         # ------------------------------ King ------------------------------
         elif self.value == 7:
 
-            king_power(activePlayer, virtual)
+            king_power(activePlayer, real)
 
         elif self.value == 8 :
 
-            print("Countess has been played" if virtual else "")
+            print("Countess has been played" if real else "")
 
         elif self.value == 9:
 
-            print("Princess has been played" if virtual else "")
+            print("Princess has been played" if real else "")

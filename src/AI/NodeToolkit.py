@@ -199,7 +199,7 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
             print("\n")
             # end debug print
 
-            activePlayer.playTurn(newVirtualNode.state.deck, i, virtual=False)
+            activePlayer.playTurn(newVirtualNode.state.deck, i, real=False)
 
             if not activePlayer.hand:
 

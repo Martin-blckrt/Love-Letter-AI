@@ -21,11 +21,11 @@ class Player:
         self.isolatedCards = isolatedCards
         self.listOfCards = listOfCards
 
-    def showdown(self, virtual=True):
+    def showdown(self, real=True):
         # Activates when they are no more card left
 
         print("\nThe deck is empty : highest card wins !")
-        i = self.compare(self.opponent, virtual)
+        i = self.compare(self.opponent, real)
 
         if i == 0:
 
@@ -46,7 +46,7 @@ class Player:
 
         self.opponent = opponent
 
-    def discard(self, virtual=True):
+    def discard(self, real=True):
         # Drops a player's card on the board
 
         cardDiscarded = self.hand.pop(0)
@@ -54,14 +54,14 @@ class Player:
 
         if cardDiscarded.value == 9:
             self.isAlive = False
-            print(f"\n{self.name} discarded a Princess !\n" if virtual else "")
+            print(f"\n{self.name} discarded a Princess !\n" if real else "")
 
-    def playTurn(self, deck, *usedCardIndex, virtual=True):
+    def playTurn(self, deck, *usedCardIndex, real=True):
         # Handles the player's turn. Checks for Countess effect
 
         self.deadpool = False
 
-        if virtual:
+        if real:
             # cas physique
 
             self.draw(deck)
@@ -87,10 +87,10 @@ class Player:
                 if cardValues[i] == 8:
                     index = i
 
-                    print("\nThe countess was discarded !\n" if virtual else "")
+                    print("\nThe countess was discarded !\n" if real else "")
         else:
 
-            if virtual:
+            if real:
                 if self.gender == "Human":
                     playerInput = input("\nWhat card do you want to play ? (0/1)\n ")
 
@@ -104,9 +104,9 @@ class Player:
                 # virtual turn
                 index = usedCardIndex[0]
 
-        self.playCard(index, deck, virtual=virtual)
+        self.playCard(index, deck, real=real)
 
-    def playCard(self, index, deck, virtual=True):
+    def playCard(self, index, deck, real=True):
         # Activates the card's power. Checks for immunity
 
         cardPlayed = self.hand.pop(index)
@@ -114,20 +114,20 @@ class Player:
 
         if not self.opponent.deadpool:
 
-            cardPlayed.power(self, deck, virtual)
+            cardPlayed.power(self, deck, real)
 
         elif self.opponent.deadpool and cardPlayed.value in [1, 2, 3, 7]:
 
-            if virtual:
+            if real:
                 print(" \nThe opponent is protected : your card has no effect !\n")
 
         elif self.opponent.deadpool and cardPlayed.value in [0, 4, 5, 6, 8, 9]:
-            cardPlayed.power(self, deck, virtual)
+            cardPlayed.power(self, deck, real)
 
         if cardPlayed.value == 9:
             self.isAlive = False
 
-            if virtual:
+            if real:
                 print(f"\n{self.name} played a Princess !\n")
 
     def draw(self, deck):
@@ -143,11 +143,11 @@ class Player:
         else:
             print("Deck is empty\n")
 
-    def compare(self, opponent, virtual=True):
+    def compare(self, opponent, real=True):
         # Function who evaluates which card has greater value
 
         print(f"{self.name} has a {self.hand[0].title} [{self.hand[0].value}]\n"
-              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n" if virtual else "")
+              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n" if real else "")
 
         if self.hand[0].value < opponent.hand[0].value:
             return 0
