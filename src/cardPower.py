@@ -119,6 +119,7 @@ def chancellor_power(activePlayer, deck_arg, real=True):
         listOfIndex = powerChancellorAI(activePlayer)
         print("list of index is : ", listOfIndex)
     aiCount = 0
+    p = 0
 
     while k != 0:
 
@@ -143,7 +144,9 @@ def chancellor_power(activePlayer, deck_arg, real=True):
 
         else:
             index = listOfIndex[aiCount]
-            if aiCount == 1 and index != 0:
+            if listOfIndex[0] == 2:
+                p = 1
+            elif aiCount == 1 and index != 0 and p != 1:
                 index -= 1
             print("index is : ", index)
             aiCount += 1
