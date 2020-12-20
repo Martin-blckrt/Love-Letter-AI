@@ -33,7 +33,7 @@ def negamax(node, depth, alpha, beta, color):
         # Recursivité de Negamax
         negaValue = - negamax(child, depth - 1, -beta, -alpha, -color)
         bestValue = max(bestValue, negaValue)
-
+        print("child has", bestValue)
         alpha = max(alpha, negaValue)
 
         # Elagage Alpha/Beta
