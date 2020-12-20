@@ -1,5 +1,6 @@
 import copy
 from src.AI.card_weight import weights
+from src.AI.Node import dfs, getPathFrom
 
 
 def evaluate(node):
@@ -33,75 +34,44 @@ def evaluate(node):
     else:
         impact = weights(node.state.player, knownCards, False)
 
-    # arrondi pour éviter décimale infinie
+    # arrondi pour faciliter la lecture
 
     impact = round(impact, 5)
     return impact
 
 
-def getAncestor(testedChild, value):
+def getAncestor(start, value):
 
-    children = testedChild.children
+    lineage = dfs(start, value)
 
-    if testedChild.value == value:
-        print(f"\nje vais return ce child : {testedChild}")
-        print(f"parent of the child : {testedChild.parent}")
-
-        target = testedChild
-
-        return target
-
-    else:
-        for newChild in children:
-            result = getAncestor(newChild, value)
-
-            if not result:
-                continue
+    return lineage
 
 
 def getAncestorCardIndex(node, value):
 
-    origin = node
-    lineage = []
+    # copie du noeud de départ pour eviter des modifs non prévuees
+    start = copy.deepcopy(node)
 
-    # On skip les noeuds humain dans l'arbre
-    for humanChild in origin.children:
-        for aiChild in humanChild.children:
-            lineage.append(aiChild)
+    # DFS
+    dfsResultList = getAncestor(start, value)
 
-    for testedChild in lineage:
-        target = getAncestor(testedChild, value)
+    # On récupère le dernier de la liste
+    # Normalement c'est celui qui a la valeur cherchée
 
-        if target:
-            break
+    lastKid = dfsResultList[-1]
+    path = getPathFrom(lastKid)
 
-    print("target : ", target)
+    # sauf erreur de ma part, le noeud voulu est à un 1
+    # 0 est le noeud start
+    target = path[1]
 
-    while target.parent.parent:
-        print("found parents !")
-        target = target.parent
-
-    originHand = origin.state.player.hand
-    targetHand = target.state.player.hand
-
-    # debug for print :
-    print("\n____________  PRINT DEBUG IN getAncestorIndex _____________\n")
-
-    print("origin hand : ")
-    for j in range(len(originHand)):
-        print(f"{originHand[j].title} ")
-
-    for a in range(len(targetHand)):
-        print(f"targetHand = {targetHand[a].title}")
-    # end debug print
-
-    # TODO. Au secours prince et adresses
+    originHand = start.state.player.hand
+    targetHand = target.state.player.opponent.hand
 
     i = 0
 
     for i in range(len(originHand)):
         if targetHand[0].title != originHand[i].title:
-            print(f"found different card at {i}")
             return i
 
     # cas défaut
@@ -204,7 +174,6 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
             if not activePlayer.hand:
 
                 # cas ou le prince a été joué
-                print("JE SUIS DANS if not activePlayer.hand")
                 for drawnCard in virtualNode.state.listOfCards:
                     # TODO. A vérifier si c'est bien drawnCard (c'était simulatedCard avant)
                     n = findOccurences(drawnCard, knownCards)
@@ -227,17 +196,19 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
                             del princedNode.state.deck[index]
 
                             next_nodes.append(princedNode)
+                            print("J'ajoute le node dans le if")
 
             elif not activePlayer.opponent.hand:
                 # TODO. Verif si le bon joueur est manipulé (peut etre la cause des node color opposee)
 
-                print("JE SUIS DANS elif not activePlayer.opponent.hand")
                 drawnCard = newVirtualNode.state.deck.pop(0)
                 activePlayer.opponent.hand.append(drawnCard)
+                print("J'ajoute le node dans le elif")
 
                 next_nodes.append(newVirtualNode)
 
             else:
+                print("J'ajoute le node dans le else")
                 next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
 
 
