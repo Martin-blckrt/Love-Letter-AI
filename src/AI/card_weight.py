@@ -49,7 +49,7 @@ def weights(player, knownCards, chancellor):
                 if b.value > Card.value:
                     m += Card.totalNumber - knownCards.count(Card)
 
-            baron_impact = (m / a) - d
+            baron_impact = (m / a) - d - 0.15
 
         return baron_impact
 

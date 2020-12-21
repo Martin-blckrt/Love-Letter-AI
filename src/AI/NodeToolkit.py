@@ -196,19 +196,16 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
                             del princedNode.state.deck[index]
 
                             next_nodes.append(princedNode)
-                            print("J'ajoute le node dans le if")
 
             elif not activePlayer.opponent.hand:
                 # TODO. Verif si le bon joueur est manipulé (peut etre la cause des node color opposee)
 
                 drawnCard = newVirtualNode.state.deck.pop(0)
                 activePlayer.opponent.hand.append(drawnCard)
-                print("J'ajoute le node dans le elif")
 
                 next_nodes.append(newVirtualNode)
 
             else:
-                print("J'ajoute le node dans le else")
                 next_nodes.append(newVirtualNode)  # on ajoute new child à la liste des noeuds.
 
 
@@ -220,6 +217,7 @@ def nextStates(virtualNode, color):
         activePlayer = virtualNode.state.player.opponent
 
     next_nodes = []
+    print("isolated cards :", activePlayer.isolatedCards)
     knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
     # debug print

@@ -85,6 +85,8 @@ class Game:
 
         self.deck = fillDeck(self.listOfCards)
 
+        self.isolatedCards = self.player1.isolatedCards = self.player2.isolatedCards = []
+
         self.player1.hand = []
         self.player2.hand = []
         self.player1.playedCards = self.player2.playedCards = []
@@ -93,6 +95,7 @@ class Game:
         self.player1.deadpool = self.player2.deadpool = False
         self.player1.hasWon = self.player2.hasWon = False
         self.player1.extraPoint = self.player2.extraPoint = 0
+
 
         print(f"\nCurrent scores are :"
               f"\n{self.player1.name} : {self.player1.points}\n{self.player2.name} : {self.player2.points}")
