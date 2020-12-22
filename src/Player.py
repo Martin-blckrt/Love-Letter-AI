@@ -1,3 +1,4 @@
+import time
 from src.AI.Node import Node, State
 from src.AI.NodeToolkit import *
 from src.AI.negamax import negamax
@@ -217,8 +218,16 @@ class Player:
 
         else:
 
+            print("The IA is thinking")
             negaValue = negamax(node, depth, neg_inf, pos_inf, color)
             node.value = negaValue
+
+            print("Just a sec ", end="")
+
+            for i in range(3):
+                time.sleep(1)
+                print("*", end="")
+
             cardIndex = getAncestorCardIndex(node, negaValue)
 
         return cardIndex
