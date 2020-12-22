@@ -1,6 +1,6 @@
 import time
 from src.AI.Node import Node, State
-from src.AI.NodeToolkit import *
+from src.AI.NodeToolkit import getAncestorCardIndex
 from src.AI.negamax import negamax
 
 
@@ -23,7 +23,9 @@ class Player:
         self.listOfCards = listOfCards
 
     def showdown(self, real=True):
-        # Activates when they are no more card left
+        """
+        :param real: Permet de vérifier si on est dans un tour virtuel ou non.
+        """
 
         print("\nThe deck is empty : highest card wins !")
         i = self.compare(self.opponent, real)
@@ -43,11 +45,17 @@ class Player:
             print("Tie")
 
     def oppositePlayer(self, opponent):
+        """
+        :param opponent: Joueur adverse de self.
+        """
         # Assign the opponent of the player
 
         self.opponent = opponent
 
     def discard(self, real=True):
+        """
+        :param real: Permet de check si le tour est virtuel ou non
+        """
         # Drops a player's card on the board
 
         cardDiscarded = self.hand.pop(0)

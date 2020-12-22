@@ -1,16 +1,4 @@
-# -----------------------------------------------
-# Fichier regroupant les fonctions representant les actifs des cartes suivantes :
-#   - prince
-#   - Roi
-#   - Chancelier
-#
-# Isolées pour la clarté du code.
-# -----------------------------------------------
-# TODO. refaire prince
-# TODO. mettre fonction findCard partout ou y avait for card in listOfcards
-
 from src.AI.card_weight import weights
-from src.AI.NodeToolkit import findCard
 from src.AI.NodeToolkit import findOccurences
 
 

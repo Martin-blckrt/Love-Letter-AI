@@ -1,26 +1,24 @@
-# -----------------------------------------------
-# Fichier de définition de la classe Card representant les cartes du jeu.
-# Template de la classe Card et ses méthodes.
-#   --> Reveal() : dévoile la carte du joueur adverse
-#   --> power() : applique le pouvoir de la carte jouée.
-# -----------------------------------------------
-
-from src.cardPower import *
+from src.cardPower import king_power, chancellor_power, prince_power
 
 
 class Card:
+
     def __init__(self, title, value, totalNumber, description):
         self.title = title  # Title of the card
         self.value = value  # Value of the card
         self.totalNumber = totalNumber  # Keeps in mind how much copies of a card there are
-        # self.description = description  # Description of the card's effect
-        # self.assets = assets 
 
     def reveal(self, real):
 
         print(f"Opponent's card is {self.title}\n" if real else "", end="")
 
     def power(self, activePlayer, deck_arg, real=True):
+        """
+        :param activePlayer: Joueur qui va utiliser le pouvoir de la carte
+        :param deck_arg: Envoie le deck
+        :param real: Argument utilisé pour vérifier si le tour est virtuel ou non
+        :return: Ne return rien.
+        """
 
         # ------------------------------ Spy ------------------------------
         if self.value == 0:
