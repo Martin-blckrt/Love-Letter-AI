@@ -3,7 +3,7 @@ from src.cardPower import king_power, chancellor_power, prince_power
 
 class Card:
 
-    def __init__(self, title, value, totalNumber, description):
+    def __init__(self, title, value, totalNumber):
         self.title = title  # Title of the card
         self.value = value  # Value of the card
         self.totalNumber = totalNumber  # Keeps in mind how much copies of a card there are

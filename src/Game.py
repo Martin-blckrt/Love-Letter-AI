@@ -34,21 +34,20 @@ def fillDeck(listOfCards):
 
 
 class Game:
+
     def __init__(self, player1name, player1Gender, player2name, player2Gender):
 
         # Creation of the card's instances
-        spy_card = Card("Spy", 0, 2, "Gardez un pion Faveur si personne ne joue ou défausse une carte Espionne.")
-        guard_card = Card("Guard", 1, 6, "Devinez la main d'un autre joueur.")
-        priest_card = Card("Priest", 2, 2, "Regardez la main d'un autre jouer.")
-        baron_card = Card("Baron", 3, 2, "Comparez votre main avec celle d'un autre joueur.")
-        handmaid_card = Card("Handmaid", 4, 2,
-                             "Les autres cartes n'ont pas d'effet sur vous jusqu'au prochain tour.")
-        prince_card = Card("Prince", 5, 2, "Défaussez votre main et piochez à nouveau.")
-        chancellor_card = Card("Chancellor", 6, 2, "Piochez et remettez deux cartes sous le paquet.")
-        king_card = Card("King", 7, 1, "Échangez votre main contre celle d'un autre joueur.")
-        countess_card = Card("Countess", 8, 1,
-                             "Vous devez impérativement la jouer si vous avez le Roi ou un Prince.")
-        princess_card = Card("Princess", 9, 1, "Quittez la manche si vous devez la jouer.")
+        spy_card = Card("Spy", 0, 2)
+        guard_card = Card("Guard", 1, 6)
+        priest_card = Card("Priest", 2, 2)
+        baron_card = Card("Baron", 3, 2)
+        handmaid_card = Card("Handmaid", 4, 2)
+        prince_card = Card("Prince", 5, 2)
+        chancellor_card = Card("Chancellor", 6, 2)
+        king_card = Card("King", 7, 1)
+        countess_card = Card("Countess", 8, 1,)
+        princess_card = Card("Princess", 9, 1)
 
         # List of cards we will put in the deck
         self.listOfCards = [spy_card,
