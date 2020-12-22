@@ -51,7 +51,3 @@ class Node:
         self.parent = parent
         self.children = []
         self.floor = floor
-
-    def getParent(self, negaValue):
-        if self.value == negaValue:
-            self.parent.getParent(negaValue)
