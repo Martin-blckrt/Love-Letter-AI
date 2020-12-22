@@ -74,14 +74,13 @@ class Player:
             # cas physique
 
             self.draw(deck)
-            print(f"{self.name}'s hand is :")
+            print(f"{self.name}'s hand is :\n" if self.gender == "Human" else "", end="")
 
             for i in range(len(self.hand)):
-                print(f"{i}. {self.hand[i].title} [{self.hand[i].value}]")  # prints the player's hand
+                print(f"{i}. {self.hand[i].title} [{self.hand[i].value}]\n" if self.gender == "Human" else "", end="")  # prints the player's hand
 
         index = None
         cardValues = []
-
         for j in range(len(self.hand)):
             cardValues.append(self.hand[j].value)
 

@@ -55,11 +55,11 @@ class Card:
                 activePlayer.isAlive = False
 
             elif i == 1:
-                print(f"\n{opponent.name} loses the duel !"if real else "", end="")
+                print(f"\n{opponent.name} loses the duel !" if real else "", end="")
                 opponent.isAlive = False
 
             else:
-                print("It is a tie\n"if real else "", end="")
+                print("It is a tie\n" if real else "", end="")
 
         # ------------------------------ Handmaid ------------------------
         elif self.value == 4:
@@ -82,10 +82,4 @@ class Card:
 
             king_power(activePlayer, real)
 
-        elif self.value == 8:
-
-            print("Countess has been played" if real else "", end="")
-
-        elif self.value == 9:
-
-            print("Princess has been played" if real else "", end="")
+        # Coumtess and Princess, not necessary because no active effect

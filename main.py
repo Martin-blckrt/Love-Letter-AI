@@ -4,20 +4,17 @@ from src.Game import initGame, computePoints
 def main():
     play_again = True
 
-    print("*--------LOVE LETTER--------*")
+    print("\n*---------------- LOVE LETTER ----------------*")
     print("Projet d'IA41 semestre A20\n")
     print("Created by Alexandre Desbos, Martin Blanckaert et Thomas Sirvent ")
-    print("Enjoy the game !")
+    print("Enjoy the game !\n")
+    print("Check README.md to get game rules")
+    print("*---------------------------------------------*\n")
 
     while play_again:
-        """
-        mis a part pour faciliter le debug
-        
-        player1_name = input("Enter your name\n")
-        player2_name = input("Enter the bot's name\n")
-        """
-        player1_name = "Hooman"
-        player2_name = "Masheen"
+
+        player1_name = input("Enter your name : \n")
+        player2_name = input("Enter the bot's name : \n")
 
         game = initGame(player1_name, player2_name)
 
