@@ -96,8 +96,8 @@ class Game:
         self.player1.hasWon = self.player2.hasWon = False
         self.player1.extraPoint = self.player2.extraPoint = 0
 
-        print(f"\n\t***---Scores---***"
-              f"\n{self.player1.name} - {self.player1.points}\t{self.player2.name} - {self.player2.points}")
+        print(f"\n\t\t\t***---Scores---***\n"
+              f"{self.player1.name} - {self.player1.points}\t{self.player2.name} - {self.player2.points}")
 
         print("\nKnown isolated cards are : ")
 
