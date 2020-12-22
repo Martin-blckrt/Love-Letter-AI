@@ -106,7 +106,7 @@ class Game:
         for i in range(3):
             card = self.deck.pop(0)
             self.isolatedCards.append(card)
-            print(f" {card.title} [{card.value}]", end=" ")
+            print(f" {card.title} [{card.value}]", end="")
 
         # remove hidden card from deck
         self.hiddenCard = self.deck.pop(0)

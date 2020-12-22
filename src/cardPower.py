@@ -101,7 +101,7 @@ def prince_power(activePlayer, deck_arg, real=True):
 
         else:
 
-            print(f"{target.name} is protected : your card has no effect !\n" if real else "", end=" ")
+            print(f"{target.name} is protected : your card has no effect !\n" if real else "", end="")
 
 
 def chancellor_power(activePlayer, deck_arg, real=True):
@@ -114,7 +114,7 @@ def chancellor_power(activePlayer, deck_arg, real=True):
     for i in range(k):
         activePlayer.draw(deck_arg)
 
-    print("\nThere are no more cards in the deck !" if not k else "")
+    print("\nThere are no more cards in the deck !" if not k else "", end="")
 
     if activePlayer.gender == "AI" or not real:
         listOfIndex = powerChancellorAI(activePlayer)
@@ -159,7 +159,7 @@ def chancellor_power(activePlayer, deck_arg, real=True):
 def king_power(activePlayer, real=True):
     opponent = activePlayer.opponent
 
-    print("The hands have been switched !\n" if real else "", end=" ")
+    print("The hands have been switched !\n" if real else "", end="")
     temp = activePlayer.hand[0]
     activePlayer.hand[0] = opponent.hand[0]
     opponent.hand[0] = temp
