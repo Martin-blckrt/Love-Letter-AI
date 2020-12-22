@@ -16,13 +16,11 @@ def negamax(node, depth, alpha, beta, color):
 
     bestValue = -1000000
 
-    print(f"Number of babies : {len(node.children)} ; floor {node.floor} :")
-
     for child in node.children:
-        # Definition de l'étage des enfants dans l'arbre
+        # Définition de l'étage des enfants dans l'arbre
         child.floor = virtualNode.floor + 1
 
-        # Recursivité de Negamax
+        # Récursivité de Negamax
         negaValue = - negamax(child, depth - 1, -beta, -alpha, -color)
         child.value = negaValue
 

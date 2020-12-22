@@ -54,7 +54,7 @@ class Player:
 
         if cardDiscarded.value == 9:
             self.isAlive = False
-            print(f"\n{self.name} discarded a Princess !\n" if real else "")
+            print(f"\n{self.name} discarded a Princess !\n" if real else "", end=" ")
 
     def playTurn(self, deck, *usedCardIndex, real=True):
         # Handles the player's turn. Checks for Countess effect
@@ -87,7 +87,7 @@ class Player:
                 if cardValues[i] == 8:
                     index = i
 
-                    print("\nThe countess was discarded !\n" if real else "")
+                    print("\nThe countess was discarded !\n" if real else "", end=" ")
         else:
 
             if real:
@@ -110,7 +110,9 @@ class Player:
         # Activates the card's power. Checks for immunity
 
         cardPlayed = self.hand.pop(index)
-        print(f"The bot played a {cardPlayed.title} !")
+
+        if real and self.gender == 'AI':
+            print(f"The bot played a {cardPlayed.title} !")
 
         self.playedCards.insert(0, cardPlayed)
 
@@ -147,9 +149,8 @@ class Player:
 
     def compare(self, opponent, real=True):
         # Function who evaluates which card has greater value
-
         print(f"{self.name} has a {self.hand[0].title} [{self.hand[0].value}]\n"
-              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n" if real else "")
+              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n" if real else "", end=" ")
 
         if self.hand[0].value < opponent.hand[0].value:
             return 0

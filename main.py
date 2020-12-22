@@ -26,8 +26,11 @@ def main():
 
             while game.endRound() and game.deck:
 
-                print(f"\n\nIl reste {len(game.deck)-1} carte(s) dans le deck")
-                print(f"\nTime for {player1_name} ({game.player1.gender}) to play!")
+                # afficher le deck seulement lorsqu'on a 4 cartes dans le deck.
+                if len(game.deck) < 6:
+                    print(f"\n\nIl reste {len(game.deck)-1} carte(s) dans le deck")
+
+                print(f"\n\nTime for {player1_name} ({game.player1.gender}) to play!")
 
                 game.player1.playTurn(game.deck)
 

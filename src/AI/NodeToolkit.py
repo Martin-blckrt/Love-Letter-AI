@@ -12,6 +12,7 @@ def evaluate(node):
     if isTerminal(node):
 
         if node.state.player.isAlive:
+
             if node.state.player.extraPoint:
                 impact = 1
 
@@ -63,6 +64,9 @@ def getAncestorCardIndex(node, value):
     # sauf erreur de ma part, le noeud voulu est à un 1
     # 0 est le noeud start
     target = path[1]
+
+    # TODO. Erreur lorsque le deck est à 1, human joue princess, mec en face à baron guard et au moment de jouer \
+    # boom path[1] : index out of range
 
     originHand = start.state.player.hand
     targetHand = target.state.player.opponent.hand
@@ -125,39 +129,26 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
 
     for i in range(2):  # Pour chaque carte de la main
 
-
         # on cree une copie du noeud pour genere des enfants de celui ci
-
         newVirtualNode = copy.deepcopy(virtualNode)
         newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
 
-        """
-        print(f"\nau debut du for, len knowncards : ", len(knownCards))
-        for k in range(len(knownCards)):
-            print(knownCards[k].title)
-
-        print(f"player.pLayedcards in for : ")
-        for a in range(len(newVirtualNode.state.player.playedCards)):
-            print(newVirtualNode.state.player.playedCards[a].title)
-
-        print(f"opponent.pLayedcards in for : ")
-        for j in range(len(newVirtualNode.state.player.opponent.playedCards)):
-            print(newVirtualNode.state.player.opponent.playedCards[j].title)
-        """
-
         if firstTurn:
+            # Cas du premier tour
             activePlayer = newVirtualNode.state.player
             index = -1
-            # print("_____________ FIRST TURN ________________")
 
         else:
 
+            # Si la couleur est à 1, le joueur est l'IA
             if color == 1:
+
                 activePlayer = newVirtualNode.state.player
+
             else:
+
                 activePlayer = newVirtualNode.state.player.opponent
 
-            # print(f"player name : {activePlayer.name}")
             index = findCard(simulatedCard[0].value, newVirtualNode.state.deck)
 
             if index != -1:
@@ -171,13 +162,7 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
 
         else:
 
-            # debug print
-            print("hand between 2 nodes :")
-            for count in range(len(activePlayer.hand)):
-                print(activePlayer.hand[count].title, end=", ")
-            print("\n")
-            # end debug print
-
+            # On fait jouer activePlayer
             activePlayer.playTurn(newVirtualNode.state.deck, i, real=False)
 
             if not activePlayer.hand:
@@ -188,12 +173,15 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
                     n = findOccurences(drawnCard, knownCards)
 
                     if drawnCard.totalNumber - n > 0:
+
                         princedNode = copy.deepcopy(newVirtualNode)
                         princedNode.parent = virtualNode
 
                         if color == 1:
                             activePlayer = princedNode.state.player
+
                         else:
+
                             activePlayer = princedNode.state.player.opponent
 
                         index = findCard(drawnCard.value, princedNode.state.deck)
@@ -220,19 +208,18 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
 
 def nextStates(virtualNode, color):
 
+    # Si color = 1, l'activePlayer est l'IA
+
     if color == 1:
         activePlayer = virtualNode.state.player
     else:
         activePlayer = virtualNode.state.player.opponent
 
+    # On déclare la liste de noeuds (les futurs enfant du noeud origin "node"
     next_nodes = []
-    print("isolated cards :", activePlayer.isolatedCards)
+
+    # On calcule les cartes connu par l'activePlayer
     knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
-
-    # debug print
-    print(f"\nNode player in nextstate : {activePlayer.name}")
-
-    # end debug print
 
     if len(activePlayer.hand) == 2:
 
