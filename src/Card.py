@@ -10,7 +10,7 @@ class Card:
 
     def reveal(self, real):
 
-        print(f"Opponent's card is {self.title}\n" if real else "", end="")
+        print(f"The opponent has a {self.title}\n" if real else "", end="")
 
     def power(self, activePlayer, deck_arg, real=True):
         """
@@ -51,11 +51,11 @@ class Card:
 
             i = activePlayer.compare(opponent, real)
             if i == 0:
-                print(f"{activePlayer.name} loses the duel !" if real else "", end="")
+                print(f"{activePlayer.name} loses the duel !\n" if real else "", end="")
                 activePlayer.isAlive = False
 
             elif i == 1:
-                print(f"\n{opponent.name} loses the duel !" if real else "", end="")
+                print(f"\n{opponent.name} loses the duel !\n" if real else "", end="")
                 opponent.isAlive = False
 
             else:

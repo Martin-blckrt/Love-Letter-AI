@@ -65,11 +65,8 @@ def getAncestorCardIndex(node, value):
     # 0 est le noeud start
     target = path[1]
 
-    # TODO. Erreur lorsque le deck est à 1, human joue princess, mec en face à baron guard et au moment de jouer \
-    # boom path[1] : index out of range
-
     originHand = start.state.player.hand
-    targetHand = target.state.player.opponent.hand
+    targetHand = target.state.player.hand
 
     i = 0
 
@@ -77,11 +74,13 @@ def getAncestorCardIndex(node, value):
     secondCardCond = targetHand[0].title != originHand[1].title
 
     if firstCardCond and secondCardCond:
-        # if target.state.player.playedCards[0] in
 
-        for i in range(len(originHand)):
-            if originHand[i].value in [5, 6, 7]:
-                return i
+        if target.state.player.playedCards[1] == 5:
+            return findCard(5, originHand)
+        elif target.state.player.playedCards[0] == 6:
+            return findCard(6, originHand)
+        elif target.state.player.playedCards[0] == 7:
+            return findCard(7, originHand)
     else:
         for i in range(len(originHand)):
             if targetHand[0].title != originHand[i].title:

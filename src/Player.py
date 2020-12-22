@@ -76,8 +76,9 @@ class Player:
             self.draw(deck)
             print(f"{self.name}'s hand is :\n" if self.gender == "Human" else "", end="")
 
+            # prints the player's hand
             for i in range(len(self.hand)):
-                print(f"{i}. {self.hand[i].title} [{self.hand[i].value}]\n" if self.gender == "Human" else "", end="")  # prints the player's hand
+                print(f"{i}. {self.hand[i].title} [{self.hand[i].value}]\n" if self.gender == "Human" else "", end="")
 
         index = None
         cardValues = []
@@ -95,7 +96,6 @@ class Player:
                 if cardValues[i] == 8:
                     index = i
 
-                    print("\nThe countess was discarded !\n" if real else "", end="")
         else:
 
             if real:
@@ -108,6 +108,14 @@ class Player:
                     index = int(playerInput)
                 else:
                     index = self.playAiTurn(deck)
+
+                    print("Just a sec ", end="")
+
+                    for i in range(3):
+                        print(".", end="")
+                        time.sleep(1)
+
+                    print("\n")
             else:
                 # virtual turn
                 index = usedCardIndex[0]
@@ -130,8 +138,7 @@ class Player:
 
         elif self.opponent.deadpool and cardPlayed.value in [1, 2, 3, 7]:
 
-            if real:
-                print(" \nThe opponent is protected : your card has no effect !\n")
+            print(" \nThe opponent is protected : your card has no effect !\n" if real else "", end="")
 
         elif self.opponent.deadpool and cardPlayed.value in [0, 4, 5, 6, 8, 9]:
             cardPlayed.power(self, deck, real)
@@ -140,7 +147,7 @@ class Player:
             self.isAlive = False
 
             if real:
-                print(f"\n{self.name} played a Princess !\n")
+                print(f"\n{self.name} played a Princess !")
 
     def draw(self, deck):
 
@@ -224,17 +231,11 @@ class Player:
             cardIndex = 0
 
         else:
-
-            print("The IA is thinking")
             negaValue = negamax(node, depth, neg_inf, pos_inf, color)
             node.value = negaValue
 
-            print("Just a sec ", end="")
-
-            for i in range(3):
-                time.sleep(1)
-                print(".", end="")
-            print("\n")
             cardIndex = getAncestorCardIndex(node, negaValue)
+
+
 
         return cardIndex

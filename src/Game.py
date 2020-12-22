@@ -80,7 +80,7 @@ class Game:
         # Initializes a round
 
         if self.player1.points != 0 or self.player2.points != 0:
-            print("\n----------NEW ROUND----------")
+            print("\n*---------------- NEW ROUND ----------------*")
 
         self.deck = fillDeck(self.listOfCards)
 
@@ -96,10 +96,10 @@ class Game:
         self.player1.hasWon = self.player2.hasWon = False
         self.player1.extraPoint = self.player2.extraPoint = 0
 
-        print(f"\n\t***Scores***"
+        print(f"\n\t***---Scores---***"
               f"\n{self.player1.name} - {self.player1.points}\t{self.player2.name} - {self.player2.points}")
 
-        print("\n\nKnown isolated cards are : ")
+        print("\nKnown isolated cards are : ")
 
         for i in range(3):
             card = self.deck.pop(0)

@@ -17,9 +17,8 @@ def dfs(startingNode, negaValue, occurence_test=True):
     n = 0
     while openList:
         begNode = openList.pop(0)
-        print("BEG NODE ", begNode.value)
+
         if begNode.value == negaValue and begNode is not startingNode:
-            print(getPathFrom(begNode), 'extending', n, 'nodes')
             break
         else:
             next_nodes = begNode.children

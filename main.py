@@ -13,6 +13,7 @@ def main():
 
     while play_again:
 
+        print("Let's conquer the princess' heart !\n")
         player1_name = input("Enter your name : \n")
         player2_name = input("Enter the bot's name : \n")
 
@@ -34,6 +35,8 @@ def main():
                 if game.player2.isAlive and game.player1.isAlive and game.deck:
 
                     print(f"\n\nTime for {player2_name}({game.player2.gender}) to play!")
+                    print("The IA is thinking")
+
                     game.player2.playTurn(game.deck)
 
             if not game.deck and game.player2.isAlive and game.player1.isAlive:
