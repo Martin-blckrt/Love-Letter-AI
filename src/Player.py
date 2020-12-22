@@ -226,8 +226,8 @@ class Player:
 
             for i in range(3):
                 time.sleep(1)
-                print("*", end="")
-
+                print(".", end="")
+            print("\n")
             cardIndex = getAncestorCardIndex(node, negaValue)
 
         return cardIndex
