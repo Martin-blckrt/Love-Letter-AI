@@ -77,6 +77,8 @@ def getAncestorCardIndex(node, value):
     secondCardCond = targetHand[0].title != originHand[1].title
 
     if firstCardCond and secondCardCond:
+        # if target.state.player.playedCards[0] in
+
         for i in range(len(originHand)):
             if originHand[i].value in [5, 6, 7]:
                 return i

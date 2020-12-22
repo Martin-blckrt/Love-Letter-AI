@@ -18,7 +18,7 @@ class Card:
 
     def reveal(self, real):
 
-        print(f"Opponent's card is {self.title}\n" if real else "")
+        print(f"Opponent's card is {self.title}\n" if real else "", end="")
 
     def power(self, activePlayer, deck_arg, real=True):
 
@@ -36,9 +36,9 @@ class Card:
 
             if cardGuessed == activePlayer.opponent.hand[0].value:
                 activePlayer.opponent.isAlive = False
-                print("The guess was correct !\n" if real else "")
+                print("The guess was correct !\n" if real else "", end="")
             else:
-                print("Incorrect guess!" if real else "")
+                print("Incorrect guess!" if real else "", end="")
 
         # ------------------------------ Priest --------------------------
 
@@ -53,15 +53,15 @@ class Card:
 
             i = activePlayer.compare(opponent, real)
             if i == 0:
-                print(f"{activePlayer.name} loses the duel !" if real else "")
+                print(f"{activePlayer.name} loses the duel !" if real else "", end="")
                 activePlayer.isAlive = False
 
             elif i == 1:
-                print(f"\n{opponent.name} loses the duel !"if real else "")
+                print(f"\n{opponent.name} loses the duel !"if real else "", end="")
                 opponent.isAlive = False
 
             else:
-                print("It is a tie\n"if real else "")
+                print("It is a tie\n"if real else "", end="")
 
         # ------------------------------ Handmaid ------------------------
         elif self.value == 4:
@@ -84,10 +84,10 @@ class Card:
 
             king_power(activePlayer, real)
 
-        elif self.value == 8 :
+        elif self.value == 8:
 
-            print("Countess has been played" if real else "")
+            print("Countess has been played" if real else "", end="")
 
         elif self.value == 9:
 
-            print("Princess has been played" if real else "")
+            print("Princess has been played" if real else "", end="")
