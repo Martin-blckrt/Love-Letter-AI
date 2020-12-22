@@ -12,11 +12,13 @@ def getPathFrom(node):
 def dfs(startingNode, negaValue, occurence_test=True):
 
     openList = [startingNode]
-    closedList = [startingNode]
+    closedList = []
+
     n = 0
     while openList:
         begNode = openList.pop(0)
-        if begNode.value == negaValue and begNode != startingNode:
+        print("BEG NODE ", begNode.value)
+        if begNode.value == negaValue and begNode is not startingNode:
             print(getPathFrom(begNode), 'extending', n, 'nodes')
             break
         else:
@@ -29,7 +31,9 @@ def dfs(startingNode, negaValue, occurence_test=True):
                     if occurence_test:
                         closedList.append(elem)
 
-    return closedList
+    for node in closedList:
+        if node.value == negaValue:
+            return node
 
 
 class State:

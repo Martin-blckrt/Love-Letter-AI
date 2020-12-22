@@ -110,6 +110,8 @@ class Player:
         # Activates the card's power. Checks for immunity
 
         cardPlayed = self.hand.pop(index)
+        print(f"The bot played a {cardPlayed.title} !")
+
         self.playedCards.insert(0, cardPlayed)
 
         if not self.opponent.deadpool:
@@ -215,6 +217,7 @@ class Player:
         else:
 
             negaValue = negamax(node, depth, neg_inf, pos_inf, color)
+            node.value = negaValue
             cardIndex = getAncestorCardIndex(node, negaValue)
 
         return cardIndex

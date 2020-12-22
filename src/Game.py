@@ -81,7 +81,8 @@ class Game:
     def initRound(self):
         # Initializes a round
 
-        print("\n----------NEW ROUND----------")
+        if self.player1.points != 0 or self.player2.points != 0:
+            print("\n----------NEW ROUND----------")
 
         self.deck = fillDeck(self.listOfCards)
 
@@ -89,6 +90,7 @@ class Game:
 
         self.player1.hand = []
         self.player2.hand = []
+
         self.player1.playedCards = self.player2.playedCards = []
 
         self.player1.isAlive = self.player2.isAlive = True
@@ -96,9 +98,8 @@ class Game:
         self.player1.hasWon = self.player2.hasWon = False
         self.player1.extraPoint = self.player2.extraPoint = 0
 
-
-        print(f"\nCurrent scores are :"
-              f"\n{self.player1.name} : {self.player1.points}\n{self.player2.name} : {self.player2.points}")
+        print(f"\n\t***Scores***"
+              f"\n{self.player1.name} - {self.player1.points}\t{self.player2.name} - {self.player2.points}")
 
         print("\n\nKnown isolated cards are : ")
 
@@ -109,8 +110,6 @@ class Game:
 
         # remove hidden card from deck
         self.hiddenCard = self.deck.pop(0)
-
-        print("\nhidden card is ", self.hiddenCard.title)
 
         self.player1.draw(self.deck)
         self.player2.draw(self.deck)

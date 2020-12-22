@@ -53,13 +53,12 @@ def getAncestorCardIndex(node, value):
     start = copy.deepcopy(node)
 
     # DFS
-    dfsResultList = getAncestor(start, value)
+    dfsResult = getAncestor(start, value)
 
     # On récupère le dernier de la liste
     # Normalement c'est celui qui a la valeur cherchée
 
-    lastKid = dfsResultList[-1]
-    path = getPathFrom(lastKid)
+    path = getPathFrom(dfsResult)
 
     # sauf erreur de ma part, le noeud voulu est à un 1
     # 0 est le noeud start
@@ -70,9 +69,17 @@ def getAncestorCardIndex(node, value):
 
     i = 0
 
-    for i in range(len(originHand)):
-        if targetHand[0].title != originHand[i].title:
-            return i
+    firstCardCond = targetHand[0].title != originHand[0].title
+    secondCardCond = targetHand[0].title != originHand[1].title
+
+    if firstCardCond and secondCardCond:
+        for i in range(len(originHand)):
+            if originHand[i].value in [5, 6, 7]:
+                return i
+    else:
+        for i in range(len(originHand)):
+            if targetHand[0].title != originHand[i].title:
+                return i
 
     # cas défaut
     return i
@@ -95,11 +102,11 @@ def getNodeValue(node):
 def findCard(cardvalue, selectedList):
 
     index = -1
+
     for i in range(len(selectedList)):
         if cardvalue == selectedList[i].value:
             index = i
-    print("index in findCard is : ", index)
-    print("first card of deck is : ", selectedList[0].title)
+
     return index
 
 
@@ -124,6 +131,7 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
         newVirtualNode = copy.deepcopy(virtualNode)
         newVirtualNode.parent = virtualNode  # on definit le parent du nouveau noeud
 
+        """
         print(f"\nau debut du for, len knowncards : ", len(knownCards))
         for k in range(len(knownCards)):
             print(knownCards[k].title)
@@ -135,6 +143,7 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
         print(f"opponent.pLayedcards in for : ")
         for j in range(len(newVirtualNode.state.player.opponent.playedCards)):
             print(newVirtualNode.state.player.opponent.playedCards[j].title)
+        """
 
         if firstTurn:
             activePlayer = newVirtualNode.state.player
@@ -175,7 +184,7 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
 
                 # cas ou le prince a été joué
                 for drawnCard in virtualNode.state.listOfCards:
-                    # TODO. A vérifier si c'est bien drawnCard (c'était simulatedCard avant)
+
                     n = findOccurences(drawnCard, knownCards)
 
                     if drawnCard.totalNumber - n > 0:
@@ -223,11 +232,6 @@ def nextStates(virtualNode, color):
     # debug print
     print(f"\nNode player in nextstate : {activePlayer.name}")
 
-    print("KC début next state : ")
-    for i in range(len(knownCards)):
-        print(knownCards[i].title, end=", ")
-
-    print(f"{len(knownCards)}\n")
     # end debug print
 
     if len(activePlayer.hand) == 2:
