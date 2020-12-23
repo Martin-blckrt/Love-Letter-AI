@@ -26,16 +26,16 @@ def main():
 
                 # afficher le deck seulement lorsqu'on a 4 cartes dans le deck.
                 if len(game.deck) < 6:
-                    print(f"\n\nIl reste {len(game.deck)-1} carte(s) dans le deck")
+                    print(f"\n\nThere are {len(game.deck)-1} card(s) left in the deck")
 
-                print(f"\n\nTime for {player1_name} ({game.player1.gender}) to play!")
+                print(f"\n\nTime for {player1_name} ({game.player1.gender}) to play!\n")
 
                 game.player1.playTurn(game.deck)
 
                 if game.player2.isAlive and game.player1.isAlive and game.deck:
 
-                    print(f"\n\nTime for {player2_name}({game.player2.gender}) to play!")
-                    print("The IA is thinking")
+                    print(f"\n\nTime for {player2_name}({game.player2.gender}) to play!\n")
+                    print("The AI is thinking")
 
                     game.player2.playTurn(game.deck)
 

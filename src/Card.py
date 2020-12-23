@@ -8,9 +8,12 @@ class Card:
         self.value = value  # Value of the card
         self.totalNumber = totalNumber  # Keeps in mind how much copies of a card there are
 
-    def reveal(self, real):
+    def reveal(self, activePlayer, real):
 
-        print(f"The opponent has a {self.title}\n" if real else "", end="")
+        if activePlayer.gender == "Human":
+            print(f"The opponent has a {self.title}\n" if real else "", end="")
+        else:
+            print(f"The AI knows your card.\n" if real else "", end="")
 
     def power(self, activePlayer, deck_arg, real=True):
         """
@@ -36,13 +39,16 @@ class Card:
                 activePlayer.opponent.isAlive = False
                 print("The guess was correct !\n" if real else "", end="")
             else:
-                print("Incorrect guess!" if real else "", end="")
+                if activePlayer.gender == "Human":
+                    print("Incorrect guess!" if real else "", end="")
+                else:
+                    print("The AI's guess was incorrect !" if real else "", end="")
 
         # ------------------------------ Priest --------------------------
 
         elif self.value == 2:
 
-            activePlayer.opponent.hand[0].reveal(real)
+            activePlayer.opponent.hand[0].reveal(activePlayer, real)
 
         # ------------------------------ Baron ---------------------------
         elif self.value == 3:

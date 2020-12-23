@@ -27,7 +27,7 @@ class Player:
         :param real: check if the turn is virtual or real
         """
 
-        print("\nThe deck is empty : highest card wins !")
+        print("\nThe deck is empty : highest card wins !\n")
         i = self.compare(self.opponent, real)
 
         if i == 0:
@@ -98,6 +98,14 @@ class Player:
 
                 if cardValues[i] == 8:
                     index = i
+                    if self.gender == "AI" and real:
+                        print("Just a sec ", end="")
+
+                        for j in range(3):
+                            print(".", end="")
+                            time.sleep(1)
+
+                        print("\n")
 
         else:
 
@@ -136,7 +144,7 @@ class Player:
         cardPlayed = self.hand.pop(index)
 
         if real and self.gender == 'AI':
-            print(f"The bot played a {cardPlayed.title} !")
+            print(f"The AI played a {cardPlayed.title} !\n")
 
         self.playedCards.insert(0, cardPlayed)
 
@@ -180,7 +188,7 @@ class Player:
         """
 
         print(f"{self.name} has a {self.hand[0].title} [{self.hand[0].value}]\n"
-              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n" if real else "", end="")
+              f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n\n" if real else "", end="")
 
         if self.hand[0].value < opponent.hand[0].value:
             return 0
@@ -216,16 +224,24 @@ class Player:
 
         cardToGuess = self.listOfCards[9]  # Default case : you decide to guess a princess
 
-        for Card in self.listOfCards:
+        if self.playedCards[0].value == 8:
+            if (self.listOfCards.prince_card.totalNumber - knownCards.count(self.listOfCards.prince_card)) > 0:
+                cardToGuess = self.listOfCards.prince_card
+            elif knownCards.count(self.listOfCards.king_card) == 0:
+                cardToGuess = self.listOfCards.king_card
+            else:
+                pass
+        else:
+            for Card in self.listOfCards:
 
-            if Card is not self.listOfCards[1]:  # can't guess a guard
+                if Card is not self.listOfCards[1]:  # can't guess a guard
 
-                b = Card.totalNumber - knownCards.count(Card)
-                value = b / a
-                probabilities.append(value)
+                    b = Card.totalNumber - knownCards.count(Card)
+                    value = b / a
+                    probabilities.append(value)
 
-                if value > max(probabilities):
-                    cardToGuess = Card
+                    if value > max(probabilities):
+                        cardToGuess = Card
 
         return cardToGuess
 
@@ -255,6 +271,12 @@ class Player:
 
         elif self.hand[0].value == self.hand[1].value:
             cardIndex = 0
+
+        elif self.hand[0].value == 1 and self.playedCards[0].value == 8:
+            cardIndex = 0
+
+        elif self.hand[1].value == 1 and self.playedCards[0].value == 8:
+            cardIndex = 1
 
         else:
             negaValue = negamax(node, depth, neg_inf, pos_inf, color)

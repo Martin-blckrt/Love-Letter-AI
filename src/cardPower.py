@@ -126,7 +126,8 @@ def chancellor_power(activePlayer, deck_arg, real=True):
     for i in range(k):
         activePlayer.draw(deck_arg)
 
-    print("\nThere are no more cards in the deck !" if not k else "", end="")
+    if real:
+        print("\nThere are no more cards in the deck !\n" if not k else "", end="")
 
     if activePlayer.gender == "AI" or not real:
         listOfIndex = powerChancellorAI(activePlayer)
