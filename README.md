@@ -10,7 +10,7 @@ Beta 1.0
 Python
 
 ### Authors
-Auteurs: Alexandre Desbos, Martin Blanckaert, Thomas Sirvent
+Alexandre Desbos, Martin Blanckaert, Thomas Sirvent
 
 ### Resources:
 
