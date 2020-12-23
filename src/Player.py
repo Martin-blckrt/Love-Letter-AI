@@ -24,7 +24,7 @@ class Player:
 
     def showdown(self, real=True):
         """
-        :param real: Permet de vérifier si on est dans un tour virtuel ou non.
+        :param real: check if the turn is virtual or real
         """
 
         print("\nThe deck is empty : highest card wins !")
@@ -46,17 +46,15 @@ class Player:
 
     def oppositePlayer(self, opponent):
         """
-        :param opponent: Joueur adverse de self.
+        :param opponent: Define opponent of self (a player).
         """
-        # Assign the opponent of the player
-
         self.opponent = opponent
 
     def discard(self, real=True):
         """
-        :param real: Permet de check si le tour est virtuel ou non
+        Drop card of the board.
+        :param real: check if the turn is virtual or real
         """
-        # Drops a player's card on the board
 
         cardDiscarded = self.hand.pop(0)
         self.playedCards.insert(0, cardDiscarded)
@@ -66,7 +64,12 @@ class Player:
             print(f"\n{self.name} discarded a Princess !\n" if real else "", end="")
 
     def playTurn(self, deck, *usedCardIndex, real=True):
-        # Handles the player's turn. Checks for Countess effect
+        """
+         Handles the player's turn & checks for Countess effect
+        :param deck: Deck of cards
+        :param usedCardIndex: Optional paramater that is used by the AI in a virtualTurn
+        :param real: check if the turn is virtual or real
+        """
 
         self.deadpool = False
 
@@ -123,7 +126,12 @@ class Player:
         self.playCard(index, deck, real=real)
 
     def playCard(self, index, deck, real=True):
-        # Activates the card's power. Checks for immunity
+        """
+        Function : activate cardpower and check immunity.
+        :param index: Index of the card in the hand of the player who wants to play
+        :param deck: Deck of the game, needed to use the power of the card.
+        :param real: Check if the round is virtual or real
+        """
 
         cardPlayed = self.hand.pop(index)
 
@@ -150,10 +158,11 @@ class Player:
                 print(f"\n{self.name} played a Princess !")
 
     def draw(self, deck):
+        """
+        Makes a player draw a card. Need the game's deck as argument
+        :param deck: Deck of the game.
+        """
 
-        # Pas besoin de virtual parce que draw dans nextstate.
-
-        # Makes a player draw a card. Need the game's deck as argument
         if deck:
 
             cardDrawn = deck.pop(0)
@@ -163,7 +172,13 @@ class Player:
             print("Deck is empty\n")
 
     def compare(self, opponent, real=True):
-        # Function who evaluates which card has greater value
+        """
+        Function that evaluate which card has the higher value (used when bared is played)
+        :param opponent: Opponent of the player who wants to compare hands.
+        :param real: Define if the round is virtual or not
+        :return: 0 when the value of the card of player is hight than the val. of the card of the opponent, else 1
+        """
+
         print(f"{self.name} has a {self.hand[0].title} [{self.hand[0].value}]\n"
               f"{opponent.name} has a {opponent.hand[0].title} [{opponent.hand[0].value}]\n" if real else "", end="")
 
@@ -175,7 +190,10 @@ class Player:
             return 2
 
     def guess(self):
-        # Function who makes the player guess a card (Guard effect - Player only)
+        """
+        Function "player only"
+        :return: The card that the player want to guess when a guard is played
+        """
 
         playerGuess = input("Which card do you want to guess ? (0-9 but not 1)\n")
 
@@ -187,16 +205,20 @@ class Player:
         return cardGuessed
 
     def decide(self):
+        """
+        Function AI only
+        :return: The card that the AI wants to guess
+        """
 
         knownCards = self.isolatedCards + self.hand + self.playedCards
         a = 21 - len(knownCards)
         probabilities = []
 
-        cardToGuess = self.listOfCards[9]  # par defaut, tu tapes la princesse
+        cardToGuess = self.listOfCards[9]  # Default case : you decide to guess a princess
 
         for Card in self.listOfCards:
 
-            if Card is not self.listOfCards[1]:  # on peut pas guess un guarde
+            if Card is not self.listOfCards[1]:  # can't guess a guard
 
                 b = Card.totalNumber - knownCards.count(Card)
                 value = b / a
@@ -208,6 +230,10 @@ class Player:
         return cardToGuess
 
     def playAiTurn(self, deck):
+        """
+        :param deck: The AI need the deck to create a state.
+        :return the index of the card that the AI choose to play
+        """
 
         color = 1
         pos_inf = float('inf')
@@ -235,7 +261,5 @@ class Player:
             node.value = negaValue
 
             cardIndex = getAncestorCardIndex(node, negaValue)
-
-
 
         return cardIndex

@@ -3,6 +3,12 @@ from src.AI.NodeToolkit import findOccurences
 
 
 def powerChancellorAI(activePlayer):
+    """
+    Power of the card chancellor
+    :param activePlayer: Define the player who's playing the chancellor
+    :return: An ordered list of index of cards that will be played by the AI
+    """
+
     indexList = []
     knownCards = activePlayer.isolatedCards + activePlayer.hand + activePlayer.playedCards
 
@@ -19,6 +25,12 @@ def powerChancellorAI(activePlayer):
 
 
 def powerPrinceAI(activePlayer):
+    """
+    power of the Prince (AI version)
+    :param activePlayer: player that is playing the prince
+    :return: The person that will be targeted with the prince.
+    """
+
     if activePlayer.hand[0].value in [4, 6, 9]:
         return "opponent"
 
@@ -53,6 +65,12 @@ def powerPrinceAI(activePlayer):
 
 
 def prince_power(activePlayer, deck_arg, real=True):
+    """
+    Power of the card prince
+    :param activePlayer: Define the player that is playing the prince
+    :param deck_arg: deck of cards.
+    :param real: check if the turn is real or virtual
+    """
     if activePlayer.gender == "Human" and real:
         choice = input("\nWho do you want to target ? [You/Opponent]\n")
         choice.lower()
@@ -93,6 +111,12 @@ def prince_power(activePlayer, deck_arg, real=True):
 
 
 def chancellor_power(activePlayer, deck_arg, real=True):
+    """
+    Function power of the card chancellor
+     :param activePlayer: Define the player that is playing the chancellor
+    :param deck_arg: deck of cards.
+    :param real: check if the turn is real or virtual
+    """
     if len(deck_arg) > 1:
         k = 2
 
@@ -145,6 +169,12 @@ def chancellor_power(activePlayer, deck_arg, real=True):
 
 
 def king_power(activePlayer, real=True):
+    """
+    Power of the king card
+    :param activePlayer: Define the player who's playing the king
+    :param real: Check if the turn is virtual or real
+    :return:
+    """
     opponent = activePlayer.opponent
 
     print("The hands have been switched !\n" if real else "", end="")
