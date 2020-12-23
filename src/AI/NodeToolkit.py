@@ -4,6 +4,10 @@ from src.AI.Node import dfs, getPathFrom
 
 
 def evaluate(node):
+    """
+    :param node: Send the node of the tree that needs to be evaluated.
+    :return: Return the impact of the card
+    """
 
     knownCards = node.state.player.isolatedCards + node.state.player.hand + node.state.player.playedCards
     m = 0
