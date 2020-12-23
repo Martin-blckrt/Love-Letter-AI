@@ -224,24 +224,22 @@ class Player:
 
         cardToGuess = self.listOfCards[9]  # Default case : you decide to guess a princess
 
+        for Card in self.listOfCards:
+
+            if Card is not self.listOfCards[1]:  # can't guess a guard
+
+                b = Card.totalNumber - knownCards.count(Card)
+                value = b / a
+                probabilities.append(value)
+
+                if value > max(probabilities):
+                    cardToGuess = Card
+
         if self.playedCards[0].value == 8:
             if (self.listOfCards.prince_card.totalNumber - knownCards.count(self.listOfCards.prince_card)) > 0:
                 cardToGuess = self.listOfCards.prince_card
             elif knownCards.count(self.listOfCards.king_card) == 0:
                 cardToGuess = self.listOfCards.king_card
-            else:
-                pass
-        else:
-            for Card in self.listOfCards:
-
-                if Card is not self.listOfCards[1]:  # can't guess a guard
-
-                    b = Card.totalNumber - knownCards.count(Card)
-                    value = b / a
-                    probabilities.append(value)
-
-                    if value > max(probabilities):
-                        cardToGuess = Card
 
         return cardToGuess
 
