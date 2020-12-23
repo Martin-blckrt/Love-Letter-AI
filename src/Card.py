@@ -9,6 +9,11 @@ class Card:
         self.totalNumber = totalNumber  # Keeps in mind how much copies of a card there are
 
     def reveal(self, activePlayer, real):
+        """
+        Allow to reveal the card of a player.
+        :param activePlayer:
+        :param real: Check if the turn is real or not.
+        """
 
         if activePlayer.gender == "Human":
             print(f"The opponent has a {self.title}\n" if real else "", end="")

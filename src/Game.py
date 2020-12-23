@@ -8,6 +8,12 @@ from src.Card import Card
 
 
 def initGame(name1, name2):
+    """
+    Initialize game
+    :param name1: name of player 1
+    :param name2: name of player 2
+    :return: return the instance of the game that has been created.
+    """
     # Initialize the game and the player's name and 'gender'
 
     game = Game(name1, "Human", name2, "AI")
@@ -15,13 +21,20 @@ def initGame(name1, name2):
 
 
 def computePoints(player):
-    # Computes how much points is getting at the end of a round
+    """
+    Computes how much points is getting at the end of a round
+    :param player: player to whom we want to count points
+    """
 
     player.points += player.hasWon + (player.isAlive and player.extraPoint)
 
 
 def fillDeck(listOfCards):
-    # Fills the deck and shuffles it
+    """
+    Fills the deck and shuffles it
+    :param listOfCards: list of all available cards (10 different cards)
+    :return: return the shuffled deck
+    """
 
     deck = []
     for i in listOfCards:
@@ -77,7 +90,9 @@ class Game:
         self.player2.oppositePlayer(self.player1)
 
     def initRound(self):
-        # Initializes a round
+        """
+         Initializes a round by creating the deck, the isolated cards and players' properties.
+        """
 
         if self.player1.points != 0 or self.player2.points != 0:
             print("\n*---------------- NEW ROUND ----------------*")
@@ -113,8 +128,10 @@ class Game:
         self.player2.draw(self.deck)
 
     def endRound(self):
-
-        # Checks if the round has ended and give points to the winning player
+        """
+        Checks if the round has ended and give points to the winning player.
+        :return: False or True
+        """
 
         if not self.player1.isAlive:
 
