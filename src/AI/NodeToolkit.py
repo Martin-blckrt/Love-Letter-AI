@@ -53,6 +53,12 @@ def getAncestor(start, value):
 
 
 def getAncestorCardIndex(node, value):
+    """
+    Allow to get the index of the card that the AI must play to follow the planned scenario
+    :param node: Origin node
+    :param value: value of the node that the AI is targeting.
+    :return: Return the index of the card that will be played.
+    """
 
     # copie du noeud de départ pour eviter des modifs non prévuees
     start = copy.deepcopy(node)
@@ -95,6 +101,11 @@ def getAncestorCardIndex(node, value):
 
 
 def isTerminal(node):
+    """
+    Function that check if the node is terminal or not
+    :param node: The node that we want to consider.
+    :return: Return True if the node is terminal.
+    """
 
     cond1 = not node.state.deck  # deck vide
     cond2 = (not node.state.player.isAlive) or node.state.player.opponent.hasWon
@@ -104,11 +115,20 @@ def isTerminal(node):
 
 
 def getNodeValue(node):
-    # Utile si besoin de debugger.
+    """
+    Accessor of the node value. Needed to debug
+    :return: value of the considered node.
+    """
     return node.value
 
 
 def findCard(cardvalue, selectedList):
+    """
+    Function that allows to get the index of a card in a list thx to its value.
+    :param cardvalue: Value of the card
+    :param selectedList: List in which we are looking for the card index.
+    :return: Index of the card if found, else, return None.
+    """
 
     index = -1
 
@@ -120,7 +140,12 @@ def findCard(cardvalue, selectedList):
 
 
 def findOccurences(card, searchedList):
-
+    """
+    Find if there is an occurence of the card in the list, if yes, return the index of the card
+    :param card: Card that we're looking for in the list
+    :param searchedList: List in which we are looking for if the card exists.
+    :return: index of the card in searchedList
+    """
     i = 0
 
     for aCard in searchedList:
@@ -131,6 +156,18 @@ def findOccurences(card, searchedList):
 
 
 def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *simulatedCard):
+    """
+    Function that generate the tree by filling the next_nodes list.
+    -> copy the virtualNode, define the activePlayer and make the activeplayer play a turn.
+    Manage case of prince that is played in the tree generation.
+
+    :param virtualNode: Copy of the parent node of newVirtualNode
+    :param next_nodes: List of children of a node
+    :param color: define the gender of the player in negamax
+    :param knownCards: Known cards of the active player.
+    :param firstTurn: Define if the turn is the first of the round or not.
+    :param simulatedCard: optional argument used if not First Turn
+    """
 
     for i in range(2):  # Pour chaque carte de la main
 
@@ -200,7 +237,6 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
                             next_nodes.append(princedNode)
 
             elif not activePlayer.opponent.hand:
-                # TODO. Verif si le bon joueur est manipulé (peut etre la cause des node color opposee)
 
                 drawnCard = newVirtualNode.state.deck.pop(0)
                 activePlayer.opponent.hand.append(drawnCard)
@@ -212,8 +248,12 @@ def generateChildren(virtualNode, next_nodes, color, knownCards, firstTurn, *sim
 
 
 def nextStates(virtualNode, color):
-
-    # Si color = 1, l'activePlayer est l'IA
+    """
+    call the generateChildren function that create the game tree.
+    :param virtualNode: copy of the origin node
+    :param color: define the gender of activePlayer from negamax.
+    :return: list of next_nodes
+    """
 
     if color == 1:
         activePlayer = virtualNode.state.player
