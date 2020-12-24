@@ -33,7 +33,6 @@ def powerPrinceAI(activePlayer):
 
     if activePlayer.hand[0].value in [4, 6, 9]:
         return "opponent"
-
     elif activePlayer.hand[0].value == 0:
 
         if activePlayer.extraPoint:
@@ -73,14 +72,12 @@ def prince_power(activePlayer, deck_arg, real=True):
     """
     if activePlayer.gender == "Human" and real:
         choice = input("\nWho do you want to target ? [You/Opponent]\n")
-        choice.lower()
 
         while (choice != "you") and (choice != "opponent"):
             choice = input("\nIncorrect Input ! Who do you want to target ? [You/Opponent]\n")
-            choice.lower()
     else:
         choice = powerPrinceAI(activePlayer)
-        choice.lower()
+    choice.lower()
 
     if choice == "you":
 
