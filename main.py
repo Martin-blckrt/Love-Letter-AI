@@ -37,10 +37,10 @@ def main():
 
                 if len(game.player1.playedCards) > 0:
                     # print played cards every turns
-                    print("\n\nCards played during the round are : ")
+                    print("\n\nCards played during the round : ")
 
                     for pc in range(len(game.player1.playedCards)):
-                        print(f"{game.player1.playedCards[pc].title} ", end="")
+                        print(f"{game.player1.playedCards[pc].title} ", end="\n")
 
                 print("\n")
 
@@ -49,7 +49,7 @@ def main():
                 if game.player2.isAlive and game.player1.isAlive and game.deck:
 
                     print(f"\n\t--- Time for {player2_name}({game.player2.gender}) to play! ---\n")
-                    print("The AI is thinking")
+                    print(f"{player2_name} is thinking")
 
                     game.player2.playTurn(game.deck)
 
