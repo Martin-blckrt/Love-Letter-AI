@@ -30,6 +30,18 @@ def main():
 
                 print(f"\n\nTime for {player1_name} ({game.player1.gender}) to play!\n")
 
+                # print isolated cards every turns :
+                print("Isolated cards are : ")
+                for a in range(len(game.isolatedCards)):
+                    print(f"{game.isolatedCards[a].title} ", end="")
+
+                # print played cards every turns
+                print("\n\nCards played during the round are : ")
+                for pc in range(len(game.player1.playedCards)):
+                    print(f"{game.player1.playedCards[pc].title} ", end="")
+
+                print("\n")
+
                 game.player1.playTurn(game.deck)
 
                 if game.player2.isAlive and game.player1.isAlive and game.deck:

@@ -111,15 +111,13 @@ class Game:
         self.player1.hasWon = self.player2.hasWon = False
         self.player1.extraPoint = self.player2.extraPoint = 0
 
-        print(f"\n\t\t\t ***---Scores---***\n"
+        print(f"\n***---Scores---***\n"
               f"{self.player1.name} - {self.player1.points}\t{self.player2.name} - {self.player2.points}")
 
-        print("\nKnown isolated cards are : ")
-
+        # fill Known cards.
         for i in range(3):
             card = self.deck.pop(0)
             self.isolatedCards.append(card)
-            print(f" {card.title} [{card.value}]", end="")
 
         # remove hidden card from deck
         self.hiddenCard = self.deck.pop(0)
