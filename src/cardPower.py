@@ -141,7 +141,7 @@ def chancellor_power(activePlayer, deck_arg, real=True):
             for i in range(len(activePlayer.hand)):
                 print(f"{i}. {activePlayer.hand[i].title} [{activePlayer.hand[i].value}]")
 
-            playerInput = input(f"Which card do you want to place at the bottom of the deck ? Pick between 0 and {k}\n")
+            playerInput = input(f"\nWhich card do you want to place at the bottom of the deck ? Pick between 0 and {k}\n")
 
             numbers = "0123456789"
             numberList = list(numbers)

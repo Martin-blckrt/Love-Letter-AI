@@ -45,9 +45,9 @@ class Card:
                 print("The guess was correct !\n" if real else "", end="")
             else:
                 if activePlayer.gender == "Human":
-                    print("Incorrect guess!" if real else "", end="")
+                    print("Incorrect guess!\n" if real else "", end="")
                 else:
-                    print("The AI's guess was incorrect !" if real else "", end="")
+                    print("The AI's guess was incorrect !\n" if real else "", end="")
 
         # ------------------------------ Priest --------------------------
 

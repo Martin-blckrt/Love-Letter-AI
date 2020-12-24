@@ -144,7 +144,7 @@ class Player:
         cardPlayed = self.hand.pop(index)
 
         if real and self.gender == 'AI':
-            print(f"The AI played a {cardPlayed.title} !\n")
+            print(f"The AI played a {cardPlayed.title} !")
 
         self.playedCards.insert(0, cardPlayed)
 

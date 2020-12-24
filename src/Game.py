@@ -95,8 +95,16 @@ class Game:
         """
 
         if self.player1.points != 0 or self.player2.points != 0:
+
+            for i in range(2):
+                print('\n')
+
             print("\n*---------------- NEW ROUND ----------------*")
 
+            print(f"\n\t\t\t***---Scores---***\n"
+                  f"\t\t\t{self.player1.name} - {self.player1.points}\t{self.player2.name} - {self.player2.points}")
+        else:
+            print("\nYou will need 6 points to win, good luck !\n")
         self.deck = fillDeck(self.listOfCards)
 
         self.isolatedCards = self.player1.isolatedCards = self.player2.isolatedCards = []
@@ -110,9 +118,6 @@ class Game:
         self.player1.deadpool = self.player2.deadpool = False
         self.player1.hasWon = self.player2.hasWon = False
         self.player1.extraPoint = self.player2.extraPoint = 0
-
-        print(f"\n***---Scores---***\n"
-              f"{self.player1.name} - {self.player1.points}\t{self.player2.name} - {self.player2.points}")
 
         # fill Known cards.
         for i in range(3):
