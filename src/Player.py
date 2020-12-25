@@ -107,7 +107,7 @@ class Player:
 
                         print("\n")
 
-            print("Countess was discarded !" if real else "")
+            print("Countess was discarded !" if real else "", end="")
 
         else:
 

@@ -66,12 +66,8 @@ def getAncestorCardIndex(node, value):
     # DFS
     dfsResult = getAncestor(start, value)
 
-    # On récupère le dernier de la liste
-    # Normalement c'est celui qui a la valeur cherchée
-
     path = getPathFrom(dfsResult)
 
-    # sauf erreur de ma part, le noeud voulu est à un 1
     # 0 est le noeud start
     target = path[1]
 
