@@ -39,8 +39,9 @@ def main():
                     # print played cards every turns
                     print("\n\nCards played during the round : ")
 
-                    for pc in range(len(game.player1.playedCards)):
-                        print(f"{game.player1.playedCards[pc].title} ", end="\n")
+                    for card in game.listOfCards:
+                        if game.player1.playedCards.count(card) > 0:
+                            print(f"{card.title} x{game.player1.playedCards.count(card)}", end="\n")
 
                 print("\n")
 
