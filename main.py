@@ -9,11 +9,11 @@ def main():
     print("Created by Alexandre Desbos, Martin Blanckaert et Thomas Sirvent ")
     print("Check README.md to read game rules\n")
     print("Enjoy the game !")
-    print("*---------------------------------------------*\n")
+    print("*---------------------------------------------*")
 
     while play_again:
 
-        print("Let's conquer the princess' heart !\n")
+        print("\n***-- Let's conquer the princess' heart ! --***\n")
         player1_name = input("Enter your name : \n")
         player2_name = input("Enter the bot's name : \n")
 
@@ -24,14 +24,14 @@ def main():
 
             while game.endRound() and game.deck:
 
+                print(f"\n\t--- Time for {player1_name} ({game.player1.gender}) to play! --- ")
+
                 # afficher le deck seulement lorsqu'on a 4 cartes dans le deck.
                 if len(game.deck) < 6:
-                    print(f"\nThere are {len(game.deck)-1} card(s) left in the deck")
-
-                print(f"\n\t--- Time for {player1_name} ({game.player1.gender}) to play! --- \n")
+                    print(f"\nThere are {len(game.deck) - 1} card(s) left in the deck\n")
 
                 # print isolated cards every turns :
-                print("Isolated cards are : ")
+                print("\nIsolated cards are : ")
                 for a in range(len(game.isolatedCards)):
                     print(f"{game.isolatedCards[a].title}[{game.isolatedCards[a].value}] ", end="")
 
