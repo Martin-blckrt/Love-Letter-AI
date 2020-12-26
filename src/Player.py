@@ -59,9 +59,10 @@ class Player:
         cardDiscarded = self.hand.pop(0)
         self.playedCards.insert(0, cardDiscarded)
 
+        print(f"\n{self.name} discarded a {cardDiscarded.title} !\n" if real else "", end="")
+
         if cardDiscarded.value == 9:
             self.isAlive = False
-            print(f"\n{self.name} discarded a Princess !\n" if real else "", end="")
 
     def playTurn(self, deck, *usedCardIndex, real=True):
         """
@@ -77,6 +78,7 @@ class Player:
             # cas physique
 
             self.draw(deck)
+            print(f"AI's hand is : {self.hand[0].title}  {self.hand[1].title}")
             print(f"{self.name}'s hand is :\n" if self.gender == "Human" else "", end="")
 
             # prints the player's hand

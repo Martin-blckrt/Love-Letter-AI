@@ -48,7 +48,6 @@ def main():
                 game.player1.playTurn(game.deck)
 
                 if game.player2.isAlive and game.player1.isAlive and game.deck:
-
                     print(f"\n\t--- Time for {player2_name}({game.player2.gender}) to play! ---\n")
                     print(f"{player2_name} is thinking")
 
@@ -73,7 +72,10 @@ def main():
         startOver = input("\nDo you want to play again ? (Yes/No)\n")
         startOver.lower()
 
-        while startOver != "yes" and startOver != "no":
+        # TODO. si qqn sait fait un contrôle d'erreur hésitez pas pcq chui suffisamment intelligent pour comprendre
+        #  que avec and et or ca marche pas mais pas assez inteligent pour le réparer
+
+        while startOver != "yes" or startOver != "no":
             startOver = input("\nInvalid input ! Play again ? (Yes/No)\n")
 
         if startOver == "no":

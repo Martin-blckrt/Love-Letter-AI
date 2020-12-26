@@ -63,6 +63,7 @@ class Game:
         princess_card = Card("Princess", 9, 1)
 
         # List of cards we will put in the deck
+
         self.listOfCards = [spy_card,
                             guard_card,
                             priest_card,
