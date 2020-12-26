@@ -222,7 +222,7 @@ class Player:
 
         knownCards = self.isolatedCards + self.hand + self.playedCards
         a = 21 - len(knownCards)
-        probabilities = []
+        probabilities = [0]
 
         cardToGuess = self.listOfCards[9]  # Default case : you decide to guess a princess
 
@@ -232,10 +232,11 @@ class Player:
 
                 b = Card.totalNumber - knownCards.count(Card)
                 value = b / a
-                probabilities.append(value)
 
                 if value > max(probabilities):
                     cardToGuess = Card
+
+                probabilities.append(value)
 
         if self.playedCards[0].value == 8:
             if (self.listOfCards.prince_card.totalNumber - knownCards.count(self.listOfCards.prince_card)) > 0:
