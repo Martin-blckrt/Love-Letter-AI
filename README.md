@@ -1,3 +1,5 @@
+![presentation image](https://gitlab.com/AlexandreDesbos/loveletter/-/raw/master/Doc/loveletter.png)
+
 # IA41 Project - Love Letter 
 
 Goal : Create the game **love letter** and develop an AI in python able to play to the game thanks to 
