@@ -17,4 +17,4 @@ Alexandre Desbos, Martin Blanckaert, Thomas Sirvent
 
 ### Resources:
 
-[Gaeme rules followed for this project](https://images.zmangames.com/filer_public/5b/6c/5b6c17d7-7e0e-4b70-a311-9a6c32066010/ll-rulebook.pdf) 
+[Game rules followed for this project](https://images.zmangames.com/filer_public/5b/6c/5b6c17d7-7e0e-4b70-a311-9a6c32066010/ll-rulebook.pdf) 
