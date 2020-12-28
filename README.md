@@ -7,7 +7,8 @@ the negamax algorithm.
 Beta 1.0
 
 ### Language : 
-Python
+Python3
+You can launch the game with the command `./Launcher.sh` in the terminal or run it directly from the file explorer (Linux and Mac users only).
 
 ### Authors
 Alexandre Desbos, Martin Blanckaert, Thomas Sirvent
