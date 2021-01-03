@@ -78,7 +78,6 @@ class Player:
             # cas physique
 
             self.draw(deck)
-            print(f"AI's hand is : {self.hand[0].title}  {self.hand[1].title}")
             print(f"{self.name}'s hand is :\n" if self.gender == "Human" else "", end="")
 
             # prints the player's hand

@@ -75,7 +75,7 @@ def main():
         # TODO. si qqn sait fait un contrôle d'erreur hésitez pas pcq chui suffisamment intelligent pour comprendre
         #  que avec and et or ca marche pas mais pas assez inteligent pour le réparer
 
-        while startOver != "yes" or startOver != "no":
+        while startOver != "yes" and startOver != "no":
             startOver = input("\nInvalid input ! Play again ? (Yes/No)\n")
 
         if startOver == "no":
